@@ -1,2 +1,2 @@
-add_library(server INTERFACE)
-target_include_directories(server INTERFACE .)
+add_library(Server INTERFACE)
+target_include_directories(Server INTERFACE .)

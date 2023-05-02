@@ -2,21 +2,26 @@
 #include <iostream>
 #include <optional>
 
-class session: public std::enable_shared_from_this<session> {
+class Session: public std::enable_shared_from_this<Session> {
   public:
-    session(boost::asio::ip::tcp::socket&& socket) :
+    Session(boost::asio::ip::tcp::socket&& socket) :
         socket(std::move(socket)) {}
 
     void start() {
         boost::asio::async_read_until(
-            socket,
-            streambuf,
-            '\n',
-            [self = shared_from_this()](
-                boost::system::error_code error,
-                std::size_t bytes_transferred) {
-                std::cout << std::istream(&self->streambuf).rdbuf();
-            });
+          socket,
+          streambuf,
+          '\n',
+          [self = shared_from_this()] (boost::system::error_code error, std::size_t bytes_transferred)
+          {
+            std::stringstream ss;
+            ss << std::istream(&self->streambuf).rdbuf();
+            std::string buff = ss.str();
+            // auto sender = &self->socket.remote_endpoint(error1);
+            // std::cout << "request from " << sender << ": " << buff;
+            std::cout << "request: " << buff;
+          });
+        
     }
 
   private:
@@ -24,9 +29,9 @@ class session: public std::enable_shared_from_this<session> {
     boost::asio::streambuf streambuf;
 };
 
-class server {
+class Server {
   public:
-    server(boost::asio::io_context& io_context, std::uint16_t port) :
+    Server(boost::asio::io_context& io_context, std::uint16_t port) :
         io_context(io_context),
         acceptor(
             io_context,
@@ -36,7 +41,7 @@ class server {
         socket.emplace(io_context);
 
         acceptor.async_accept(*socket, [&](boost::system::error_code error) {
-            std::make_shared<session>(std::move(*socket))->start();
+            std::make_shared<Session>(std::move(*socket))->start();
             async_accept();
         });
     }
