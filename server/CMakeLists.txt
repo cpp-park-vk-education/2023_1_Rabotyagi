@@ -10,7 +10,7 @@ set_property(TARGET server client test PROPERTY CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 add_subdirectory(libs)
-# add_subdirectory(tests)
+add_subdirectory(tests)
 
 
 find_package(Boost REQUIRED)
@@ -36,6 +36,5 @@ FetchContent_MakeAvailable(googletest)
 
 target_link_libraries(server PRIVATE libs)
 target_link_libraries(client PRIVATE libs)
-target_link_libraries(server PRIVATE nlohmann_json::nlohmann_json)
 target_link_libraries(client PRIVATE nlohmann_json::nlohmann_json)
-target_link_libraries(test gtest_main gmock_main)
+target_link_libraries(test gtest_main gmock_main tests_headers)
