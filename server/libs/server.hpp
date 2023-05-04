@@ -5,18 +5,16 @@
 #include <map>
 #include <functional>
 #include <nlohmann/json.hpp>
+#include <optional>
+#include "request.hpp"
 
 using udp = boost::asio::ip::udp;
 using io_service = boost::asio::io_service;
 using json = nlohmann::json;
 
-struct Response {
-    int status;
-};
-
 class View {
     public:
-        Response as_view(json request) {
+        Request as_view(json request) {
             if (request["method"] == "GET")
                 return Get(request);
             
@@ -29,58 +27,57 @@ class View {
             if (request["method"] == "Patch")
                 return Patch(request);
             
-            return Response(405);
+            return Request(_status = 405);
         };
 
-        virtual Response Get(json request) = 0;
-        virtual Response Post(json request) = 0;
-        virtual Response Delete(json request) = 0;
-        virtual Response Patch(json request) = 0;
-    // virtual ~View() {};
+        virtual Request Get(json request) = 0;
+        virtual Request Post(json request) = 0;
+        virtual Request Delete(json request) = 0;
+        virtual Request Patch(json request) = 0;
 };
 
 class UserView : public View {
-    Response Get(json request) override {
-        return Response(200);
+    Request Get(json request) override {
+        return Request();
     }
-    Response Post(json request) override {
-        return Response(200);
+    Request Post(json request) override {
+        return Request();
     }
-    Response Delete(json request) override {
-        return Response(200);
+    Request Delete(json request) override {
+        return Request();
     }
-    Response Patch(json request) override {
-        return Response(200);
+    Request Patch(json request) override {
+        return Request();
     }
 };
 
 class GuildView : public View {
-    Response Get(json request) override {
-        return Response(200);
+    Request Get(json request) override {
+        return Request();
     }
-    Response Post(json request) override {
-        return Response(200);
+    Request Post(json request) override {
+        return Request();
     }
-    Response Delete(json request) override {
-        return Response(200);
+    Request Delete(json request) override {
+        return Request();
     }
-    Response Patch(json request) override {
-        return Response(200);
+    Request Patch(json request) override {
+        return Request();
     }
 };
 
 class ChannelView : public View {
-    Response Get(json request) override {
-        return Response(200);
+    Request Get(json request) override {
+        return Request();
     }
-    Response Post(json request) override {
-        return Response(200);
+    Request Post(json request) override {
+        return Request();
     }
-    Response Delete(json request) override {
-        return Response(200);
+    Request Delete(json request) override {
+        return Request();
     }
-    Response Patch(json request) override {
-        return Response(200);
+    Request Patch(json request) override {
+        return Request();
     }
 };
 
@@ -95,12 +92,12 @@ class UrlDispatcher {
       urls["/api/v1/IGuild"] = guild_v;
       urls["/api/v1/IChannel"] = channel_v;
     };
-    Response operator()(json request) {
-      auto url = request["url"];
+    Request operator()(json request) {
+      auto url = request["meta"]["url"];
       if (urls.contains(url))
         return urls[url]->as_view(request);
       else
-        return Response(500);
+        return Request(_status = 500);
     }
   private:
     std::map<std::string, std::shared_ptr<View>> urls;
@@ -108,7 +105,7 @@ class UrlDispatcher {
 
 class Server {
     public:
-        Server(const int& port) : _io_service(), _receiver(udp::v4(), port), _socket(_io_service, _receiver), _dispatcher() {};
+        Server(const int& port = 8000) : _io_service(), _receiver(udp::v4(), port), _socket(_io_service, _receiver), _dispatcher() {};
 
         void start(){
             std::cout << "Server starts on " << _receiver.address() << ":" << _receiver.port() << std::endl;
@@ -119,11 +116,17 @@ class Server {
                 {
                     udp::endpoint sender;
                     size_t bytes_transfered = _socket.receive_from(boost::asio::buffer(buffer), sender);
-                    buffer[bytes_transfered] = '\0';
-                    json request = json::parse(std::string(buffer, bytes_transfered));
-                    std::cout << request << std::endl;
-                    // std::cout << "received from " << sender << ", bytes: " << bytes_transfered << ", msg: " << buffer << std::endl;
-                    _socket.send_to(boost::asio::buffer(buffer, bytes_transfered), sender);
+
+                    Request request(
+                        json::parse(
+                            std::string(buffer, bytes_transfered)
+                            )
+                        );
+                    auto response = _dispatcher(request.form()).form().dump();
+                    strcpy(buffer, response.c_str());
+                    // std::cout << request.form() << std::endl;
+                    std::cout << "received from " << sender << ", bytes: " << bytes_transfered << ", msg: " << request.form() << std::endl;
+                    _socket.send_to(boost::asio::buffer(buffer, response.size()), sender);
                 }
             }
             catch(const std::exception& e)

@@ -1,4 +1,4 @@
-#include "libs/Server/server.hpp"
+#include "server.hpp"
 #include <nlohmann/json.hpp>
 #define SOCKET_PORT 8000
 #define MAX_LEN 65534
@@ -8,46 +8,48 @@ using io_service = boost::asio::io_service;
 
 class Client {
     public:
-        Client(const char* addr, const char* port) : _io_service(), _socket(_io_service)
-        {
-            auto resolver = udp::resolver(_io_service);
-            _destination = *resolver.resolve(addr, port).begin();
-        }
+        Client(std::string addr = "localhost", std::string port = "8000") : _io_service(), _socket(_io_service), _addr(addr, port){};
 
         void Get(std::string url, json config = NULL) {
-            json request = {
-                {"url", url},
-                {"method", "GET"},
-                {"data", "message to server: ligma balls"}
-            };
+            auto destination = *udp::resolver(_io_service).resolve(_addr.first, _addr.second).begin();
 
-            std::string str_repr(request.dump());
-            _socket.send_to(boost::asio::buffer(&str_repr[0], str_repr.size()), _destination);
+            Request request(_url = url, _method = "GET", _data = "message to server: ligma balls");
+            
+            std::string str_repr(request.form().dump());
+
+            auto str = str_repr.c_str();
+            
+            _socket.send_to(boost::asio::buffer(&str[0], str_repr.size()), destination);
 
             udp::endpoint server;
-            char buffer[65534];
+            char buffer[MAX_LEN];
 
             size_t bytes_transfered = _socket.receive_from(boost::asio::buffer(buffer), server);
-            json response = json::parse(std::string(buffer, bytes_transfered));
-            std::cout << response << std::endl;
+            Request response(json::parse(std::string(buffer, bytes_transfered)));
+            std::cout << response.form() << std::endl;
         };
         void Post(std::string url, json data, json config) {};
         void Delete(std::string url, json config) {};
         void Patch(std::string url, json data, json config) {};
         
     private:
-        udp::socket _socket;
         io_service _io_service;
-        boost::asio::ip::basic_resolver_entry<udp> _destination;
+        udp::socket _socket;
+        std::pair<std::string, std::string> _addr;
 };
 
 int main(int argc, char **argv) {
-    if (argc < 3){
-        std::cout << "Main usage: path_to_program <ip_dest> <port_dest>" << std::endl;
-        return 0;
-    }
+    // if (argc < 3){
+    //     std::cout << "Main usage: path_to_program <ip_dest> <port_dest>" << std::endl;
+    //     return 0;
+    // }
+    Client client;
 
-    Client client(argv[1], argv[2]);
+    // client
+    // Client client(argv[1], argv[2]);
+    // Request request(_url = "/api/v1/IUser", _method = "GET", _data = "message to server: ligma balls");
+    // json buff = request.form();
+
 
     client.Get("/api/v1/IUser");
 

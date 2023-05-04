@@ -1,0 +1,2 @@
+add_library(tests_headers INTERFACE)
+target_include_directories(tests_headers INTERFACE .)
