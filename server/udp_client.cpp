@@ -13,9 +13,10 @@ class Client {
         void Get(std::string url, json config = NULL) {
             auto destination = *udp::resolver(_io_service).resolve(_addr.first, _addr.second).begin();
 
+            // Request request(url, "GET", "message to server: ligma balls");
             Request request(_url = url, _method = "GET", _data = "message to server: ligma balls");
             
-            std::string str_repr(request.form().dump());
+            std::string str_repr(request.dump());
 
             auto str = str_repr.c_str();
             
@@ -26,7 +27,7 @@ class Client {
 
             size_t bytes_transfered = _socket.receive_from(boost::asio::buffer(buffer), server);
             Request response(json::parse(std::string(buffer, bytes_transfered)));
-            std::cout << response.form() << std::endl;
+            std::cout << response.dump() << std::endl;
         };
         void Post(std::string url, json data, json config) {};
         void Delete(std::string url, json config) {};

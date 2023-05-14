@@ -29,14 +29,11 @@ class Server {
                     json buff = json::parse(
                             std::string(buffer, bytes_transfered)
                             );
-                    std::cout << buff.dump() << std::endl;
-                    Request request(
-                            buff
-                        );
-                    auto response = _dispatcher(request.form()).form().dump();
+                    // std::cout << buff.dump() << std::endl;
+                    Request request(buff);
+                    auto response = _dispatcher(request).dump();
                     strcpy(buffer, response.c_str());
-                    // std::cout << request.form() << std::endl;
-                    std::cout << "received from " << sender << ", bytes: " << bytes_transfered << ", msg: " << request.form() << std::endl;
+                    std::cout << "received from " << sender << ", bytes: " << bytes_transfered << ", msg: " << request.dump() << std::endl;
                     _socket.send_to(boost::asio::buffer(buffer, response.size()), sender);
                 }
             }

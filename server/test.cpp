@@ -1,5 +1,7 @@
-#include <gtest/gtest.h>
-#include <server_tests.hpp>
+#include <request_tests.hpp>
+// Цикличные ссылки!!!! БУдь осторожен будущий я
+// #include <request_tests.hpp>
+// #include <dispatcher_tests.hpp>
 
 int main(int argc, char** argv){
     testing::InitGoogleTest(&argc, argv);

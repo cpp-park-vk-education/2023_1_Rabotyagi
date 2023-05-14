@@ -1,105 +1,150 @@
 #include <boost/parameter.hpp>
 #include <boost/parameter/keyword.hpp>
 #include <nlohmann/json.hpp>
+#include <stdexcept>
+#include <string>
+#include <memory>
 using json = nlohmann::json;
 
-// BOOST_PARAMETER_NAME(status);
-// BOOST_PARAMETER_NAME(message);
-// BOOST_PARAMETER_NAME(url);
-// BOOST_PARAMETER_NAME(method);
-// BOOST_PARAMETER_NAME(params);
-// BOOST_PARAMETER_NAME(data);
+struct User {
+    unsigned int id;
+    const char* username;
+};
 
-// struct Request_impl
-// {
-//     public:
-//         template <class ArgumentPack>
-//         Request_impl(ArgumentPack const& args) : body()
-//         {
-//             body["meta"]["status"] = args[_status | 200];
-//             body["meta"]["message"] = args[_message | ""];
-//             body["meta"]["url"] = args[_url | ""];
-//             body["meta"]["method"] = args[_method | ""];
-//             body["meta"]["params"] = args[_params | json()];
-//             body["data"] = args[_data | json()];
-//         };
+struct Guild {
+    unsigned int id;
+    unsigned int owner_id;
+};
 
-//         Request_impl(const Request_impl& obj) : body(obj.body) {};
+struct Channel {
+    unsigned int id;
+    unsigned int guild_id;
+};
 
-//         Request_impl& operator=(const Request_impl& right){
-//             body = right.body;
-//             return *this;
-//         };
+struct Message {
+    unsigned int id;
+    unsigned int owner_id;
+    unsigned int channel_id;
+};
 
-//         ~Request_impl(){};
+BOOST_PARAMETER_NAME(status);
+BOOST_PARAMETER_NAME(message);
+BOOST_PARAMETER_NAME(url);
+BOOST_PARAMETER_NAME(method);
+BOOST_PARAMETER_NAME(params);
+BOOST_PARAMETER_NAME(data);
+BOOST_PARAMETER_NAME(json_body);
 
-//         json form() { return body;};
+struct Request_impl
+{
+    using string = std::string;
+    // json body;
+    int status;
+    string message;
+    string url;
+    string method;
+    json params;
+    json data;
 
-//         void parse(json request) {
-//             body["meta"] = request["meta"];
-//             body["data"] = request["data"];
-//         };
+    template <class ArgumentPack>
+    Request_impl(ArgumentPack const& args)
+    {
+        json request = args[_json_body | json()];
 
-//         json operator[](const char* key){
-//             return body[key];
-//         };
+        if (!request.empty()){
+            if (request.contains("meta")){
+                if (request["meta"].contains("status"))
+                    status = request["meta"]["status"];
+                else
+                    throw std::runtime_error("invalid json body (no status field)");
 
-//     private:
-//         json body;
-// };
+                if (request["meta"].contains("message"))
+                    message = request["meta"]["message"];
+                
+                if (request["meta"].contains("url"))
+                    url = request["meta"]["url"];
+                
+                if (request["meta"].contains("method"))
+                    method = request["meta"]["method"];
+                
+                if (request["meta"].contains("params"))
+                    params = request["meta"]["params"];
+                    
+            }
+            else
+                throw std::runtime_error("meta field in json body is missing");
 
-// struct Request : Request_impl {
-//     BOOST_PARAMETER_CONSTRUCTOR(
-//         Request, (Request_impl), tag, 
-//         (optional 
-//             (status, (int))
-//             (message, (std::string))
-//             (url, (std::string))
-//             (method, (std::string))
-//             (params, (json))
-//             (data, (json))
-//         )
-//     );
-// };
+            if (request.contains("data"))
+                data = request["data"];
+        }
+        else {
+            status = args[_status | 200];
+            message = args[_message | ""];
+            url = args[_url | ""];
+            method = args[_method | ""];
+            params = args[_params | ""];
+            data = args[_data | ""];
+        }
+    };
 
-struct Request {
-    public:
-        Request(json request) : body(){
-            body["meta"] = request["meta"];
-            body["data"] = request["data"];
-        };
+    Request_impl& operator=(const Request_impl& right){
+        status = right.status;
+        message = right.message;
+        url = right.url;
+        method = right.method;
+        params = right.params;
+        data = right.data;
+        return *this;
+    };
 
-        Request() : body() {
-            body = {
-                {"meta", {
-                    {"status", 200},
-                    {"message", nullptr},
-                    {"url", nullptr},
-                    {"method", nullptr},
-                    {"params", nullptr},
-                }},
-                {"data", nullptr}
-            };
-        };
+    string dump() {
+        return get_body().dump();
+    }
 
-        Request(const int& status) : body() {
-            body = {
-                {"meta", {
-                    {"status", status},
-                    {"message", nullptr},
-                    {"url", nullptr},
-                    {"method", nullptr},
-                    {"params", nullptr},
-                }},
-                {"data", nullptr}
-            };
-        };
+    json get_body() {
+        return json({
+            {"meta", {
+                {"status", status},
+                {"message", message},
+                {"url", url},
+                {"method", method},
+                {"params", params},
+            }},
+            {"data", data}
+        });
+    }
 
-        json get() {return body;};
+    template<User>
+    User parse_to() {
+        return User();
+    }
 
-        // bool operator==(const Request &left, const Request &right){
-        //     return left == right;
-        // };
-    private:
-        json body;
+    template<Guild>
+    Guild parse_to() {
+        return Guild();
+    }
+
+    template<Channel>
+    Channel parse_to() {
+        return Channel();
+    }
+
+    template<Message>
+    Message parse_to() {
+        return Message();
+    }
+};
+
+struct Request : Request_impl {
+    BOOST_PARAMETER_CONSTRUCTOR(
+        Request, (Request_impl), tag, 
+        (optional 
+            (status, (int))
+            (message, (std::string))
+            (url, (std::string))
+            (method, (std::string))
+            (params, (json))
+            (data, (json))
+        )
+    );
 };
