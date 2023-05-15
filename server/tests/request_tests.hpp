@@ -77,7 +77,7 @@ TEST(RequestTests, ConstructorVariable){
         {"meta", {
             {"status", 300},
             {"message", ""},
-            {"url", "/api/v1"},
+            {"url", "/api/v1/IUser"},
             {"method", "GET"},
             {"params", {
                 {"Content-Type", "application/pdf"}
@@ -92,7 +92,7 @@ TEST(RequestTests, ConstructorVariable){
     // Act
     Request request(
         _status=300,
-        _url="/api/v1",
+        _url="/api/v1/IUser",
         _method="GET",
         _data=json({
             {"first", 1},

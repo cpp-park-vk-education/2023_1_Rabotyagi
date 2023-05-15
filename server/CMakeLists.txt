@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.11.2)
 project(project VERSION 0.1.0)
 
 
-add_executable(server udp_server.cpp)
+add_executable(server server.cpp)
 add_executable(client udp_client.cpp)
 add_executable(test test.cpp)
 

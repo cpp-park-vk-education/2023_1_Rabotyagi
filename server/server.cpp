@@ -22,8 +22,12 @@ int main(int argc, char **argv) {
     //         socket.receive_from(boost::asio::buffer(buffer), sender);
     //     socket.send_to(boost::asio::buffer(buffer, bytes_transferred), sender);
     // }
-    Server server;
-    server.start();
+    // Server server;
+    // server.start();
 
+    boost::asio::io_context io_context;
+    AsyncServer server(io_context, std::atoi(argv[1]));
+    server.async_accept();
+    io_context.run();
     return 0;
 }
