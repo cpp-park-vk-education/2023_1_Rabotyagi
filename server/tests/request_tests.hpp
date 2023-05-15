@@ -1,5 +1,36 @@
 #include <request.hpp>
 
+TEST(RequestTests, ConstructorFromString){
+    //Arrange
+    json in = {
+        {"meta", {
+            {"status", 200},
+            {"message", ""},
+            {"url", ""},
+            {"method", ""},
+            {"params", ""},
+        }},
+        {"data", ""}
+    };
+    std::string message = in.dump();
+
+    // Act
+    Request request = Request::load_from_string(message);
+
+    // Assert
+    ASSERT_EQ(in, request.get_body());
+}
+
+TEST(RequestTests, ConstructorFromEmptyString){
+    //Arrange
+    std::string message = "";
+
+    // Act
+
+    // Assert
+    EXPECT_THROW(Request request = Request::load_from_string(message), std::runtime_error);
+}
+
 TEST(RequestTests, ConstructorFromJson){
     //Arrange
     json in = {
@@ -14,7 +45,7 @@ TEST(RequestTests, ConstructorFromJson){
     };
 
     // Act
-    Request request(_json_body=in);
+    Request request = Request::load_from_json(in);
 
     // Assert
     ASSERT_EQ(in, request.get_body());

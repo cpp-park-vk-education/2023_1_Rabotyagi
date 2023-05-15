@@ -15,7 +15,7 @@ class View {
             if (request.method == "DELETE")
                 return Delete(request);
             
-            if (request.method == "Patch")
+            if (request.method == "PATCH")
                 return Patch(request);
             
             return Request(405);
@@ -29,60 +29,60 @@ class View {
 
 class UserView : public View {
     Request Get(Request& request) override {
-        return Request();
+        return Request(_status=200);
     }
     Request Post(Request& request) override {
-        return Request();
+        return Request(_status=200);
     }
     Request Delete(Request& request) override {
-        return Request();
+        return Request(_status=200);
     }
     Request Patch(Request& request) override {
-        return Request();
+        return Request(_status=200);
     }
 };
 
 class GuildView : public View {
     Request Get(Request& request) override {
-        return Request();
+        return Request(_status=200);
     }
     Request Post(Request& request) override {
-        return Request();
+        return Request(_status=200);
     }
     Request Delete(Request& request) override {
-        return Request();
+        return Request(_status=200);
     }
     Request Patch(Request& request) override {
-        return Request();
+        return Request(_status=200);
     }
 };
 
 class ChannelView : public View {
     Request Get(Request& request) override {
-        return Request();
+        return Request(_status=200);
     }
     Request Post(Request& request) override {
-        return Request();
+        return Request(_status=200);
     }
     Request Delete(Request& request) override {
-        return Request();
+        return Request(_status=200);
     }
     Request Patch(Request& request) override {
-        return Request();
+        return Request(_status=200);
     }
 };
 
 class MessageView : public View {
     Request Get(Request& request) override {
-        return Request();
+        return Request(_status=200);
     }
     Request Post(Request& request) override {
-        return Request();
+        return Request(_status=200);
     }
     Request Delete(Request& request) override {
-        return Request();
+        return Request(_status=200);
     }
     Request Patch(Request& request) override {
-        return Request();
+        return Request(_status=200);
     }
 };

@@ -42,7 +42,7 @@ void Server::accept() {
             std::string recieved_str = std::string(buffer, bytes_transfered);
 
             try {
-                Request request(json::parse(recieved_str));
+                Request request = Request::load_from_string(recieved_str);
                 std::cout << "received from " << sender << ", bytes: " << bytes_transfered << ", msg: " << recieved_str << std::endl;
                 auto response_str = _dispatcher(request).dump();
                 _socket.send_to(boost::asio::buffer(response_str), sender);

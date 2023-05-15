@@ -34,7 +34,7 @@ BOOST_PARAMETER_NAME(url);
 BOOST_PARAMETER_NAME(method);
 BOOST_PARAMETER_NAME(params);
 BOOST_PARAMETER_NAME(data);
-BOOST_PARAMETER_NAME(json_body);
+// BOOST_PARAMETER_NAME(json_body);
 
 struct Request_impl
 {
@@ -50,42 +50,12 @@ struct Request_impl
     template <class ArgumentPack>
     Request_impl(ArgumentPack const& args)
     {
-        json request = args[_json_body | json()];
-
-        if (!request.empty()){
-            if (request.contains("meta")){
-                if (request["meta"].contains("status"))
-                    status = request["meta"]["status"];
-                else
-                    throw std::runtime_error("invalid json body (no status field)");
-
-                if (request["meta"].contains("message"))
-                    message = request["meta"]["message"];
-                
-                if (request["meta"].contains("url"))
-                    url = request["meta"]["url"];
-                
-                if (request["meta"].contains("method"))
-                    method = request["meta"]["method"];
-                
-                if (request["meta"].contains("params"))
-                    params = request["meta"]["params"];
-                    
-            }
-            else
-                throw std::runtime_error("meta field in json body is missing");
-
-            if (request.contains("data"))
-                data = request["data"];
-        }
-        else {
-            status = args[_status | 200];
-            message = args[_message | ""];
-            url = args[_url | ""];
-            method = args[_method | ""];
-            params = args[_params | ""];
-            data = args[_data | ""];
-        }
+        status = args[_status | 200];
+        message = args[_message | ""];
+        url = args[_url | ""];
+        method = args[_method | ""];
+        params = args[_params | ""];
+        data = args[_data | ""];
     };
 
     Request_impl& operator=(const Request_impl& right){
@@ -115,10 +85,6 @@ struct Request_impl
         });
     }
 
-    static Request_impl load_from_json(json body) const{
-        return Request_impl(_status=500);
-    }
-
     template<User>
     User parse_to() {
         return User();
@@ -140,7 +106,7 @@ struct Request_impl
     }
 };
 
-struct Request : Request_impl {
+struct Request : public Request_impl {
     BOOST_PARAMETER_CONSTRUCTOR(
         Request, (Request_impl), tag, 
         (optional 
@@ -153,4 +119,47 @@ struct Request : Request_impl {
         )
     );
 
+    static Request load_from_string(string message){
+        if (message == ""){
+            throw std::runtime_error("request string is empty");
+        }
+        else {
+            json body = json::parse(message);
+            return Request::load_from_json(body);
+        }
+    }
+
+    static Request load_from_json(json request) {
+        Request result;
+        if (!request.empty()){
+            if (request.contains("meta")){
+                if (request["meta"].contains("status"))
+                    result.status = request["meta"]["status"];
+                else
+                    throw std::runtime_error("invalid json body (no status field)");
+
+                if (request["meta"].contains("message"))
+                    result.message = request["meta"]["message"];
+                
+                if (request["meta"].contains("url"))
+                    result.url = request["meta"]["url"];
+                
+                if (request["meta"].contains("method"))
+                    result.method = request["meta"]["method"];
+                
+                if (request["meta"].contains("params"))
+                    result.params = request["meta"]["params"];
+                    
+            }
+            else
+                throw std::runtime_error("meta field in json body is missing");
+
+            if (request.contains("data"))
+                result.data = request["data"];
+        }
+        else {
+            throw std::runtime_error("json param is empty!");
+        }
+        return result;
+    }
 };
