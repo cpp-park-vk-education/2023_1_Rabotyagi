@@ -1,4 +1,3 @@
-#include <gtest/gtest.h>
 #include <request.hpp>
 
 TEST(RequestTests, ConstructorFromJson){
@@ -58,7 +57,7 @@ TEST(RequestTests, ConstructorVariable){
             {"second", 2}
         }}
     };
-
+    
     // Act
     Request request(
         _status=300,

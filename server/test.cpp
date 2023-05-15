@@ -1,4 +1,6 @@
+#include <gtest/gtest.h>
 #include <request_tests.hpp>
+#include <dispatcher_tests.hpp>
 // Цикличные ссылки!!!! БУдь осторожен будущий я
 // #include <request_tests.hpp>
 // #include <dispatcher_tests.hpp>

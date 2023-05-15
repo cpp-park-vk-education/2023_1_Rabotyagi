@@ -1,3 +1,4 @@
+#pragma once
 #include <boost/parameter.hpp>
 #include <boost/parameter/keyword.hpp>
 #include <nlohmann/json.hpp>
@@ -114,6 +115,10 @@ struct Request_impl
         });
     }
 
+    static Request_impl load_from_json(json body) const{
+        return Request_impl(_status=500);
+    }
+
     template<User>
     User parse_to() {
         return User();
@@ -147,4 +152,5 @@ struct Request : Request_impl {
             (data, (json))
         )
     );
+
 };

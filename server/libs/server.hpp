@@ -1,12 +1,11 @@
+#include <boost/array.hpp>
+#include <boost/bind/bind.hpp>
+#include <boost/shared_ptr.hpp>
 #include <boost/asio.hpp>
 #include <iostream>
-#include <optional>
 #include <memory>
-#include <map>
-#include <functional>
-#include <nlohmann/json.hpp>
-#include <optional>
-#include "request.hpp"
+// #include <nlohmann/json.hpp>
+// #include "request.hpp"
 #include "url_dispatcher.hpp"
 
 using udp = boost::asio::ip::udp;
@@ -19,28 +18,7 @@ class Server {
 
         void start(){
             std::cout << "Server starts on " << _receiver.address() << ":" << _receiver.port() << std::endl;
-            try
-            {
-                char buffer[65534];
-                for (;;)
-                {
-                    udp::endpoint sender;
-                    size_t bytes_transfered = _socket.receive_from(boost::asio::buffer(buffer), sender);
-                    json buff = json::parse(
-                            std::string(buffer, bytes_transfered)
-                            );
-                    // std::cout << buff.dump() << std::endl;
-                    Request request(buff);
-                    auto response = _dispatcher(request).dump();
-                    strcpy(buffer, response.c_str());
-                    std::cout << "received from " << sender << ", bytes: " << bytes_transfered << ", msg: " << request.dump() << std::endl;
-                    _socket.send_to(boost::asio::buffer(buffer, response.size()), sender);
-                }
-            }
-            catch(const std::exception& e)
-            {
-                std::cerr << e.what() << '\n';
-            }
+            accept();
             std::cout << "Server stopped" << std::endl;
         }
     private:
@@ -48,4 +26,37 @@ class Server {
         udp::endpoint _receiver;
         udp::socket _socket;
         UrlDispatcher _dispatcher;
+
+        void accept();
+};
+
+void Server::accept() {
+    try
+    {
+        for (;;)
+        {
+            char buffer[65534];
+            udp::endpoint sender;
+            size_t bytes_transfered = _socket.receive_from(boost::asio::buffer(buffer), sender);
+
+            std::string recieved_str = std::string(buffer, bytes_transfered);
+
+            try {
+                Request request(json::parse(recieved_str));
+                std::cout << "received from " << sender << ", bytes: " << bytes_transfered << ", msg: " << recieved_str << std::endl;
+                auto response_str = _dispatcher(request).dump();
+                _socket.send_to(boost::asio::buffer(response_str), sender);
+            }                
+            catch (const std::exception& e){
+                std::cerr << e.what() << std::endl;
+                // throw std::runtime_error(e.what());
+            }
+
+        }
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+    }
+    
 };

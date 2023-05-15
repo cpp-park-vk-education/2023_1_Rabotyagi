@@ -1,3 +1,6 @@
+#pragma once
+#include "request.hpp"
+
 class View {
     public:
         // View() {};

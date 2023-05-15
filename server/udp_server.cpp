@@ -4,22 +4,26 @@
 // using func = std::function<Response(json)>;
 
 int main(int argc, char **argv) {
-    // if (argc < 2){
-    //     std::cout << "Main usage: path_to_program <port number>" << std::endl;
-    //     return 0;
-    // }
+    if (argc < 2){
+        std::cout << "Main usage: path_to_program <port number>" << std::endl;
+        return 0;
+    }
 
-    // Server server(atoi(argv[1]));
+    // std::uint16_t port = 15001;
+
+    // boost::asio::io_context io_context;
+    // boost::asio::ip::udp::endpoint receiver(boost::asio::ip::udp::v4(), port);
+    // boost::asio::ip::udp::socket socket(io_context, receiver);
+
+    // while (true) {
+    //     char buffer[65536];
+    //     boost::asio::ip::udp::endpoint sender;
+    //     std::size_t bytes_transferred =
+    //         socket.receive_from(boost::asio::buffer(buffer), sender);
+    //     socket.send_to(boost::asio::buffer(buffer, bytes_transferred), sender);
+    // }
     Server server;
     server.start();
 
-    // std::map<std::string, View> urls;
-    // UserView usrView;
-
-    // urls["/api/v1/IUser"] = usrView;
-    // {
-    //     {std::string(""), &UserView::as_view},
-    //     {std::string("/api/v1/getUser2"), &UserView::as_view},
-    // }
     return 0;
 }

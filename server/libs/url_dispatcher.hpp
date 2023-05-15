@@ -19,7 +19,7 @@ class UrlDispatcher {
         return urls[request.url]->as_view(request);
       }
       else{
-        return Request(500);
+        return Request(_status=500, _message="wrong url");
       }
     }
   private:
