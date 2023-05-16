@@ -8,7 +8,7 @@ DB_Connection::DB_Connection(){
 
 }
 
-std::shared_ptr<user_connect> DB_Connection::connection() const //возврат указателя на текущее соединение
+std::shared_ptr<PGconn> DB_Connection::connection() const //возврат указателя на текущее соединение
 {
     return db_connection;
 }
