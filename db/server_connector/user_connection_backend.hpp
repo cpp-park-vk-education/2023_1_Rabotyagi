@@ -4,7 +4,7 @@
 #include <string>
 #include <queue>
 #include <condition_variable>
-#include <libpq-fe.h>
+#include <postgresql/libpq-fe.h>
 #include "user_connection.hpp"
 
 //класс реализации пула подключений для базы данных

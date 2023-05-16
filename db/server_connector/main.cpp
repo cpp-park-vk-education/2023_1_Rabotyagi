@@ -1,6 +1,7 @@
 #include <thread>
 #include <iostream>
 #include "user_connection_backend.hpp"
+#include <postgresql/libpq-fe.h>
 
 void test_connection(std::shared_ptr<ConnectionPool> connection_pool){
     std::shared_ptr<DB_Connection> conn=connection_pool->connection(); //получение свободного соединения

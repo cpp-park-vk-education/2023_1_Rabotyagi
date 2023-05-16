@@ -1,0 +1,1 @@
+add_library(server_connector PUBLIC user_connection_backend.hpp user_connection_backend.cpp user_connection.hpp user_connection.cpp)

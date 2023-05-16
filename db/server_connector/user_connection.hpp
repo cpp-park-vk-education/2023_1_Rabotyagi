@@ -2,7 +2,7 @@
 
 #include <memory>
 #include <mutex>
-#include <libpd-fe.h>
+#include <postgresql/libpq-fe.h>
 
 //класс соединения с базой данных
 class DB_Connection{

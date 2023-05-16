@@ -1,3 +1,6 @@
+#include <postgresql/libpq-fe.h>
+#include "data_base_table.hpp"
+
 class Channel : DatabaseTable
 {
     Channel("channels")
