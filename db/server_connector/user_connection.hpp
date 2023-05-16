@@ -8,7 +8,7 @@
 class DB_Connection{
     public:
     DB_Connection();
-    std::shared_ptr<user_connect> connection() const;
+    std::shared_ptr<PGconn> connection() const;
 
     private:
     void establish_connection();      //устанавливает соединение с базой данных
@@ -18,5 +18,5 @@ class DB_Connection{
     std::string db_name="name";
     std::string db_user="user";
     std::string db_password="password";
-    std::shared_ptr<user_connect> db_connection;
+    std::shared_ptr<PGconn> db_connection;
 };
