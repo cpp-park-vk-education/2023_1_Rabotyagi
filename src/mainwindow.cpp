@@ -2,10 +2,12 @@
 #include "ui_mainwindow.h"
 #include "settingswindow.h"
 #include "gitconnection.h"
+#include <memory>
 #include <QtWidgets>
 #include <QPixmap>
 #include <QIcon>
 #include <QFont>
+#include "sidebar.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -15,22 +17,22 @@ MainWindow::MainWindow(QWidget *parent)
     QMainWindow::setWindowTitle("ITSwarm");
     ui->gitButton->setIcon(QIcon(":/img/images/icons8-git-50.png"));
     ui->settingsButton->setIcon(QIcon(":/img/images/icons8-settings-50.png"));
-    ui->searchButton->setIcon(QIcon(":/img/images/icons8-search-30.png"));
-    ui->moreButton->setIcon(QIcon(":/img/images/icons8-more-24.png"));
-    ui->textChannelButton_1->setIcon(QIcon(":/img/images/Channels-Iconhovered.png"));
-    ui->textChannelButton_2->setIcon(QIcon(":/img/images/Channels-Iconhovered.png"));
-    ui->textChannelButton_3->setIcon(QIcon(":/img/images/Channels-Iconhovered.png"));
-    ui->voiceChannelButton_1->setIcon(QIcon(":/img/images/Channels-Iconvoice hovered.png"));
-    ui->voiceChannelButton_2->setIcon(QIcon(":/img/images/Channels-Iconvoice hovered.png"));
-    ui->voiceChannelButton_3->setIcon(QIcon(":/img/images/Channels-Iconvoice hovered.png"));
-    ui->partisipants->addItem("Участники");
 
-    connect(&client, &Client::new_message, this, &MainWindow::append_message);
+    content_window = std::make_shared<ContentWindow>(this);
+    content_window->move(130, 60);
+
+    userbar = std::make_shared<Userbar>(this);
+    userbar->move(970, 110);
+
+    sidebar = std::make_shared<Sidebar>(this);
+    sidebar->move(10, 60);
+
+    /*connect(&client, &Client::new_message, this, &MainWindow::append_message);
     connect(&client, &Client::new_client, this, &MainWindow::new_client);
     connect(&client, &Client::client_quit, this, &MainWindow::client_quit);
 
-    nickname = client.NickName();
-    new_client(nickname);
+    nickname = client.NickName();*/
+    //new_client("User");
 }
 
 MainWindow::~MainWindow()
@@ -38,7 +40,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::new_client(const QString &nickname)
+/*void MainWindow::new_client(const QString &nickname)
 {
     if (nickname.isEmpty())
         return;
@@ -47,7 +49,7 @@ void MainWindow::new_client(const QString &nickname)
     QString text = tr("%1 присоединился(-ась) к чату.").arg(nickname);
     ui->textBrowser->append(text);
     ui->textBrowser->setTextColor(color);
-    ui->partisipants->addItem(nickname);
+    //ui->partisipants->addItem(nickname);
 }
 
 void MainWindow::client_quit(const QString &nickname)
@@ -68,7 +70,7 @@ void MainWindow::client_quit(const QString &nickname)
     ui->textBrowser->append(text);
     ui->textBrowser->setTextColor(color);
     ui->partisipants->addItem(nickname);
-}
+}*/
 
 
 void MainWindow::on_settingsButton_clicked()
@@ -82,33 +84,5 @@ void MainWindow::on_gitButton_clicked()
 {
     git = new GitConnection(this);
     git->show();
-}
-
-void MainWindow::on_pushButton_clicked()
-{
-    QString text = ui->lineEdit->text();
-    if (text.isEmpty())
-        return;
-
-    client.SendMessage(text);
-    append_message(nickname, text);
-
-    ui->lineEdit->clear();
-}
-
-
-void MainWindow::on_lineEdit_returnPressed()
-{
-    on_pushButton_clicked();
-}
-
-void MainWindow::append_message(const QString &from, const QString &msg)
-{
-    if (from.isEmpty() || msg.isEmpty())
-        return;
-    //QFont bold_font("bold");
-    //ui->textBrowser->setFont(QFont::bold());
-    QString text = from + ": " + msg;
-    ui->textBrowser->append(text);
 }
 
