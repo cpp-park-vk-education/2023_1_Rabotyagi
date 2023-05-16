@@ -50,6 +50,7 @@ void LoginWindow::on_loginButton_clicked(){
         QMessageBox::warning(this, tr("Login Failed"), tr("Server check not passed"));
         ui->usernameEdit->clear();
         ui->passwordEdit->clear();
+        ui->emailEdit->clear();
     }
 }
 
