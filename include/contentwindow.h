@@ -1,0 +1,37 @@
+#ifndef CONTENTWINDOW_H
+#define CONTENTWINDOW_H
+
+#include <QWidget>
+#include "messagecontrol.h"
+#include "channel.h"
+
+namespace Ui {
+class ContentWindow;
+}
+
+class ContentWindow : public QWidget
+{
+    Q_OBJECT
+
+public:
+    explicit ContentWindow(QWidget *parent = nullptr);
+    Ui::ContentWindow *ui;
+    ~ContentWindow();
+
+public slots:
+    //void new_client(const QString& nickname);
+    //void client_quit(const QString& nickname);
+    //void append_message(const QString& text);
+    void on_pushButton_clicked();
+    void on_lineEdit_returnPressed();
+
+
+private:
+    void connect_to_message_control();
+
+
+    std::shared_ptr<MessageControl> message_control;
+    std::shared_ptr<Channel> active_channel;
+};
+
+#endif // CONTENTWINDOW_H
