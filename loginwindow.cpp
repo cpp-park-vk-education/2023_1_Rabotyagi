@@ -1,5 +1,7 @@
 #include "loginwindow.h"
+#include "mainwindow.h"
 #include "ui_loginwindow.h"
+#include "usercontrol.h"
 #include <QMessageBox>
 #include <QFile>
 #include <QJsonDocument>
@@ -16,6 +18,7 @@ LoginWindow::LoginWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     registration_window = new RegistrationWindow(this);
+    user_control = new UserControl();
 
     // Connect the showRegistrationWindow slot to the registerButton clicked signal
     connect(ui->registrationButton, &QPushButton::clicked, this, &LoginWindow::openRegistrationWindow);
@@ -23,70 +26,35 @@ LoginWindow::LoginWindow(QWidget *parent) :
     // Connect the goBack signal from the registration window to the show() slot of the login window
     connect(registration_window, &RegistrationWindow::goBack, this, &LoginWindow::show);
 
-    connect(ui->loginButton, &QPushButton::clicked, this, &LoginWindow::login);
+//    connect(ui->loginButton, &QPushButton::clicked, this, &LoginWindow::login);
 }
 
 LoginWindow::~LoginWindow()
 {
     delete ui;
     delete registration_window;
+    delete user_control;
 }
 
+void LoginWindow::on_loginButton_clicked(){
+    QString username = ui->usernameEdit->text();
+    QString email = ui->emailEdit->text();
+    QString password = ui->passwordEdit->text();
 
-void LoginWindow::login()
-{
-//     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-//     QUrl url("http://example.com/login");
-//     QNetworkRequest request(url);
-//     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-
-//     QJsonObject json;
-//     json["username"] = ui->usernameEdit->text();
-//     json["password"] = ui->passwordEdit->text();
-//     QJsonDocument doc(json);
-//     QByteArray data = doc.toJson();
-
-
-// //    Этот код отправляет POST-запрос на сервер с использованием QNetworkAccessManager и блокирует выполнение программы до тех пор,
-// //    пока ответ от сервера не будет получен. Закоментим его чтобы захардкодить ответ сервера для тестов.
-//     QNetworkReply *reply = manager->post(request, data);
-//     while (!reply->isFinished()) {
-//         qApp->processEvents();
-//     }
-
-//     if (reply->error() == QNetworkReply::NoError) {
-//         QByteArray response = reply->readAll();
-//         QJsonDocument jsonDoc = QJsonDocument::fromJson(response);
-//         QString accessToken = jsonDoc["access_token"].toString();
-//         QString refreshToken = jsonDoc["refresh_token"].toString();
-//         saveTokens(accessToken, refreshToken);
-//         accept();
-//     } else {
-//         QMessageBox::warning(this, tr("Login Failed"), tr("Invalid username or password."));
-//     }
-
-//     reply->deleteLater();
-}
-
-// // записываем токены в файл
-void LoginWindow::saveTokens(const QString &accessToken, const QString &refreshToken)
-{
-//     QJsonObject json;
-//     json["access_token"] = accessToken;
-//     json["refresh_token"] = refreshToken;
-//     QJsonDocument doc(json);
-
-//     QFile file("tokens.json");
-//     if (file.open(QIODevice::WriteOnly)) {
-//         file.write(doc.toJson());
-//         file.close();
-//     }
+    int code = user_control->login(username, password, email);
+    if (code == 0) {
+        MainWindow *mainWindow = new MainWindow;
+        mainWindow->show();
+        close();
+    } else if (code == 1) {
+        QMessageBox::warning(this, tr("Login Failed"), tr("Server check not passed"));
+        ui->usernameEdit->clear();
+        ui->passwordEdit->clear();
+    }
 }
 
 void LoginWindow::openRegistrationWindow()
 {
-//     RegistrationWindow registrationWindow;
-//     if (registrationWindow.exec() == QDialog::Accepted) {
-//         accept();
-//     }
+    registration_window->show();
+    hide();
 }

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>406</width>
+    <height>338</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,9 +17,9 @@
    <property name="geometry">
     <rect>
      <x>60</x>
-     <y>40</y>
-     <width>281</width>
-     <height>231</height>
+     <y>21</y>
+     <width>301</width>
+     <height>291</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -44,6 +44,16 @@
     </item>
     <item>
      <widget class="QLineEdit" name="usernameEdit"/>
+    </item>
+    <item>
+     <widget class="QLabel" name="label_4">
+      <property name="text">
+       <string>Электронная почта</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLineEdit" name="emailEdit"/>
     </item>
     <item>
      <widget class="QLabel" name="label_3">
@@ -78,19 +88,6 @@
        <string>Войти</string>
       </property>
      </widget>
-    </item>
-    <item>
-     <spacer name="verticalSpacer_2">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>40</height>
-       </size>
-      </property>
-     </spacer>
     </item>
     <item>
      <widget class="QPushButton" name="registrationButton">

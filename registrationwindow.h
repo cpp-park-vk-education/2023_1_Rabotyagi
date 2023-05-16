@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include "mainwindow.h"
+#include "usercontrol.h"
 
 namespace Ui {
 class RegistrationWindow;
@@ -20,12 +21,14 @@ signals:
     void goBack();
 
 private slots:
-    void registerUser();
+    //void registerUser();
+    void on_registerButton_clicked();
 //    void on_registrationButton_clicked();
 //    void on_goBackButton_clicked();
 
 private:
     Ui::RegistrationWindow *ui;
+    UserControl *user_control;
 };
 
 #endif // REGISTRATIONWINDOW_H

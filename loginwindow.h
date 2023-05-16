@@ -4,6 +4,7 @@
 #include <QDialog>
 #include "registrationwindow.h"
 #include "mainwindow.h"
+#include "usercontrol.h"
 #include <jwt.h>
 #include <QLineEdit>
 namespace Ui {
@@ -18,14 +19,16 @@ public:
     ~LoginWindow();
 
 private slots:
-    void login();
+    //void login();
     void openRegistrationWindow();
+    void on_loginButton_clicked();
 public slots:
-    void saveTokens(const QString &accessToken, const QString &refreshToken);
+    //void saveTokens(const QString &accessToken, const QString &refreshToken);
 
 private:
     Ui::LoginWindow *ui;
     RegistrationWindow *registration_window;
+    UserControl* user_control;
     QLineEdit *usernameEdit;
     QLineEdit *passwordEdit;
 };

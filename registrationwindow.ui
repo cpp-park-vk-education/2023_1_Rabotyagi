@@ -14,24 +14,6 @@
    <string>Регистрация</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="2" column="0">
-    <layout class="QHBoxLayout" name="horizontalLayout">
-     <item>
-      <widget class="QPushButton" name="goBackButton">
-       <property name="text">
-        <string>Назад</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="registerButton">
-       <property name="text">
-        <string>Зарегистрироваться</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
    <item row="0" column="0">
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
@@ -54,7 +36,17 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="usernameLineEdit"/>
+      <widget class="QLineEdit" name="usernameEdit"/>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_3">
+       <property name="text">
+        <string>Электронная почта</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="emailEdit"/>
      </item>
      <item>
       <widget class="QLabel" name="label_4">
@@ -64,7 +56,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="passwordLineEdit">
+      <widget class="QLineEdit" name="passwordEdit">
        <property name="echoMode">
         <enum>QLineEdit::Password</enum>
        </property>
@@ -78,9 +70,27 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="confirmPasswordLineEdit">
+      <widget class="QLineEdit" name="confirmPasswordEdit">
        <property name="echoMode">
         <enum>QLineEdit::Password</enum>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="2" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QPushButton" name="goBackButton">
+       <property name="text">
+        <string>Назад</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="registerButton">
+       <property name="text">
+        <string>Зарегистрироваться</string>
        </property>
       </widget>
      </item>

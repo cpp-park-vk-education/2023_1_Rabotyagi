@@ -12,17 +12,22 @@ CONFIG += thread
 INCLUDEPATH += "../../"
 
 HEADERS += \
+    ../../mainwindow.h \
     ../../loginwindow.h \
     ../../registrationwindow.h \
+    ../../usercontrol.h \
     tst_my_test.h
 
 SOURCES += \
         main.cpp \
         tst_my_test.cpp \
+        ../../mainwindow.cpp \
         ../../loginwindow.cpp \
-        ../../registrationwindow.cpp
+        ../../registrationwindow.cpp \
+        ../../usercontrol.cpp
 
 FORMS += \
+    ../../mainwindow.ui \
     ../../loginwindow.ui \
     ../../registrationwindow.ui
 
