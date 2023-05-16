@@ -20,14 +20,14 @@ class Session: public std::enable_shared_from_this<Session> {
         _dispatcher() {}
 
     void start() {
-        boost::asio::async_read_until(
+        boost::asio::async_read(
             _socket,
             _streambuf,
-            '\n',
             [self = shared_from_this()](
                 boost::system::error_code error,
                 std::size_t bytes_transferred) 
                 {
+
                     std::string recieved_str {std::istreambuf_iterator<char>(&self->_streambuf), std::istreambuf_iterator<char>()};
                     try {
                         Request request = Request::load_from_string(recieved_str);
@@ -40,7 +40,6 @@ class Session: public std::enable_shared_from_this<Session> {
                     catch (const std::exception& e) {
                         std::cerr << e.what() << std::endl;
                     }
-                    // _socket.send_to(boost::asio::buffer(response_str), sender);
                 }
             );
     }
