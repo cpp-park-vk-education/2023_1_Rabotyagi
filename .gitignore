@@ -28,7 +28,6 @@ Makefile*
 *.app
 moc_*.cpp
 ui_*.h
-qrc_*.cpp
 Thumbs.db
 *.res
 *.rc
