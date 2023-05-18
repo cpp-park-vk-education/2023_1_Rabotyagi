@@ -2,7 +2,6 @@
 #define REGISTRATIONWINDOW_H
 
 #include <QDialog>
-#include "main_window.h"
 #include "user_control.h"
 
 namespace Ui {
@@ -14,6 +13,14 @@ class RegistrationWindow : public QDialog
     Q_OBJECT
 
 public:
+    enum class States {
+        crit_error = -1,
+        error = 0,
+        to_main_window = 1,
+        to_reg_window = 2,
+        to_log_window = 3,
+        exit = 4
+    };
     explicit RegistrationWindow(int* flag, QWidget *parent = nullptr);
     ~RegistrationWindow();
 
@@ -23,6 +30,9 @@ signals:
 private slots:
     //void registerUser();
     void on_registerButton_clicked();
+    void setFlagToLogin();
+    void closeEvent(QCloseEvent* event);
+//    void on_goBackButton_clicked();
 //    void on_registrationButton_clicked();
 //    void on_goBackButton_clicked();
 

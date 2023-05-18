@@ -9,15 +9,17 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    int flag = 256;
-    std::shared_ptr<Client> client = std::make_shared<Client>();
+    int flag = 3;
     std::unique_ptr<LoginWindow> login = std::make_unique<LoginWindow>(&flag);
     std::unique_ptr<RegistrationWindow> reg = std::make_unique<RegistrationWindow>(&flag);
     std::unique_ptr<MainWindow> main = std::make_unique<MainWindow>(&flag);
 
-    login->show();
+    //login->show();
     while (flag != -1 && flag != 1){
         switch (flag) {
+            case (int)LoginWindow::States::to_log_window:
+                login->show();
+                break;
             case (int)LoginWindow::States::to_main_window:
                 main->show();
                 break;
@@ -27,7 +29,11 @@ int main(int argc, char *argv[])
             case (int)LoginWindow::States::error:
                 throw std::runtime_error("Ппц");
                 break;
+            case (int)LoginWindow::States::exit:
+                exit(0);
+                break;
         }
+        QCoreApplication::processEvents();
     }
     return a.exec();
 }

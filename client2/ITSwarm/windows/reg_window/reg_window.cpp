@@ -11,6 +11,7 @@
 #include <QtNetwork/QNetworkRequest>
 #include <QtNetwork/QNetworkReply>
 #include <QSettings>
+#include <QCloseEvent>
 
 RegistrationWindow::RegistrationWindow(int* flag, QWidget *parent) :
     QDialog(parent),
@@ -20,7 +21,8 @@ RegistrationWindow::RegistrationWindow(int* flag, QWidget *parent) :
     ui->setupUi(this);
     user_control = new UserControl(this);
     //connect(ui->registerButton, &QPushButton::clicked, this, &RegistrationWindow::registerUser);
-    connect(ui->goBackButton, &QPushButton::clicked, this, &QDialog::reject);
+//    connect(ui->goBackButton, &QPushButton::clicked, this, &QDialog::reject);
+    connect(ui->goBackButton, &QPushButton::clicked, this, &RegistrationWindow::setFlagToLogin);
 }
 
 RegistrationWindow::~RegistrationWindow()
@@ -36,21 +38,35 @@ void RegistrationWindow::on_registerButton_clicked(){
     QString password = ui->passwordEdit->text();
     QString confirm_password = ui->confirmPasswordEdit->text();
 
-    if (!username.isEmpty() && !password.isEmpty() && !confirm_password.isEmpty() && (password == confirm_password) ){
+    if (!username.isEmpty() && !password.isEmpty() && !confirm_password.isEmpty() && !email.isEmpty() && (password == confirm_password) ){
         int code = user_control->registerUser(username, password, email);
 
         if (code == 0) {
-            MainWindow *mainWindow = new MainWindow(_flag);
-            mainWindow->show();
+            *_flag = (int)States::to_main_window;
             close();
         } else if (code == 1) {
-            QMessageBox::warning(this, tr("Invalid registration"), tr("Server check not passed"));
+            // QMessageBox::warning(qobject_cast<QWidget *> (parent()), tr("Invalid registration"), tr("Server check not passed"));
             ui->usernameEdit->clear();
             ui->passwordEdit->clear();
+            ui->emailEdit->clear();
+            ui->confirmPasswordEdit->clear();
         }
     } else {
-        QMessageBox::warning(this, tr("Invalid fields values"), tr("Some fialds are empty or password and conf password are not the same") );
         ui->usernameEdit->clear();
         ui->passwordEdit->clear();
+        ui->emailEdit->clear();
+        ui->confirmPasswordEdit->clear();
+    }
+}
+
+void RegistrationWindow::setFlagToLogin() {
+    *_flag = (int)States::to_log_window;
+    close();
+}
+
+void RegistrationWindow::closeEvent(QCloseEvent *event)
+{
+    if( event->spontaneous()){
+        *_flag = (int)States::exit;
     }
 }
