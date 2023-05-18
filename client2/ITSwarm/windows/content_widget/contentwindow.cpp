@@ -3,10 +3,10 @@
 #include "ui_contentwindow.h"
 #include <QString>
 
-ContentWindow::ContentWindow(std::shared_ptr<Client> client, QWidget *parent) :
+ContentWindow::ContentWindow(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::ContentWindow),
-    client(client)
+    client(nullptr)
 {
     ui->setupUi(this);
     ui->searchButton->setIcon(QIcon(":/img/images/icons8-search-30.png"));

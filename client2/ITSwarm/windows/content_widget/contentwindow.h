@@ -15,7 +15,7 @@ class ContentWindow : public QWidget
     Q_OBJECT
 
 public:
-    explicit ContentWindow(std::shared_ptr<Client> client, QWidget *parent = nullptr);
+    explicit ContentWindow(QWidget *parent = nullptr);
     Ui::ContentWindow *ui;
     ~ContentWindow();
 
