@@ -1,3 +1,2 @@
-
-server/build/
-server/.vscode
+.vscode
+build*
