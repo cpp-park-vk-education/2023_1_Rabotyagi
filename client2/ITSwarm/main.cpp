@@ -15,14 +15,20 @@ int main(int argc, char *argv[])
     std::unique_ptr<MainWindow> main = std::make_unique<MainWindow>(&flag);
 
     //login->show();
-    while (flag != -1 && flag != 1){
+    while (flag != -1){
+        if (flag == 1)
+        {
+            main->show();
+            break;
+        }
         switch (flag) {
             case (int)LoginWindow::States::to_log_window:
                 login->show();
                 break;
-            case (int)LoginWindow::States::to_main_window:
+            /*case (int)LoginWindow::States::to_main_window:
+                qDebug() << "Open mainwindow";
                 main->show();
-                break;
+                break;*/
             case (int)LoginWindow::States::to_reg_window:
                 reg->show();
                 break;

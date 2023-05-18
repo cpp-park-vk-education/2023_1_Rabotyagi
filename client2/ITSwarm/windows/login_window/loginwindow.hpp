@@ -3,7 +3,6 @@
 
 #include <QDialog>
 #include "user_control.h"
-#include <jwt.h>
 #include <QLineEdit>
 #include <QCloseEvent>
 
