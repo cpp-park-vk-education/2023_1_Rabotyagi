@@ -1,12 +1,12 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "windows/settings_window/settingswindow.h"
-#include "windows/gitconnection/gitconnection.h"
+#include "settingswindow.h"
+#include "gitconnection.h"
 #include <memory>
-#include "windows/userbar/userbar.h"
-#include "windows/content_widget/contentwindow.h"
-#include "windows/sidebar/sidebar.h"
+#include "userbar.h"
+#include "contentwindow.h"
+#include "sidebar.h"
 #include <QMainWindow>
 #include <QVector>
 
@@ -19,7 +19,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
+    MainWindow(int* flag, QWidget *parent = nullptr);
     virtual ~MainWindow();
 
 public slots:
@@ -28,6 +28,7 @@ public slots:
 
 private:
     Ui::MainWindow *ui;
+    int* _flag;
 
     std::shared_ptr<SettingsWindow> settings;
     std::shared_ptr<GitConnection> git;

@@ -12,9 +12,10 @@
 #include <QtNetwork/QNetworkReply>
 #include <QSettings>
 
-RegistrationWindow::RegistrationWindow(QWidget *parent) :
+RegistrationWindow::RegistrationWindow(int* flag, QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::RegistrationWindow)
+    ui(new Ui::RegistrationWindow),
+    _flag(flag)
 {
     ui->setupUi(this);
     user_control = new UserControl(this);
@@ -39,7 +40,7 @@ void RegistrationWindow::on_registerButton_clicked(){
         int code = user_control->registerUser(username, password, email);
 
         if (code == 0) {
-            MainWindow *mainWindow = new MainWindow;
+            MainWindow *mainWindow = new MainWindow(_flag);
             mainWindow->show();
             close();
         } else if (code == 1) {

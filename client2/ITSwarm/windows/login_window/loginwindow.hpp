@@ -2,15 +2,12 @@
 #define LOGINWINDOW_H
 
 #include <QDialog>
-#include "../reg_window/reg_window.h"
-#include "../main_window/main_window.h"
-#include "../../controls/user_control/user_control.h"
+#include "reg_window.h"
 //#include <jwt.h>
 #include <QLineEdit>
-#include "./loginwindow.h"
-#include "../main_window/main_window.h"
+#include "main_window.h"
 #include "ui_loginwindow.h"
-#include "../../controls/user_control/user_control.h"
+#include "user_control.h"
 #include <QMessageBox>
 #include <QFile>
 #include <QJsonDocument>
@@ -36,16 +33,17 @@ public:
 
     };
 
-    explicit LoginWindow(int& flag, QWidget *parent = nullptr) :
+    explicit LoginWindow(int* flag, QWidget *parent = nullptr) :
         QDialog(parent),
-        ui(new Ui::LoginWindow)
+        ui(new Ui::LoginWindow),
+        _flag(flag)
     {
         ui->setupUi(this);
 //        registration_window = new RegistrationWindow(this);
         user_control = new UserControl();
 
         // Connect the showRegistrationWindow slot to the registerButton clicked signal
-//        connect(ui->registrationButton, &QPushButton::clicked, this, &LoginWindow::openRegistrationWindow);
+        connect(ui->registrationButton, &QPushButton::clicked, this, &LoginWindow::setFlagToRegistration);
 
         // Connect the goBack signal from the registration window to the show() slot of the login window
 //        connect(registration_window, &RegistrationWindow::goBack, this, &LoginWindow::show);
@@ -59,14 +57,15 @@ public:
     };
 
 private slots:
+    void setFlagToRegistration() { *_flag = (int)States::to_reg_window; }
     //void login();
     void on_loginButton_clicked();
 public slots:
     //void saveTokens(const QString &accessToken, const QString &refreshToken);
 
 private:
-    int* _flag;
     Ui::LoginWindow *ui;
+    int* _flag;
     UserControl* user_control;
     QLineEdit *usernameEdit;
     QLineEdit *passwordEdit;

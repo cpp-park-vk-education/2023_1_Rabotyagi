@@ -1,8 +1,8 @@
-QT       += core gui
+QT       += core gui network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-CONFIG += c++11
+CONFIG += c++20
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
@@ -20,7 +20,6 @@ SOURCES += \
     controls/message_control/messagecontrol.cpp \
     controls/user_control/user_control.cpp \
     main.cpp \
-    qrc_icons.cpp \
     windows/channel_widget/channelsidebar.cpp \
     windows/content_widget/contentwindow.cpp \
     windows/gitconnection/gitconnection.cpp \
@@ -66,7 +65,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
-    windows/static/icons.qrc
+    windows/static/images.qrc
 
 DISTFILES += \
     windows/static/images/Channels-Iconhovered.png \
@@ -81,3 +80,21 @@ DISTFILES += \
     windows/static/images/icons8-search-30.png \
     windows/static/images/icons8-settings-50.png \
     windows/static/images/settings.png
+
+INCLUDEPATH += \
+    "windows/channel_widget" \
+    "windows/content_widget" \
+    "windows/gitconnection" \
+    "windows/login_window" \
+    "windows/main_window" \
+    "windows/reg_window" \
+    "windows/settings_window" \
+    "windows/sidebar" \
+    "windows/static" \
+    "windows/userbar" \
+    "controls/channel_control" \
+    "controls/client" \
+    "controls/data_types" \
+    "controls/message_control" \
+    "controls/user_control" \
+

@@ -1,5 +1,5 @@
-#include "mainwindow.h"
-#include "ui_mainwindow.h"
+#include "main_window.h"
+#include "ui_main_window.h"
 #include "settingswindow.h"
 #include "gitconnection.h"
 #include <memory>
@@ -9,17 +9,17 @@
 #include <QFont>
 #include "sidebar.h"
 
-MainWindow::MainWindow(std::shared_ptr<Client> client, QWidget *parent)
+MainWindow::MainWindow(int* flag, QWidget *parent)
     :QMainWindow(parent),
     ui(new Ui::MainWindow),
-    client(client)
+    _flag(flag)
 {
     ui->setupUi(this);
     QMainWindow::setWindowTitle("ITSwarm");
     ui->gitButton->setIcon(QIcon(":/img/images/icons8-git-50.png"));
     ui->settingsButton->setIcon(QIcon(":/img/images/icons8-settings-50.png"));
 
-    content_window = std::make_shared<ContentWindow>(client, this);
+    //content_window = std::make_shared<ContentWindow>(client, this);
     content_window->move(130, 60);
 
     userbar = std::make_shared<Userbar>(this);

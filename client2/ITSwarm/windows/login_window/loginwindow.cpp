@@ -43,7 +43,7 @@ void LoginWindow::on_loginButton_clicked(){
 
     int code = user_control->login(username, password, email);
     if (code == 0) {
-        MainWindow *mainWindow = new MainWindow;
+        MainWindow *mainWindow = new MainWindow(_flag);
         mainWindow->show();
         close();
     } else if (code == 1) {
@@ -52,10 +52,4 @@ void LoginWindow::on_loginButton_clicked(){
         ui->passwordEdit->clear();
         ui->emailEdit->clear();
     }
-}
-
-void LoginWindow::openRegistrationWindow()
-{
-    registration_window->show();
-    hide();
 }

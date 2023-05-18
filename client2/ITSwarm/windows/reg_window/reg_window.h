@@ -2,8 +2,8 @@
 #define REGISTRATIONWINDOW_H
 
 #include <QDialog>
-#include "../main_window/main_window.h"
-#include "../../controls/user_control/user_control.h"
+#include "main_window.h"
+#include "user_control.h"
 
 namespace Ui {
 class RegistrationWindow;
@@ -14,7 +14,7 @@ class RegistrationWindow : public QDialog
     Q_OBJECT
 
 public:
-    explicit RegistrationWindow(QWidget *parent = nullptr);
+    explicit RegistrationWindow(int* flag, QWidget *parent = nullptr);
     ~RegistrationWindow();
 
 signals:
@@ -28,6 +28,7 @@ private slots:
 
 private:
     Ui::RegistrationWindow *ui;
+    int* _flag;
     UserControl *user_control;
 };
 
