@@ -1,6 +1,7 @@
 #ifndef CONTENTWINDOW_H
 #define CONTENTWINDOW_H
 
+#include "client.h"
 #include <QWidget>
 #include "messagecontrol.h"
 #include "channel.h"
@@ -14,7 +15,7 @@ class ContentWindow : public QWidget
     Q_OBJECT
 
 public:
-    explicit ContentWindow(QWidget *parent = nullptr);
+    explicit ContentWindow(std::shared_ptr<Client> client, QWidget *parent = nullptr);
     Ui::ContentWindow *ui;
     ~ContentWindow();
 
@@ -24,14 +25,18 @@ public slots:
     //void append_message(const QString& text);
     void on_pushButton_clicked();
     void on_lineEdit_returnPressed();
+    void slotUpdateMessages();
 
 
 private:
     void connect_to_message_control();
 
+    std::shared_ptr<Client> client;
 
     std::shared_ptr<MessageControl> message_control;
     std::shared_ptr<Channel> active_channel;
+    //std::shared_ptr<Client> client;
+    //Client* client;
 };
 
 #endif // CONTENTWINDOW_H

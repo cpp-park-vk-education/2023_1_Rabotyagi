@@ -14,10 +14,12 @@ public:
     void SendToServer(QString text);
     QString GetMessage() { return message; }
     void ClearMessage() { message.clear(); }
-    QString GetName() { return QString::number(socket->socketDescriptor()); }
+    void SetName(QString str) { name = str; }
+    QString GetName() { return name; }
 
 private:
     //std::shared_ptr<QTcpSocket> socket;
+    QString name;
     QTcpSocket* socket;
     QByteArray data;
     QString message;

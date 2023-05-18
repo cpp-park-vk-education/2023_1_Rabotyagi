@@ -19,3 +19,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     server.h
+
+INCLUDEPATH += "../ITSwarm_beta"

@@ -2,6 +2,7 @@
 #define MESSAGE_H
 
 #include <QString>
+#include <QTime>
 
 class Message
 {
@@ -14,6 +15,7 @@ public:
 private:
     QString username;
     QString text;
+    QTime send_time;
 };
 
 #endif // MESSAGE_H

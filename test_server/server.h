@@ -4,6 +4,7 @@
 #include <QTcpServer>
 #include <QTcpSocket>
 #include <QVector>
+#include "client.h"
 
 class Server: public QTcpServer
 {

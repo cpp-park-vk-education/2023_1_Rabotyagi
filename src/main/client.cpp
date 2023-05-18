@@ -12,6 +12,9 @@ Client::Client()
 
     next_block_size = 0;
     qDebug() << "Client successfully created: " << socket->socketDescriptor();
+
+    std::srand(std::time(nullptr));
+    SetName("User" + QString::number(std::rand() % 1000));
 }
 
 void Client::SendToServer(QString text)
