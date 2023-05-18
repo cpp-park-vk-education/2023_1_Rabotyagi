@@ -11,20 +11,20 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    src/main/channel.cpp \
-    src/main/channelcontrol.cpp \
-    src/main/channelsidebar.cpp \
-    src/main/client.cpp \
-    src/main/contentwindow.cpp \
-    src/main/gitconnection.cpp \
-    src/main/guild.cpp \
-    src/main/main.cpp \
-    src/main/mainwindow.cpp \
-    src/main/message.cpp \
-    src/main/messagecontrol.cpp \
-    src/main/settingswindow.cpp \
-    src/main/sidebar.cpp \
-    src/main/userbar.cpp
+    ../../src/main/channel.cpp \
+    ../../src/main/channelcontrol.cpp \
+    ../../src/main/channelsidebar.cpp \
+    ../../src/main/client.cpp \
+    ../../src/main/contentwindow.cpp \
+    ../../src/main/gitconnection.cpp \
+    ../../src/main/guild.cpp \
+    ../../src/main/main.cpp \
+    ../../src/main/mainwindow.cpp \
+    ../../src/main/message.cpp \
+    ../../src/main/messagecontrol.cpp \
+    ../../src/main/settingswindow.cpp \
+    ../../src/main/sidebar.cpp \
+    ../../src/main/userbar.cpp
 
 HEADERS += \
     channel.h \
@@ -42,13 +42,13 @@ HEADERS += \
     userbar.h
 
 FORMS += \
-    ui/main/channelsidebar.ui \
-    ui/main/contentwindow.ui \
-    ui/main/gitconnection.ui \
-    ui/main/mainwindow.ui \
-    ui/main/settingswindow.ui \
-    ui/main/sidebar.ui \
-    ui/main/userbar.ui
+    ../../ui/main/channelsidebar.ui \
+    ../../ui/main/contentwindow.ui \
+    ../../ui/main/gitconnection.ui \
+    ../../ui/main/mainwindow.ui \
+    ../../ui/main/settingswindow.ui \
+    ../../ui/main/sidebar.ui \
+    ../../ui/main/userbar.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
