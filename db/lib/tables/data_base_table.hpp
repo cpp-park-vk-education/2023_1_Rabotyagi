@@ -1,29 +1,23 @@
-#include <QSqlDatabase>
-#include <QSqlError>
-#include <QSqlQuery>
-#include <QVariant>
+#include <pqxx>
 
 class DatabaseTable
 {
 public:
-    DatabaseTable(const QString &tableName) : tableName(tableName)
+    DatabaseTable(const std::string &tableName) : tableName(tableName)
     {
-        db = QSqlDatabase::addDatabase(/*db type*/);
-        db.setHostName(/*host name*/);
-        db.setPort(/*port*/);
-        db.setDatabaseName(/*db name*/);
-        db.setUserName(/*user name*/);
-        db.setPassword(/*user password*/);
-
-        if (!db.open())
+        db = new pqxx::connection(
+            "host=db_host port=db_port dbname=db_name user=db_user password=db_password"
+        );
+        if (!db->is_open())
         {
-            qDebug() << "Failed to connect to database:" << db.lastError().text();
+            std::cerr << "Failed to connect to database:" << db->get_error_message() << std::endl;
         }
     }
 
     ~DatabaseTable()
     {
-        db.close();
+        db->disconnect();
+        delete db;
     }
 
     virtual bool insertRecord()
@@ -43,6 +37,7 @@ public:
     }
 
 protected:
-    QString tableName;
-    QSqlDatabase db;
+    std::string tableName;
+    pqxx::connection *db;
 };
+
