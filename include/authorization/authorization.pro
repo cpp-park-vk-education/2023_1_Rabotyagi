@@ -9,11 +9,11 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    srs/authorization/main.cpp \
-    srs/authorization/mainwindow.cpp \
-    srs/authorization/loginwindow.cpp \
-    srs/authorization/registrationwindow.cpp \
-    srs/authorization/usercontrol.cpp
+    ../../src/authorization/main.cpp \
+    ../../src/authorization/mainwindow.cpp \
+    ../../src/authorization/loginwindow.cpp \
+    ../../src/authorization/registrationwindow.cpp \
+    ../../src/authorization/usercontrol.cpp
 
 HEADERS += \
     mainwindow.h \
@@ -23,9 +23,9 @@ HEADERS += \
 
 
 FORMS += \
-    ui/authorization/mainwindow.ui \
-    ui/authorization/loginwindow.ui \
-    ui/authorization/registrationwindow.ui
+    ../../ui/authorization/mainwindow.ui \
+    ../../ui/authorization/loginwindow.ui \
+    ../../ui/authorization/registrationwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
