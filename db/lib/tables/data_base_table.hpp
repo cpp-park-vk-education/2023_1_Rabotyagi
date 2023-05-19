@@ -20,19 +20,20 @@ public:
         delete db;
     }
 
-    virtual bool insertRecord()
+    virtual bool insertRecord(Base&)
+    {
+    }
+    
+
+    virtual bool deleteRecord(unsigned int)
     {
     }
 
-    virtual bool deleteRecord()
+    virtual bool updateRecord(Base&, unsigned int)
     {
     }
 
-    virtual bool updateRecord()
-    {
-    }
-
-    virtual QList<QVariantList> readRecord()
+    virtual Base readRecord(unsigned int)
     {
     }
 
@@ -40,4 +41,5 @@ protected:
     std::string tableName;
     pqxx::connection *db;
 };
+
 
