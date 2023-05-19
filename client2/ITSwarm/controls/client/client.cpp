@@ -3,7 +3,6 @@
 
 Client::Client()
 {
-    //socket = std::make_shared<QTcpSocket>(this);
     socket = new QTcpSocket;
     socket->connectToHost("127.0.0.1", 8000);
 

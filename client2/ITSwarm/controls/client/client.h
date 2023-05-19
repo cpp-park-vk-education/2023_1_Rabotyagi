@@ -20,7 +20,6 @@ public:
     QString GetName() { return name; }
 
 private:
-    //std::shared_ptr<QTcpSocket> socket;
     QString name;
     QTcpSocket* socket;
     QByteArray data;

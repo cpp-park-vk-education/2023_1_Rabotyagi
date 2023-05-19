@@ -15,7 +15,7 @@ class ContentWindow : public QWidget
     Q_OBJECT
 
 public:
-    explicit ContentWindow(QWidget *parent = nullptr);
+    explicit ContentWindow(std::shared_ptr<Client> client = nullptr, QWidget *parent = nullptr);
     Ui::ContentWindow *ui;
     ~ContentWindow();
 
@@ -35,8 +35,6 @@ private:
 
     std::shared_ptr<MessageControl> message_control;
     std::shared_ptr<Channel> active_channel;
-    //std::shared_ptr<Client> client;
-    //Client* client;
 };
 
 #endif // CONTENTWINDOW_H

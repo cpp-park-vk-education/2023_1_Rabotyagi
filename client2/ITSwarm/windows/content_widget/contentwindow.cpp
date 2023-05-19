@@ -3,10 +3,10 @@
 #include "ui_contentwindow.h"
 #include <QString>
 
-ContentWindow::ContentWindow(QWidget *parent) :
+ContentWindow::ContentWindow(std::shared_ptr<Client> client, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::ContentWindow),
-    client(nullptr)
+    client(client)
 {
     ui->setupUi(this);
     ui->searchButton->setIcon(QIcon(":/img/images/icons8-search-30.png"));
@@ -14,10 +14,6 @@ ContentWindow::ContentWindow(QWidget *parent) :
 
     connect_to_message_control();
 
-    //client = std::make_shared<Client>();
-    //client = new Client();
-
-    //connect(client.get(), &Client::slotReadyRead, this, &ContentWindow::slotUpdateMessages);
     connect(client.get(), &Client::newMessages, this, &ContentWindow::slotUpdateMessages);
 }
 
@@ -33,8 +29,6 @@ void ContentWindow::on_pushButton_clicked()
     if (text.isEmpty())
         return;
 
-    QString nickname = client->GetName();
-    //client->SendToServer(nickname + ": " + text);
     client->SendToServer(text);
     ui->lineEdit->clear();
 }

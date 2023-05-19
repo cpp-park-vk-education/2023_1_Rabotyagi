@@ -19,7 +19,9 @@ MainWindow::MainWindow(int* flag, QWidget *parent)
     ui->gitButton->setIcon(QIcon(":/img/images/icons8-git-50.png"));
     ui->settingsButton->setIcon(QIcon(":/img/images/icons8-settings-50.png"));
 
-    content_window = std::make_shared<ContentWindow>(this);
+    client = std::make_shared<Client>();
+
+    content_window = std::make_shared<ContentWindow>(client, this);
     content_window->move(130, 60);
 
     userbar = std::make_shared<Userbar>(this);

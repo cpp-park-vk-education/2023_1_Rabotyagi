@@ -9,6 +9,7 @@
 #include "sidebar.h"
 #include <QMainWindow>
 #include <QVector>
+#include "client.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -29,6 +30,8 @@ public slots:
 private:
     Ui::MainWindow *ui;
     int* _flag;
+
+    std::shared_ptr<Client> client;
 
     std::shared_ptr<SettingsWindow> settings;
     std::shared_ptr<GitConnection> git;
