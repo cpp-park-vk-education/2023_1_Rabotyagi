@@ -63,7 +63,7 @@ class UserTable : DatabaseTable
             pqxx::result result = transaction.exec_params(sql, id);
             transaction.commit();
             User user_result;
-            user_result.id=result[0].as<int>();
+            user_result.id=result[0].as<unsigned int>();
             user_result.name=result[1].as<std::string>();
             user_result.pasword=result[2].as<std::string>();
             user_result.email=result[3].as<std::string>();
