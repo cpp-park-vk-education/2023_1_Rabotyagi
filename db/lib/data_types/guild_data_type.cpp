@@ -1,8 +1,8 @@
-struct Guild
+struct Guild:Base
 {
-    unsigned int id;
-    unsigned int owner_id;
-    unsigned int name;
-    std::string user_count;
-    std::string created_at;
+    unsigned int id=0;
+    unsigned int owner_id=0;
+    std::string name="";
+    unsigned int user_count=0;
+    std::string created_at="";
 };
