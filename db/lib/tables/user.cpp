@@ -10,7 +10,7 @@ class UserTable : DatabaseTable
     {
         try{
             pqxx::work transaction(*conn);
-            std::string sql = "INSERT INTO " + tableName + "(name,password,email,last_login;) VALUES ($1,$2,$3,$4)";
+            std::string sql = "INSERT INTO " + tableName + "(name,password,email,last_login) VALUES ($1,$2,$3,$4)";
             transaction.exec_params(sql, user_struct.name, user_struct.password, user_struct.email, user_struct.last_login);
             transaction.commit();
             std::cout << "Record was added to db!" << std::endl;
