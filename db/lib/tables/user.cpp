@@ -1,65 +1,82 @@
-class User : DatabaseTable
+class UserTable : DatabaseTable
 {
-    User("users")
+    UserTable("users")
     {
     }
-    ~User()
+    ~UserTable()
     {
     }
-    void initRecord(unsigned int id, const QString &username, const QString &hashed_password = "", bool is_admin = False) : _username = username, _hashed_password = hashed_password, _is_admin = is_admin;
-    bool insertRecord() override
+    bool insertRecord(User user_struct) override  //добавить проверку на уникальность
     {
-        QSqlQuery query(db);
-        query.prepare("INSERT INTO " + tableName + " (id,username, hashed_password, is_admin) VALUES (:id, :username, :hashed_password, :is_admin)");
-        query.bindValue(":id", _id);
-        query.bindValue(":username", _username);
-        query.bindValue(":hashed_password", _hashed_password);
-        query.bindValue(":is_admin", _is_admin);
-        return query.exec();
-    }
-    bool deleteRecord() override
-    {
-        QSqlQuery query(db);
-        query.prepare("DELETE FROM " + tableName + " WHERE id=:id");
-        query.bindValue(":id", _id);
-        return query.exec();
-    }
-    bool updateRecord() override
-    {
-        QSqlQuery query(db);
-        query.prepare("UPDATE " + tableName + " SET username=:username, hashed_password=:hashed_password, is_admin:=is_admin WHERE id=:id");
-        query.bindValue(":username", _username);
-        query.bindValue(":hashed_password", _hashed_password);
-        query.bindValue(":is_admin", _is_admin);
-        return query.exec();
-    }
-    QList<QVariantList> readRecord()
-    {
-        QList<QVariantList> result;
-        QSqlQuery query(db);
-        query.prepare("SELECT * FROM " + tableName);
-        if (query.exec())
-        {
-            while (query.next())
-            {
-                QVariantList record;
-                record.append(query.value("id"));
-                record.append(query.value("username"));
-                record.append(query.value("hashed_password"));
-                record.append(query.value("is_admin"));
-                result.append(record);
-            }
+        try{
+            pqxx::work transaction(*conn);
+            std::string sql = "INSERT INTO " + tableName + "(name,password,email,last_login;) VALUES ($1,$2,$3,$4)";
+            transaction.exec_params(sql, user_struct.name, user_struct.password, user_struct.email, user_struct.last_login);
+            transaction.commit();
+            std::cout << "Record was added to db!" << std::endl;
+            return true;
         }
-        else
+        catch (const std::exception& e) 
         {
-            qDebug() << "Failed to select records:" << query.lastError().text();
+            std::cerr << e.what() << std::endl;
+            return false;
         }
-        return result;
     }
+    bool deleteRecord(unsigned int id) override
+    {
+        try{
+            pqxx::work transaction(*conn);
+            std::string sql="DELETE FROM "+ tableName + " WHERE id=$1";
+            transaction.exec_params(sql, id );
+            transaction.commit();
+            std::cout << "Record was deleted from db!" << std::endl;
+            return true;
 
-private:
-    unsigned int _id,
-        QString _username,
-        QString _hashed_password,
-        bool is_admin;
+        }
+        catch (const std::exception& e) 
+        {
+            std::cerr << e.what() << std::endl;
+            return false;
+        }
+    }
+    bool updateRecord(User user_struct, unsigned int id) override
+    {
+        try{
+            pqxx::work transaction(*conn);
+            std::string sql="UPDATE " + tableName + " SET name=$1, password=$2, email=$3, last_login=$4 WHERE id=$5";
+            transaction.exec_params(sql, user_struct.name, user_struct.password, user_struct.email, user_struct.last_login, id);
+            transaction.commit();
+            std::cout << "Record was updated!" << std::endl;
+            return true;
+        }
+        catch (const std::exception& e) 
+        {
+            std::cerr << e.what() << std::endl;
+            return false;
+        }
+    }
+    User readRecord(User user_struct, unsigned int id)
+    {
+        try{
+            pqxx::work transaction(*conn);
+            std::string sql="SELECT * FROM " + tableName + " WHERE id=$1";
+            pqxx::result result = transaction.exec_params(sql, id);
+            transaction.commit();
+            User user_result;
+            user_result.id=result[0].as<int>();
+            user_result.name=result[1].as<std::string>();
+            user_result.pasword=result[2].as<std::string>();
+            user_result.email=result[3].as<std::string>();
+            user_result.last_login=result[4].as<std::string>();
+            std::cout << "Record was found!" << std::endl;
+            return user_result;
+
+        }
+        catch (const std::exception& e) 
+        {
+            std::cerr << e.what() << std::endl;
+            User user_result;
+            return user_result; //возвращает пустой шаблон
+        }
+    }
 }
