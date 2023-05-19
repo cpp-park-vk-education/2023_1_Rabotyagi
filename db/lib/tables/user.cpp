@@ -6,7 +6,7 @@ class UserTable : DatabaseTable
     ~UserTable()
     {
     }
-    bool insertRecord(User user_struct) override  //добавить проверку на уникальность
+    bool insertRecord(User& user_struct) override  //добавить проверку на уникальность
     {
         try{
             pqxx::work transaction(*conn);
@@ -39,7 +39,7 @@ class UserTable : DatabaseTable
             return false;
         }
     }
-    bool updateRecord(User user_struct, unsigned int id) override
+    bool updateRecord(User& user_struct, unsigned int id) override
     {
         try{
             pqxx::work transaction(*conn);
@@ -55,7 +55,7 @@ class UserTable : DatabaseTable
             return false;
         }
     }
-    User readRecord(User user_struct, unsigned int id)
+    User readRecord(unsigned int id)
     {
         try{
             pqxx::work transaction(*conn);
@@ -80,3 +80,4 @@ class UserTable : DatabaseTable
         }
     }
 }
+
