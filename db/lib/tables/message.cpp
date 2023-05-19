@@ -13,7 +13,7 @@ class MessageTable : DatabaseTable
         sql="SELECT COUNT(*) FROM channels";
         pqxx::result channel_count=transaction.exec(sql);
         transaction.commit();
-        if (owner_id<=user_count.as<int>() && channel_id<=channel_count.as<int>()) return true;
+        if (owner_id<=user_count.as<unsigned int>() && channel_id<=channel_count.as<unsigned int>()) return true;
         else return false;
     }
     bool insertRecord(Message& message_struct) override //добавить проверку на существование канала и обладателя
@@ -76,9 +76,9 @@ class MessageTable : DatabaseTable
             pqxx::result result = transaction.exec_params(sql, id);
             transaction.commit();
             Message message_result;
-            message_result.id=result[0].as<int>();
-            message_result.owner_id=result[1].as<int>();
-            message_result.channel_id=result[2].as<int>();
+            message_result.id=result[0].as<unsigned int>();
+            message_result.owner_id=result[1].as<unsigned int>();
+            message_result.channel_id=result[2].as<unsigned int>();
             message_result.content=result[3].as<std::string>();
             message_result.created_at=result[4].as<std::string>();
             message_result.updated_at=result[5].as<std::string>();
