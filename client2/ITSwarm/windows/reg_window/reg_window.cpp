@@ -1,7 +1,5 @@
 #include "reg_window.h"
 #include "./ui_reg_window.h"
-#include "../login_window/loginwindow.hpp"
-#include "../main_window/main_window.h"
 #include <QMessageBox>
 #include <QFile>
 #include <QJsonDocument>

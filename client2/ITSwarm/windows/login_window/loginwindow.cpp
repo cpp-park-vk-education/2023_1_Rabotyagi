@@ -1,5 +1,4 @@
 #include "./loginwindow.hpp"
-#include "../main_window/main_window.h"
 #include "ui_loginwindow.h"
 #include "../../controls/user_control/user_control.h"
 #include <QMessageBox>

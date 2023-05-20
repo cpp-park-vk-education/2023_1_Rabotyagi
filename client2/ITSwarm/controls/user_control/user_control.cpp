@@ -1,4 +1,4 @@
-#include "controls/user_control/user_control.h"
+#include "user_control.h"
 #include <QMessageBox>
 #include <QFile>
 #include <QJsonDocument>

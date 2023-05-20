@@ -3,12 +3,14 @@
 
 #include <gtest/gtest.h>
 #include <gmock/gmock-matchers.h>
-#include "loginwindow.h"
-#include "registrationwindow.h"
-#include "usercontrol.h"
+#include "../../../client2/ITSwarm/windows/login_window/loginwindow.hpp"
+#include "../../../client2/ITSwarm/windows/reg_window/reg_window.h"
+#include "../../../client2/ITSwarm/controls/user_control/user_control.h"
 #include <QFile>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QTest>
+#include <QCloseEvent>
 
 using namespace testing;
 
@@ -108,6 +110,71 @@ TEST(my_suit, parseToken_test) {
 
     EXPECT_EQ(user.last_login, expectedUser.last_login);
 
+}
+
+//ДЛЯ СЛЕДУЮЩИХ ТЕСТОВ Я ДЕЛАЛ PUBLIC ТЕСТИРУЕМЫЕ МЕТОДЫ
+
+// закрыть окно через панель
+TEST(my_suit, closeEvent)
+{
+    int flag = 0;
+    LoginWindow window(&flag);
+
+    QCloseEvent* event = new QCloseEvent(QCloseEvent::Close);
+
+    window.closeEvent(event);
+
+    EXPECT_EQ(flag, (int)States::exit);
+}
+
+//закрыть окно через escape
+TEST(LoginWindowTest, keyPressEvent)
+{
+    int flag = 0;
+    LoginWindow window(&flag);
+
+    QKeyEvent* event = new QKeyEvent(QEvent::KeyPress, Qt::Key_Escape, Qt::NoModifier);
+
+    window.keyPressEvent(event);
+
+    EXPECT_EQ(flag, (int)States::exit);
+}
+
+
+TEST(my_suit, loginButton)
+{
+    int flag = 3;
+    LoginWindow loginWindow(&flag);
+
+    // Тест логина
+    loginWindow.ui->usernameEdit->setText("username");
+    loginWindow.ui->passwordEdit->setText("password");
+
+    // Убедимся, что индикатор состояния не изменился до нажатия на кнопку
+    EXPECT_EQ(flag, 0);
+
+    // Нажимаем кнопку и проверяем, что индикатор изменился на нужный
+    QTest::mouseClick(loginWindow.ui->loginButton, Qt::LeftButton);
+    EXPECT_EQ(flag, (int)LoginWindow::States::to_main_window);
+}
+
+TEST(my_suit, regButton)
+{
+    int flag = 2;
+    LoginWindow regWindow(&flag);
+
+    // Тест логина
+    regWindow.ui->usernameEdit->setText("username");
+    regWindow.ui->passwordEdit->setText("password");
+    regWindow.ui->emailEdit->setText("email@gmail.com");
+    regWindow.ui->confirmPasswordEdit->setText("password");
+
+    // Убедимся, что индикатор состояния не изменился до нажатия на кнопку
+    EXPECT_EQ(flag, 0);
+
+    // Нажимаем кнопку и проверяем, что индикатор изменился на нужный
+    QTest::mouseClick(regWindow.ui->registerButton, Qt::LeftButton);
+    EXPECT_EQ(flag, (int)RegistrationWindow::States::to_main_window);
 }
 
 #endif // TST_MY_TEST_H

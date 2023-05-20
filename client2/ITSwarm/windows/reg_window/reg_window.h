@@ -2,7 +2,7 @@
 #define REGISTRATIONWINDOW_H
 
 #include <QDialog>
-#include "user_control.h"
+#include "../../controls/user_control/user_control.h"
 #include "QKeyEvent"
 
 namespace Ui {
