@@ -1,67 +1,97 @@
-class Guild : DatabaseTable
+class GuildTable : DatabaseTable
 {
-    Guild("guilds")
+    GuildTable("guilds")
     {
     }
-    ~Guild()
+    ~GuildTable()
     {
     }
-    void initRecord(unsigned int id, unsigned int owner_id, const QString &name, unsigned int user_count, const QString &created_at);
-    bool insertRecord() override
-    {
-        QSqlQuery query(db);
-        query.prepare("INSERT INTO " + tableName + " (id,owner_id,name, user_count, created_at) VALUES (:id, :owner_id, :name,:user_count, :created_at)");
-        query.bindValue(":id", _id);
-        query.bindValue(":owner_id", _owner_id);
-        query.bindValue(":name", _name);
-        query.bindValue(":user_count", _user_count);
-        query.bindValue(":created_at", _created_at);
-        return query.exec();
+    bool Checker(unsigned int owner_id){
+        pqxx::work transaction(*conn);
+        std::string sql="SELECT COUNT(*) FROM users";
+        pqxx::result user_count=transaction.exec(sql);
+        transaction.commit();
+        if (owner_id<=user_count.as<unsigned int>()) return true;
+        else return false;
     }
-    bool deleteRecord() override
+    bool insertRecord(Guild& guild_struct) override
     {
-        QSqlQuery query(db);
-        query.prepare("DELETE FROM " + tableName + " WHERE id=:id");
-        query.bindValue(":id", _id);
-        return query.exec();
-    }
-    bool updateRecord() override
-    {
-        QSqlQuery query(db);
-        query.prepare("UPDATE " + tableName + " SET name=:name,user_count=:user_count WHERE id=:id");
-        query.bindValue(":name", _name);
-        query.bindValue(":user_count", _user_count);
-        return query.exec();
-    }
-    QList<QVariantList> readRecord()
-    {
-        QList<QVariantList> result;
-        QSqlQuery query(db);
-        query.prepare("SELECT * FROM " + tableName);
-        if (query.exec())
-        {
-            while (query.next())
+        if (Checker(guild_struct.owner_id)){ //зачем user_count?
+            try{
+            pqxx::work transaction(*conn);
+            std::string sql = "INSERT INTO " + tableName + "(owner_id,name,user_count,created_at) VALUES ($1,$2,$3,$4)";
+            transaction.exec_params(sql, guild_struct.owner_id, guild_struct.name, guild_struct.user_count, guild_struct.created_at);
+            transaction.commit();
+            std::cout << "Record was added to db!" << std::endl;
+            return true;
+            }
+            catch (const std::exception& e) 
             {
-                QVariantList record;
-                record.append(query.value("id"));
-                record.append(query.value("owner_id"));
-                record.append(query.value("name"));
-                record.append(query.value("user_count"));
-                record.append(query.value("created_at"));
-                result.append(record);
+                std::cerr << e.what() << std::endl;
+                return false;
             }
         }
-        else
-        {
-            qDebug() << "Failed to select records:" << query.lastError().text();
-        }
-        return result;
+        return false;
     }
+    bool deleteRecord(unsigned int id) override
+    {
+        try{
+            pqxx::work transaction(*conn);
+            std::string sql="DELETE FROM "+ tableName + " WHERE id=$1";
+            transaction.exec_params(sql, id );
+            sql="DELETE FROM users_guilds WHERE guild_id=$1";
+            transaction.exec_params(sql, id );
+            sql="DELETE FROM channels WHERE guild_id=$1";
+            transaction.exec_params(sql, id );
+            transaction.commit();
+            std::cout << "Record was deleted from db!" << std::endl;
+            return true;
 
-private:
-    unsigned int _id,
-        unsigned int _owner_id,
-        unsigned int _name,
-        QString _user_count,
-        QString _created_at,
+        }
+        catch (const std::exception& e) 
+        {
+            std::cerr << e.what() << std::endl;
+            return false;
+        }
+    }
+    bool updateRecord(Guild& guild_struct, unsigned int id) override
+    {
+       try{
+            pqxx::work transaction(*conn);
+            std::string sql="UPDATE " + tableName + " SET name=$1,user_count=$2 WHERE id=$4";
+            transaction.exec_params(sql, guild_struct.name, guild_struct.user_count, id);
+            transaction.commit();
+            std::cout << "Record was updated!" << std::endl;
+            return true;
+        }
+        catch (const std::exception& e) 
+        {
+            std::cerr << e.what() << std::endl;
+            return false;
+        }
+    }
+    Guild readRecord(unsigned int id)
+    {
+        try{
+            pqxx::work transaction(*conn);
+            std::string sql="SELECT * FROM " + tableName + " WHERE id=$1";
+            pqxx::result result = transaction.exec_params(sql, id);
+            transaction.commit();
+            Guild guild_result;
+            guild_result.id=result[0].as<unsigned int>();
+            guild_result.owner_id=result[1].as<unsigned int>();
+            guild_result.name=result[2].as<std::string>();
+            guild_result.user_count=result[3].as<unsigned int>();
+            guild_result.created_at=result[4].as<std::string>();
+            std::cout << "Record was found!" << std::endl;
+            return guild_result;
+
+        }
+        catch (const std::exception& e) 
+        {
+            std::cerr << e.what() << std::endl;
+            Guild guild_result;
+            return guild_result; //возвращает пустой шаблон
+        }
+    }
 }
