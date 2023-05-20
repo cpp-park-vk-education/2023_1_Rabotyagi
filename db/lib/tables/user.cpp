@@ -28,6 +28,12 @@ class UserTable : DatabaseTable
             pqxx::work transaction(*conn);
             std::string sql="DELETE FROM "+ tableName + " WHERE id=$1";
             transaction.exec_params(sql, id );
+            sql="DELETE FROM messages WHERE owner_id=$1";
+            transaction.exec_params(sql, id );
+            sql="DELETE FROM users_guilds WHERE user_id=$1";
+            transaction.exec_params(sql, id );
+            sql="DELETE FROM guilds WHERE owner_id=$1";
+            transaction.exec_params(sql, id );
             transaction.commit();
             std::cout << "Record was deleted from db!" << std::endl;
             return true;
