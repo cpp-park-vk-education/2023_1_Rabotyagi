@@ -56,10 +56,10 @@ TEST(my_suit, register_test) {
     UserControl user_control;
 
     // Некорректный пароль (менее 6 символов)
-    ASSERT_EQ(1, user_control.login("username", "pass", "someemail@gmail.com"));
+    ASSERT_EQ(1, user_control.registerUser("username", "pass", "someemail@gmail.com"));
 
     // Корректный пароль
-    ASSERT_EQ(0, user_control.login("username", "password", "someemail@gmail.com"));
+    ASSERT_EQ(0, user_control.registerUser("username", "password", "someemail@gmail.com"));
 }
 
 TEST(my_suit, decodeToken_test) {
