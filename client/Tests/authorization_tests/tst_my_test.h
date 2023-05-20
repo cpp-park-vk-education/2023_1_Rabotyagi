@@ -21,15 +21,12 @@ TEST(my_suit, my_test)
 }
 
 TEST(my_suit, save_tokens_test) {
-    // Arrange
     QString accessToken = "access_token";
     QString refreshToken = "refresh_token";
     UserControl userControl;
 
-    // Act
     userControl.saveTokens(accessToken, refreshToken);
 
-    // Assert
     QFile file("tokens.json");
     ASSERT_TRUE(file.open(QIODevice::ReadOnly | QIODevice::Text));
     QByteArray data = file.readAll();
