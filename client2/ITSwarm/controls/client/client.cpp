@@ -14,6 +14,7 @@ Client::Client()
 
     std::srand(std::time(nullptr));
     SetName("User" + QString::number(std::rand() % 1000));
+    SetId(std::rand() % 1000);
 }
 
 void Client::SendToServer(QString text)

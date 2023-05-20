@@ -8,13 +8,13 @@ MessageControl::MessageControl()
 
 }
 
-bool MessageControl::AppendMessage(ContentWindow* window, Message& message)
+bool MessageControl::AppendMessage(ContentWindow* window, QString message)
 {
-    if (message.GetName().isEmpty() || message.GetText().isEmpty())
-        return false;
+    //if (message.GetName().isEmpty() || message.GetText().isEmpty())
+        //return false;
 
-    QString text = message.GetName() + ": " + message.GetText();
-    draw_text(window, text);
+    //QString text = message.GetName() + ": " + message.GetText();
+    draw_text(window, message);
     return true;
 }
 

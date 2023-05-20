@@ -2,6 +2,7 @@
 #include "controls/message_control/messagecontrol.h"
 #include "ui_contentwindow.h"
 #include <QString>
+#include "json_parser.h"
 
 ContentWindow::ContentWindow(std::shared_ptr<Client> client, QWidget *parent) :
     QWidget(parent),
@@ -28,8 +29,9 @@ void ContentWindow::on_pushButton_clicked()
     QString text = ui->lineEdit->text();
     if (text.isEmpty())
         return;
-
-    client->SendToServer(text);
+    Message msg(client->GetId(), text.toStdString());
+    QString encoded_msg = message_encode(msg);
+    client->SendToServer(encoded_msg);
     ui->lineEdit->clear();
 }
 
@@ -41,8 +43,8 @@ void ContentWindow::on_lineEdit_returnPressed()
 
 void ContentWindow::slotUpdateMessages()
 {
-    Message message(client->GetName(), client->GetMessage());
-    message_control->AppendMessage(this, message);
+    //Message message(client->GetName(), client->GetMessage());
+    message_control->AppendMessage(this, client->GetMessage());
     client->ClearMessage();
 }
 

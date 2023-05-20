@@ -19,6 +19,7 @@ SOURCES += \
     controls/data_types/message/message.cpp \
     controls/message_control/messagecontrol.cpp \
     controls/user_control/user_control.cpp \
+    controls/json_parser/json_parser.cpp \
     main.cpp \
     windows/channel_widget/channelsidebar.cpp \
     windows/content_widget/contentwindow.cpp \
@@ -38,6 +39,7 @@ HEADERS += \
     controls/data_types/message/message.h \
     controls/message_control/messagecontrol.h \
     controls/user_control/user_control.h \
+    controls/json_parser/json_parser.h \
     windows/channel_widget/channelsidebar.h \
     windows/content_widget/contentwindow.h \
     windows/gitconnection/gitconnection.h \
@@ -97,4 +99,5 @@ INCLUDEPATH += \
     "controls/data_types" \
     "controls/message_control" \
     "controls/user_control" \
+    "controls/json_parser"
 

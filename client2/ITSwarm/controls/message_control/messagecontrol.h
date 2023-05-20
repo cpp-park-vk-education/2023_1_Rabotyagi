@@ -10,7 +10,7 @@ class MessageControl
 public:
     MessageControl();
 
-    bool AppendMessage(ContentWindow* window, Message& message);
+    bool AppendMessage(ContentWindow* window, QString message);
 
 private:
     bool draw_text(ContentWindow* window, QString& text);

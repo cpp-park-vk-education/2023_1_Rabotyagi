@@ -18,9 +18,12 @@ public:
     void ClearMessage() { message.clear(); }
     void SetName(QString str) { name = str; }
     QString GetName() { return name; }
+    void SetId(int value) { id = value; }
+    unsigned int GetId() { return id; }
 
 private:
     QString name;
+    unsigned int id;
     QTcpSocket* socket;
     QByteArray data;
     QString message;

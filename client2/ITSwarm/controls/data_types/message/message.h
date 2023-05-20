@@ -4,18 +4,16 @@
 #include <QString>
 #include <QTime>
 
-class Message
+struct Message
 {
-public:
     Message();
-    Message(QString username, QString text);
-    QString GetName() { return username; }
-    QString GetText() { return text; }
-
-private:
-    QString username;
-    QString text;
-    QTime send_time;
+    Message(unsigned int owner_id, std::string text);
+    unsigned int id=0;
+    unsigned int owner_id=0;
+    unsigned int channel_id=0;
+    std::string content="";
+    std::string created_at="";
+    std::string updated_at="";
 };
 
 #endif // MESSAGE_H
