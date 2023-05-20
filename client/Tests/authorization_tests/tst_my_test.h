@@ -148,7 +148,7 @@ TEST(my_suit, loginButton)
     loginWindow.ui->passwordEdit->setText("password");
 
     // Убедимся, что индикатор состояния не изменился до нажатия на кнопку
-    EXPECT_EQ(flag, 0);
+    EXPECT_EQ(flag, 3);
 
     // Нажимаем кнопку и проверяем, что индикатор изменился на нужный
     QTest::mouseClick(loginWindow.ui->loginButton, Qt::LeftButton);
@@ -160,14 +160,13 @@ TEST(my_suit, regButton)
     int flag = 2;
     LoginWindow regWindow(&flag);
 
-    // Тест логина
     regWindow.ui->usernameEdit->setText("username");
     regWindow.ui->passwordEdit->setText("password");
     regWindow.ui->emailEdit->setText("email@gmail.com");
     regWindow.ui->confirmPasswordEdit->setText("password");
 
     // Убедимся, что индикатор состояния не изменился до нажатия на кнопку
-    EXPECT_EQ(flag, 0);
+    EXPECT_EQ(flag, 2);
 
     // Нажимаем кнопку и проверяем, что индикатор изменился на нужный
     QTest::mouseClick(regWindow.ui->registerButton, Qt::LeftButton);
