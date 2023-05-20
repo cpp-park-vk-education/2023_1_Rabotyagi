@@ -70,3 +70,11 @@ void RegistrationWindow::closeEvent(QCloseEvent *event)
         *_flag = (int)States::exit;
     }
 }
+
+void RegistrationWindow::keyPressEvent(QKeyEvent *event)
+{
+    if (event->key() == Qt::Key_Escape)
+    {
+        *_flag = (int)States::exit;
+    }
+}

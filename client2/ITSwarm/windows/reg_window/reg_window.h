@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include "user_control.h"
+#include "QKeyEvent"
 
 namespace Ui {
 class RegistrationWindow;
@@ -32,6 +33,7 @@ private slots:
     void on_registerButton_clicked();
     void setFlagToLogin();
     void closeEvent(QCloseEvent* event);
+    void keyPressEvent(QKeyEvent *event);
 //    void on_goBackButton_clicked();
 //    void on_registrationButton_clicked();
 //    void on_goBackButton_clicked();
