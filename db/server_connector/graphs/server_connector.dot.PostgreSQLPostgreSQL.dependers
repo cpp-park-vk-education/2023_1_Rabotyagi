@@ -1,0 +1,10 @@
+digraph "PostgreSQL::PostgreSQL" {
+node [
+  fontsize = "12"
+];
+    "node6" [ label = "PostgreSQL::PostgreSQL", shape = septagon ];
+    "node5" [ label = "server_connector", shape = octagon ];
+    "node5" -> "node6"  // server_connector -> PostgreSQL::PostgreSQL
+    "node8" [ label = "test", shape = egg ];
+    "node8" -> "node5" [ style = dotted ] // test -> server_connector
+}

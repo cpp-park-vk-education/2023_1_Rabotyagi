@@ -1,0 +1,11 @@
+#pragma once
+#include <memory>
+#include <mutex>
+#include <string>
+#include <queue>
+#include <condition_variable>
+#include <iostream>
+#include <thread>
+#include <fstream>
+#include <sstream>
+#include <postgresql/libpq-fe.h>

@@ -1,0 +1,46 @@
+digraph "server_connector" {
+node [
+  fontsize = "12"
+];
+subgraph clusterLegend {
+  label = "Legend";
+  color = black;
+  edge [ style = invis ];
+  legendNode0 [ label = "Executable", shape = egg ];
+  legendNode1 [ label = "Static Library", shape = octagon ];
+  legendNode2 [ label = "Shared Library", shape = doubleoctagon ];
+  legendNode3 [ label = "Module Library", shape = tripleoctagon ];
+  legendNode4 [ label = "Interface Library", shape = pentagon ];
+  legendNode5 [ label = "Object Library", shape = hexagon ];
+  legendNode6 [ label = "Unknown Library", shape = septagon ];
+  legendNode7 [ label = "Custom Target", shape = box ];
+  legendNode0 -> legendNode1 [ style = solid ];
+  legendNode0 -> legendNode2 [ style = solid ];
+  legendNode0 -> legendNode3;
+  legendNode1 -> legendNode4 [ label = "Interface", style = dashed ];
+  legendNode2 -> legendNode5 [ label = "Private", style = dotted ];
+  legendNode3 -> legendNode6 [ style = solid ];
+  legendNode0 -> legendNode7;
+}
+    "node0" [ label = "gmock\n(GTest::gmock)", shape = octagon ];
+    "node1" [ label = "Threads::Threads", shape = pentagon ];
+    "node0" -> "node1"  // gmock -> Threads::Threads
+    "node2" [ label = "gtest\n(GTest::gtest)", shape = octagon ];
+    "node2" -> "node1"  // gtest -> Threads::Threads
+    "node0" -> "node2"  // gmock -> gtest
+    "node3" [ label = "gmock_main\n(GTest::gmock_main)", shape = octagon ];
+    "node3" -> "node1"  // gmock_main -> Threads::Threads
+    "node3" -> "node0"  // gmock_main -> gmock
+    "node4" [ label = "gtest_main\n(GTest::gtest_main)", shape = octagon ];
+    "node4" -> "node1"  // gtest_main -> Threads::Threads
+    "node4" -> "node2"  // gtest_main -> gtest
+    "node5" [ label = "server_connector", shape = octagon ];
+    "node6" [ label = "PostgreSQL::PostgreSQL", shape = septagon ];
+    "node5" -> "node6"  // server_connector -> PostgreSQL::PostgreSQL
+    "node7" [ label = "data_types", shape = septagon ];
+    "node5" -> "node7"  // server_connector -> data_types
+    "node8" [ label = "test", shape = egg ];
+    "node8" -> "node3" [ style = dotted ] // test -> gmock_main
+    "node8" -> "node4" [ style = dotted ] // test -> gtest_main
+    "node8" -> "node5" [ style = dotted ] // test -> server_connector
+}
