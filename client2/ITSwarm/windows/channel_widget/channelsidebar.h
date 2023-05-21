@@ -3,8 +3,9 @@
 
 #include <QWidget>
 #include <QVector>
-#include "controls/data_types/channel/channel.h"
-#include "controls/channel_control/channelcontrol.h"
+#include "channel.h"
+//#include "controls/channel_control/channelcontrol.h"
+#include "contentwindow.h"
 
 namespace Ui {
 class ChannelSidebar;
@@ -15,12 +16,12 @@ class ChannelSidebar : public QWidget
     Q_OBJECT
 
 public:
-    explicit ChannelSidebar(QWidget *parent = nullptr);
-
-    void ConnectToChannelControl();
+    explicit ChannelSidebar(std::shared_ptr<ContentWindow> content_window, QWidget *parent = nullptr);
+    void ChangeActiveChannel(std::shared_ptr<Channel> channel);
+    //void ConnectToChannelControl();
     ~ChannelSidebar();
 
-private slots:
+public slots:
     void on_textChannelButton_1_clicked();
 
     void on_textChannelButton_2_clicked();
@@ -33,7 +34,8 @@ private:
 
     QVector<std::shared_ptr<Channel>> channels;
     std::shared_ptr<Channel> active_channel;
-    std::shared_ptr<ChannelControl> channel_control;
+    //std::shared_ptr<ChannelControl> channel_control;
+    std::shared_ptr<ContentWindow> content_window;
 };
 
 #endif // CHANNELSIDEBAR_H

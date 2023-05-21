@@ -29,7 +29,7 @@ SOURCES += \
     windows/main_window/main_window.cpp \
     windows/reg_window/reg_window.cpp \
     windows/settings_window/settingswindow.cpp \
-    windows/sidebar/sidebar.cpp \
+#    windows/sidebar/sidebar.cpp \
     windows/userbar/userbar.cpp
 
 HEADERS += \
@@ -40,6 +40,7 @@ HEADERS += \
     controls/data_types/channel/channel.h \
     controls/data_types/guild/guild.h \
     controls/data_types/message/message.h \
+    controls/data_types/request_impl/request_impl.h \
     controls/message_control/messagecontrol.h \
     controls/user_control/user_control.h \
     controls/json_parser/json_parser.h \
@@ -50,7 +51,7 @@ HEADERS += \
     windows/main_window/main_window.h \
     windows/reg_window/reg_window.h \
     windows/settings_window/settingswindow.h \
-    windows/sidebar/sidebar.h \
+#    windows/sidebar/sidebar.h \
     windows/userbar/userbar.h
 
 FORMS += \
@@ -102,6 +103,7 @@ INCLUDEPATH += \
     "controls/data_types/message" \
     "controls/data_types/guild" \
     "controls/data_types/channel" \
+    "controls/data_types/request_impl" \
     "controls/message_control" \
     "controls/user_control" \
     "controls/json_parser"

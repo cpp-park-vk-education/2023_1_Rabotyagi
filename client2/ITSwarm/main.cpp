@@ -14,7 +14,6 @@ int main(int argc, char *argv[])
     std::unique_ptr<RegistrationWindow> reg = std::make_unique<RegistrationWindow>(&flag);
     std::unique_ptr<MainWindow> main = std::make_unique<MainWindow>(&flag);
 
-    //login->show();
     while (flag != -1){
         if (flag == 1)
         {
@@ -25,10 +24,6 @@ int main(int argc, char *argv[])
             case (int)LoginWindow::States::to_log_window:
                 login->show();
                 break;
-            /*case (int)LoginWindow::States::to_main_window:
-                qDebug() << "Open mainwindow";
-                main->show();
-                break;*/
             case (int)LoginWindow::States::to_reg_window:
                 reg->show();
                 break;
@@ -41,5 +36,7 @@ int main(int argc, char *argv[])
         }
         QCoreApplication::processEvents();
     }
+
+    main->show();
     return a.exec();
 }

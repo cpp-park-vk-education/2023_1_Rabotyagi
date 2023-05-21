@@ -1,9 +1,11 @@
 #include "channelsidebar.h"
 #include "ui_channelsidebar.h"
+#include "ui_contentwindow.h"
 
-ChannelSidebar::ChannelSidebar(QWidget *parent) :
+ChannelSidebar::ChannelSidebar(std::shared_ptr<ContentWindow> content_window, QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::ChannelSidebar)
+    ui(new Ui::ChannelSidebar),
+    content_window(content_window)
 {
     ui->setupUi(this);
 
@@ -14,7 +16,7 @@ ChannelSidebar::ChannelSidebar(QWidget *parent) :
     ui->voiceChannelButton_2->setIcon(QIcon(":/img/images/Channels-Iconvoice hovered.png"));
     ui->voiceChannelButton_3->setIcon(QIcon(":/img/images/Channels-Iconvoice hovered.png"));
 
-    ConnectToChannelControl();
+    //ConnectToChannelControl();
     channels.push_back(std::make_shared<Channel>(Channel("1", ChannelType::Message)));
     channels.push_back(std::make_shared<Channel>(Channel("2", ChannelType::Message)));
     channels.push_back(std::make_shared<Channel>(Channel("3", ChannelType::Message)));
@@ -22,30 +24,41 @@ ChannelSidebar::ChannelSidebar(QWidget *parent) :
     active_channel = channels[0];
 }
 
+void ChannelSidebar::ChangeActiveChannel(std::shared_ptr<Channel> channel)
+{
+    active_channel = channel;
+    content_window->ui->textBrowser->clear();
+    qDebug() << "switched to channel 1";
+}
+
+
 ChannelSidebar::~ChannelSidebar()
 {
     delete ui;
 }
 
-void ChannelSidebar::ConnectToChannelControl()
+/*void ChannelSidebar::ConnectToChannelControl()
 {
     channel_control = std::make_shared<ChannelControl>();
-}
+}*/
 
 void ChannelSidebar::on_textChannelButton_1_clicked()
 {
-    active_channel = channels[0];
+    ChangeActiveChannel(channels[0]);
+    content_window->ChangeActiveChannel(active_channel);
 }
 
 
 void ChannelSidebar::on_textChannelButton_2_clicked()
 {
-    active_channel = channels[1];
+    ChangeActiveChannel(channels[1]);
+    content_window->ChangeActiveChannel(active_channel);
 }
 
 
 void ChannelSidebar::on_textChannelButton_3_clicked()
 {
-    active_channel = channels[2];
+    ChangeActiveChannel(channels[2]);
+    content_window->ChangeActiveChannel(active_channel);
 }
 

@@ -14,6 +14,7 @@ public:
     TCPClient();
 
     bool ConnectToServer(QString address, qint16 port) ;
+    bool Disconnect();
     //bool DisconnectFromServer()  {};
     bool Post(QString url, const QJsonObject& data, const QJsonObject& config) ;
     bool Get(QString url, const QJsonObject& config) ;

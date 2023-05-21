@@ -6,10 +6,17 @@
 
 namespace UserMessage{
 
+enum class MessageType{
+    Simple,
+    NewParticipant,
+    ParticipantLeave
+};
+
 struct Message
 {
     Message();
-    Message(unsigned int owner_id, std::string text);
+    Message(unsigned int owner_id, std::string text, MessageType type = MessageType::Simple);
+    //MessageType message_type=
     unsigned int id=0;
     unsigned int owner_id=0;
     unsigned int channel_id=0;

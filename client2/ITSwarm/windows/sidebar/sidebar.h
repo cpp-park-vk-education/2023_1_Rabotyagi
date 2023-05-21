@@ -2,7 +2,7 @@
 #define SIDEBAR_H
 
 #include <QWidget>
-#include "windows/channel_widget/channelsidebar.h"
+#include "channelsidebar.h"
 #include <memory>
 
 namespace Ui {

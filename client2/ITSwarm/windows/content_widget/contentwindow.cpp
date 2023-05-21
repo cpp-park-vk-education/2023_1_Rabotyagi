@@ -4,7 +4,7 @@
 #include <QString>
 #include "json_parser.h"
 
-/*ContentWindow::ContentWindow(std::shared_ptr<Client> client, QWidget *parent) :
+ContentWindow::ContentWindow(std::shared_ptr<Client> client, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::ContentWindow),
     client(client)
@@ -16,9 +16,15 @@
     connect_to_message_control();
 
     connect(client.get(), &Client::newMessages, this, &ContentWindow::slotUpdateMessages);
-}*/
+}
 
-ContentWindow::ContentWindow(std::shared_ptr<TCPClient> client, QWidget *parent) :
+void ContentWindow::ChangeActiveChannel(std::shared_ptr<Channel> channel)
+{
+    active_channel = channel;
+    qDebug() << "ContentWindow: changed active_channel";
+}
+
+/*ContentWindow::ContentWindow(std::shared_ptr<TCPClient> client, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::ContentWindow),
     client(client)
@@ -30,13 +36,24 @@ ContentWindow::ContentWindow(std::shared_ptr<TCPClient> client, QWidget *parent)
     connect_to_message_control();
 
     connect(client.get(), &TCPClient::newMessages, this, &ContentWindow::slotUpdateMessages);
-}
+}*/
 
 ContentWindow::~ContentWindow()
 {
     delete ui;
 }
 
+
+void ContentWindow::on_pushButton_clicked()
+{
+    QString text = ui->lineEdit->text();
+    if (text.isEmpty())
+        return;
+    Message msg(client->GetId(), text.toStdString());
+    QString encoded_msg = message_encode(msg);
+    client->SendToServer(encoded_msg);
+    ui->lineEdit->clear();
+}
 
 //void ContentWindow::on_pushButton_clicked()
 //{
@@ -49,17 +66,6 @@ ContentWindow::~ContentWindow()
 //    ui->lineEdit->clear();
 //}
 
-void ContentWindow::on_pushButton_clicked()
-{
-    QString text = ui->lineEdit->text();
-    if (text.isEmpty())
-        return;
-    //Message msg(client->GetId(), text.toStdString());
-    //QString encoded_msg = message_encode(msg);
-    //client->SendToServer(encoded_msg);
-    ui->lineEdit->clear();
-}
-
 
 void ContentWindow::on_lineEdit_returnPressed()
 {
@@ -68,8 +74,8 @@ void ContentWindow::on_lineEdit_returnPressed()
 
 void ContentWindow::slotUpdateMessages()
 {
-    //message_control->AppendMessage(this, client->GetMessage());
-    //client->ClearMessage();
+    message_control->AppendMessage(this, client->GetMessage());
+    client->ClearMessage();
 }
 
 void ContentWindow::connect_to_message_control()
