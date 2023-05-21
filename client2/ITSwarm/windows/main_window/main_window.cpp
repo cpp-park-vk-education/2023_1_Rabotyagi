@@ -19,7 +19,9 @@ MainWindow::MainWindow(int* flag, QWidget *parent)
     ui->gitButton->setIcon(QIcon(":/img/images/icons8-git-50.png"));
     ui->settingsButton->setIcon(QIcon(":/img/images/icons8-settings-50.png"));
 
-    client = std::make_shared<Client>();
+    //client = std::make_shared<Client>();
+    client = std::make_shared<TCPClient>();
+    client->ConnectToServer("127.0.0.1", 8000);
 
     content_window = std::make_shared<ContentWindow>(client, this);
     content_window->move(130, 60);

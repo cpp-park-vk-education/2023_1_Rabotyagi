@@ -1,7 +1,7 @@
 #ifndef CONTENTWINDOW_H
 #define CONTENTWINDOW_H
 
-#include "controls/client/client.h"
+#include "tcpclient.h"
 #include <QWidget>
 #include "controls/message_control/messagecontrol.h"
 #include "controls/data_types/channel/channel.h"
@@ -15,7 +15,8 @@ class ContentWindow : public QWidget
     Q_OBJECT
 
 public:
-    explicit ContentWindow(std::shared_ptr<Client> client = nullptr, QWidget *parent = nullptr);
+    //explicit ContentWindow(std::shared_ptr<Client> client = nullptr, QWidget *parent = nullptr);
+    explicit ContentWindow(std::shared_ptr<TCPClient> client = nullptr, QWidget *parent = nullptr);
     Ui::ContentWindow *ui;
     ~ContentWindow();
 
@@ -31,7 +32,8 @@ public slots:
 private:
     void connect_to_message_control();
 
-    std::shared_ptr<Client> client;
+    //std::shared_ptr<Client> client;
+    std::shared_ptr<TCPClient> client;
 
     std::shared_ptr<MessageControl> message_control;
     std::shared_ptr<Channel> active_channel;

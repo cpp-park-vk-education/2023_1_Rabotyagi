@@ -15,6 +15,7 @@ CONFIG += c++20
 SOURCES += \
     controls/channel_control/channelcontrol.cpp \
     controls/client/client.cpp \
+    controls/client/tcpclient.cpp \
     controls/data_types/guild/guild.cpp \
     controls/data_types/message/message.cpp \
     controls/message_control/messagecontrol.cpp \
@@ -34,6 +35,8 @@ SOURCES += \
 HEADERS += \
     controls/channel_control/channelcontrol.h \
     controls/client/client.h \
+    controls/client/iclient.h \
+    controls/client/tcpclient.h \
     controls/data_types/channel/channel.h \
     controls/data_types/guild/guild.h \
     controls/data_types/message/message.h \
@@ -96,7 +99,9 @@ INCLUDEPATH += \
     "windows/userbar" \
     "controls/channel_control" \
     "controls/client" \
-    "controls/data_types" \
+    "controls/data_types/message" \
+    "controls/data_types/guild" \
+    "controls/data_types/channel" \
     "controls/message_control" \
     "controls/user_control" \
     "controls/json_parser"

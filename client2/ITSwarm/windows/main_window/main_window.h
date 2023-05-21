@@ -9,7 +9,8 @@
 #include "sidebar.h"
 #include <QMainWindow>
 #include <QVector>
-#include "client.h"
+//#include "client.h"
+#include "tcpclient.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -31,7 +32,8 @@ private:
     Ui::MainWindow *ui;
     int* _flag;
 
-    std::shared_ptr<Client> client;
+    //std::shared_ptr<Client> client;
+    std::shared_ptr<TCPClient> client;
 
     std::shared_ptr<SettingsWindow> settings;
     std::shared_ptr<GitConnection> git;

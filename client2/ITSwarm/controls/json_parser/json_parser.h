@@ -1,8 +1,9 @@
-#include "message/message.h"
+#include "message.h"
 #include <string>
 #include <QJsonObject>
 #include <QJsonDocument>
 
+using namespace UserMessage;
 
 QString message_encode(Message& message);
 QJsonObject message_decode(const QString& str);

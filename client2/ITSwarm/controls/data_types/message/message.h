@@ -4,6 +4,8 @@
 #include <QString>
 #include <QTime>
 
+namespace UserMessage{
+
 struct Message
 {
     Message();
@@ -15,5 +17,7 @@ struct Message
     std::string created_at="";
     std::string updated_at="";
 };
+
+}
 
 #endif // MESSAGE_H
