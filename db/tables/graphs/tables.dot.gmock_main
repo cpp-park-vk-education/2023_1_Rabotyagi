@@ -1,0 +1,16 @@
+digraph "gmock_main" {
+node [
+  fontsize = "12"
+];
+    "node3" [ label = "gmock_main\n(GTest::gmock_main)", shape = octagon ];
+    "node1" [ label = "Threads::Threads", shape = pentagon ];
+    "node3" -> "node1"  // gmock_main -> Threads::Threads
+    "node0" [ label = "gmock\n(GTest::gmock)", shape = octagon ];
+    "node3" -> "node0"  // gmock_main -> gmock
+    "node1" [ label = "Threads::Threads", shape = pentagon ];
+    "node0" -> "node1"  // gmock -> Threads::Threads
+    "node2" [ label = "gtest\n(GTest::gtest)", shape = octagon ];
+    "node0" -> "node2"  // gmock -> gtest
+    "node1" [ label = "Threads::Threads", shape = pentagon ];
+    "node2" -> "node1"  // gtest -> Threads::Threads
+}
