@@ -1,15 +1,15 @@
 #ifndef USERCONTROL_H
 #define USERCONTROL_H
-
+#include "user.h"
 #include <QObject>
 
-struct User{
-    unsigned int id;
-    std::string name;
-    std::string password;
-    std::string email;
-    std::string last_login;
-};
+//struct User{
+//    unsigned int id;
+//    std::string name;
+//    std::string password;
+//    std::string email;
+//    std::string last_login;
+//};
 
 class UserControl : public QObject
 {
@@ -24,7 +24,6 @@ public slots:
     int registerUser(const QString& username, const QString& password, const QString& email);
     int login(const QString& username, const QString& password, const QString& email);
 private:
-    User user;
 };
 
 #endif // USERCONTROL_H

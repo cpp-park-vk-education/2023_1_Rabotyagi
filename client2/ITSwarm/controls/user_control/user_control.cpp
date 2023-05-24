@@ -9,6 +9,7 @@
 #include <QSettings>
 #include <QString>
 #include <QCryptographicHash>
+#include <../../external/json.hpp>
 
 
 
@@ -17,6 +18,13 @@ UserControl::UserControl(QObject *parent) : QObject(parent)
 
 }
 
+void fill_user(int id, std::string name, std::string password, std::string email, std::string last_login) {
+    user.id = id;
+    user.name = name;
+    user.email = email;
+    user.password = password;
+    user.last_login = last_login;
+}
 
 void UserControl::decodeToken(const QString& encryptedToken, QByteArray &decodedData) {
     QByteArray tokenBytes = encryptedToken.toUtf8();
@@ -42,20 +50,21 @@ void UserControl::parseToken(const QString& encryptedToken, User& user) {
 
 int UserControl::login(const QString& username, const QString& password, const QString& email )
 {
-    if (password.length() >= 6){
-         QString response = "{\"access_token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.8wZgcl0G0j1zG8vtKGY6oIJuKvQpNBKpCCx-GBWFWiA\", "
-                            "\"refresh_token\": \"1234567890\"}";
-         QJsonDocument jsonDoc = QJsonDocument::fromJson(response.toUtf8());
-         QString accessToken = jsonDoc["access_token"].toString();
-         QString refreshToken = jsonDoc["refresh_token"].toString();
-         saveTokens(accessToken, refreshToken);
-         parseToken(accessToken, user);
-         return 0;
-    } else {
-        return 1;
-    }
 
 
+
+//    if (password.length() >= 6){
+//         QString response = "{\"access_token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.8wZgcl0G0j1zG8vtKGY6oIJuKvQpNBKpCCx-GBWFWiA\", "
+//                            "\"refresh_token\": \"1234567890\"}";
+//         QJsonDocument jsonDoc = QJsonDocument::fromJson(response.toUtf8());
+//         QString accessToken = jsonDoc["access_token"].toString();
+//         QString refreshToken = jsonDoc["refresh_token"].toString();
+//         saveTokens(accessToken, refreshToken);
+//         parseToken(accessToken, user);
+//         return 0;
+//    } else {
+//        return 1;
+//    }
 
 //    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
 //    QUrl url("http://example.com/login");
@@ -91,32 +100,43 @@ int UserControl::login(const QString& username, const QString& password, const Q
 
 void UserControl::saveTokens(const QString &accessToken, const QString &refreshToken)
 {
-     QJsonObject json;
-     json["access_token"] = accessToken;
-     json["refresh_token"] = refreshToken;
-     QJsonDocument doc(json);
+//     QJsonObject json;
+//     json["access_token"] = accessToken;
+//     json["refresh_token"] = refreshToken;
+//     QJsonDocument doc(json);
 
-     QFile file("tokens.json");
-     if (file.open(QIODevice::WriteOnly)) {
-         file.write(doc.toJson());
-         file.close();
-     }
+//     QFile file("tokens.json");
+//     if (file.open(QIODevice::WriteOnly)) {
+//         file.write(doc.toJson());
+//         file.close();
+//     }
+
+     // Создаем JSON объект
+     nlohmann::json j;
+     j["access_token"] = accessToken;
+     j["refresh_token"] = refreshToken;
+
+     // Записываем JSON объект в файл
+     std::ofstream o("tokens.json");
+     o << std::setw(4) << j << std::endl;
 }
 
 int UserControl::registerUser(const QString& username, const QString& password, const QString& email)
 {
-    if (password.length() >= 6){
-         QString response = "{\"access_token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.8wZgcl0G0j1zG8vtKGY6oIJuKvQpNBKpCCx-GBWFWiA\", "
-                            "\"refresh_token\": \"1234567890\"}";
-         QJsonDocument jsonDoc = QJsonDocument::fromJson(response.toUtf8());
-         QString accessToken = jsonDoc["access_token"].toString();
-         QString refreshToken = jsonDoc["refresh_token"].toString();
-         saveTokens(accessToken, refreshToken);
-         parseToken(accessToken, user);
-         return 0;
-    } else {
-        return 1;
-    }
+
+
+//    if (password.length() >= 6){
+//         QString response = "{\"access_token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.8wZgcl0G0j1zG8vtKGY6oIJuKvQpNBKpCCx-GBWFWiA\", "
+//                            "\"refresh_token\": \"1234567890\"}";
+//         QJsonDocument jsonDoc = QJsonDocument::fromJson(response.toUtf8());
+//         QString accessToken = jsonDoc["access_token"].toString();
+//         QString refreshToken = jsonDoc["refresh_token"].toString();
+//         saveTokens(accessToken, refreshToken);
+//         parseToken(accessToken, user);
+//         return 0;
+//    } else {
+//        return 1;
+//    }
 
 
 

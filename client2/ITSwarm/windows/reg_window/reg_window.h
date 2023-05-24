@@ -37,6 +37,8 @@ private slots:
 //    void on_goBackButton_clicked();
 //    void on_registrationButton_clicked();
 //    void on_goBackButton_clicked();
+    bool passwordCheck(const QString& pass);
+    bool regDataCorrect(const QString& username, const QString& email, const QString& pass, const QString& confirm_pass);
 
 private:
     Ui::RegistrationWindow *ui;

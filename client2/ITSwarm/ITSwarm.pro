@@ -31,12 +31,14 @@ SOURCES += \
     windows/userbar/userbar.cpp
 
 HEADERS += \
+    ../../external/json.hpp \
     controls/channel_control/channelcontrol.h \
     controls/client/client.h \
     controls/data_types/channel/channel.h \
     controls/data_types/guild/guild.h \
     controls/data_types/message/message.h \
     controls/message_control/messagecontrol.h \
+    controls/user_control/user.h \
     controls/user_control/user_control.h \
     windows/channel_widget/channelsidebar.h \
     windows/content_widget/contentwindow.h \
