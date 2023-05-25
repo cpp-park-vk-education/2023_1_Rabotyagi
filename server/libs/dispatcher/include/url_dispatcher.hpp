@@ -1,4 +1,7 @@
 #include "view.hpp"
+#include <map>
+#include <memory>
+#include <string>
 
 class UrlDispatcher {
   public:

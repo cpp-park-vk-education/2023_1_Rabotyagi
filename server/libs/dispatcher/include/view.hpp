@@ -1,4 +1,5 @@
 #pragma once
+#include "data_types.hpp"
 #include "request.hpp"
 
 class View {

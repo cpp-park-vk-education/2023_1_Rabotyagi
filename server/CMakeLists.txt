@@ -19,11 +19,11 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_subdirectory(libs/request)
-add_subdirectory(libs/data_types)
+add_subdirectory(libs/db)
 add_subdirectory(libs/dispatcher)
 
 target_link_libraries(main 
     PRIVATE request
-    PRIVATE data_types
+    PRIVATE database
     PRIVATE dispatcher
 )
