@@ -6,6 +6,7 @@
 #include <QtNetwork/QTcpSocket>
 #include <memory>
 
+
 class TCPClient: public QObject
 {
 Q_OBJECT
@@ -17,6 +18,7 @@ public:
     bool Disconnect();
     //bool DisconnectFromServer()  {};
     bool Post(QString url, const QJsonObject& data, const QJsonObject& config) ;
+    bool SendToServer(const QString request);
     bool Get(QString url, const QJsonObject& config) ;
     QVector<QString> GetChannels(QString url, const QJsonObject& config) const ;
     QVector<QString> GetUsers(QString url, const QJsonObject& config) const ;

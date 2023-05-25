@@ -41,6 +41,7 @@ HEADERS += \
     controls/data_types/guild/guild.h \
     controls/data_types/message/message.h \
     controls/data_types/request_impl/request_impl.h \
+    controls/data_types/request_impl/json.hpp \
     controls/message_control/messagecontrol.h \
     controls/user_control/user_control.h \
     controls/json_parser/json_parser.h \

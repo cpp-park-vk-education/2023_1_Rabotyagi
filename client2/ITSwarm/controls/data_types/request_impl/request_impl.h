@@ -1,7 +1,11 @@
-#ifndef REQUEST_IMPL_H
-#define REQUEST_IMPL_H
-
+#pragma once
+#include <boost/parameter.hpp>
+#include <boost/parameter/keyword.hpp>
+#include "json.hpp"
+#include <stdexcept>
 #include <string>
+#include <memory>
+using json = nlohmann::json;
 
 struct User {
     unsigned int id;
@@ -23,6 +27,14 @@ struct Message {
     unsigned int owner_id;
     unsigned int channel_id;
 };
+
+BOOST_PARAMETER_NAME(status);
+BOOST_PARAMETER_NAME(message);
+BOOST_PARAMETER_NAME(url);
+BOOST_PARAMETER_NAME(method);
+BOOST_PARAMETER_NAME(params);
+BOOST_PARAMETER_NAME(data);
+// BOOST_PARAMETER_NAME(json_body);
 
 struct Request_impl
 {
@@ -93,4 +105,61 @@ struct Request_impl
         return Message();
     }
 };
-#endif // REQUEST_IMPL_H
+
+struct Request : public Request_impl {
+    BOOST_PARAMETER_CONSTRUCTOR(
+        Request, (Request_impl), tag,
+        (optional
+            (status, (int))
+            (message, (std::string))
+            (url, (std::string))
+            (method, (std::string))
+            (params, (json))
+            (data, (json))
+        )
+    );
+
+    static Request load_from_string(string message){
+        if (message == ""){
+            throw std::runtime_error("request string is empty");
+        }
+        else {
+            json body = json::parse(message);
+            return Request::load_from_json(body);
+        }
+    }
+
+    static Request load_from_json(json request) {
+        Request result;
+        if (!request.empty()){
+            if (request.contains("meta")){
+                if (request["meta"].contains("status"))
+                    result.status = request["meta"]["status"];
+                else
+                    throw std::runtime_error("invalid json body (no status field)");
+
+                if (request["meta"].contains("message"))
+                    result.message = request["meta"]["message"];
+
+                if (request["meta"].contains("url"))
+                    result.url = request["meta"]["url"];
+
+                if (request["meta"].contains("method"))
+                    result.method = request["meta"]["method"];
+
+                if (request["meta"].contains("params"))
+                    result.params = request["meta"]["params"];
+
+            }
+            else
+                throw std::runtime_error("meta field in json body is missing");
+
+            if (request.contains("data"))
+                result.data = request["data"];
+        }
+        else {
+            throw std::runtime_error("json param is empty!");
+        }
+        return result;
+    }
+};
