@@ -44,6 +44,7 @@ HEADERS += \
     controls/data_types/request_impl/json.hpp \
     controls/message_control/messagecontrol.h \
     controls/user_control/user_control.h \
+    controls/user_control/user.h \
     controls/json_parser/json_parser.h \
     windows/channel_widget/channelsidebar.h \
     windows/content_widget/contentwindow.h \

@@ -12,6 +12,7 @@
 
 
 
+
 UserControl::UserControl(QObject *parent) : QObject(parent)
 {
 
