@@ -2,9 +2,10 @@
 #define LOGINWINDOW_H
 
 #include <QDialog>
-#include "user_control.h"
+#include "../../controls/user_control/user_control.h"
 #include <QLineEdit>
 #include <QCloseEvent>
+#include <QKeyEvent>
 
 namespace Ui {
 class LoginWindow;
@@ -33,7 +34,7 @@ private slots:
     void setFlagToRegistration();
     void on_loginButton_clicked();
     void closeEvent(QCloseEvent* event);
-    //void on_WindowCloseButtonHint_clicked();
+    void keyPressEvent(QKeyEvent *event);
 public slots:
     //void saveTokens(const QString &accessToken, const QString &refreshToken);
 

@@ -9,7 +9,7 @@
 #include <QSettings>
 #include <QString>
 #include <QCryptographicHash>
-#include <../../external/json.hpp>
+#include "json.hpp"
 
 
 
@@ -98,28 +98,6 @@ int UserControl::login(const QString& username, const QString& password, const Q
 //    }
 }
 
-void UserControl::saveTokens(const QString &accessToken, const QString &refreshToken)
-{
-//     QJsonObject json;
-//     json["access_token"] = accessToken;
-//     json["refresh_token"] = refreshToken;
-//     QJsonDocument doc(json);
-
-//     QFile file("tokens.json");
-//     if (file.open(QIODevice::WriteOnly)) {
-//         file.write(doc.toJson());
-//         file.close();
-//     }
-
-     // Создаем JSON объект
-     nlohmann::json j;
-     j["access_token"] = accessToken;
-     j["refresh_token"] = refreshToken;
-
-     // Записываем JSON объект в файл
-     std::ofstream o("tokens.json");
-     o << std::setw(4) << j << std::endl;
-}
 
 int UserControl::registerUser(const QString& username, const QString& password, const QString& email)
 {

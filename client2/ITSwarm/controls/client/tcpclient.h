@@ -5,6 +5,7 @@
 #include <QObject>
 #include <QtNetwork/QTcpSocket>
 #include <memory>
+#include "request.h"
 
 
 class TCPClient: public QObject
@@ -16,19 +17,17 @@ public:
 
     bool ConnectToServer(QString address, qint16 port) ;
     bool Disconnect();
-    //bool DisconnectFromServer()  {};
-    bool Post(QString url, const QJsonObject& data, const QJsonObject& config) ;
-    bool SendToServer(const QString request);
-    bool Get(QString url, const QJsonObject& config) ;
-    QVector<QString> GetChannels(QString url, const QJsonObject& config) const ;
-    QVector<QString> GetUsers(QString url, const QJsonObject& config) const ;
-    //bool JoinChannel(const QString channel)  {};
-    //bool LeaveChannel(const QString channel)  {};
+    Request_impl GeneratePostRequest(QString message);
+    Request_impl GenerateGetRequest();
+    bool SendRequest(const Request_impl request);
+    QString GetMessage() { return message; }
+    void ClearMessage() { message.clear(); }
 
-    //~TCPClient();
 private:
     std::shared_ptr<QTcpSocket> socket;
-    //QTcpSocket* socket;
+    QByteArray data;
+    QString message;
+    qint16 next_block_size;
 
 public slots:
     void slotReadyRead();

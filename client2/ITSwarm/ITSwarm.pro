@@ -16,11 +16,8 @@ SOURCES += \
     controls/channel_control/channelcontrol.cpp \
     controls/client/client.cpp \
     controls/client/tcpclient.cpp \
-    controls/data_types/guild/guild.cpp \
-    controls/data_types/message/message.cpp \
     controls/message_control/messagecontrol.cpp \
     controls/user_control/user_control.cpp \
-    controls/json_parser/json_parser.cpp \
     main.cpp \
     windows/channel_widget/channelsidebar.cpp \
     windows/content_widget/contentwindow.cpp \
@@ -33,19 +30,17 @@ SOURCES += \
     windows/userbar/userbar.cpp
 
 HEADERS += \
+    controls/data_types/request.h \
+    controls/data_types/data_types.hpp \
+    external/json.hpp \
     controls/channel_control/channelcontrol.h \
     controls/client/client.h \
     controls/client/iclient.h \
     controls/client/tcpclient.h \
-    controls/data_types/channel/channel.h \
-    controls/data_types/guild/guild.h \
-    controls/data_types/message/message.h \
-    controls/data_types/request_impl/request_impl.h \
-    controls/data_types/request_impl/json.hpp \
+    controls/data_types/data_types.hpp \
     controls/message_control/messagecontrol.h \
     controls/user_control/user_control.h \
     controls/user_control/user.h \
-    controls/json_parser/json_parser.h \
     windows/channel_widget/channelsidebar.h \
     windows/content_widget/contentwindow.h \
     windows/gitconnection/gitconnection.h \
@@ -102,11 +97,8 @@ INCLUDEPATH += \
     "windows/userbar" \
     "controls/channel_control" \
     "controls/client" \
-    "controls/data_types/message" \
-    "controls/data_types/guild" \
-    "controls/data_types/channel" \
-    "controls/data_types/request_impl" \
+    "controls/data_types" \
     "controls/message_control" \
     "controls/user_control" \
-    "controls/json_parser"
+    "external"
 

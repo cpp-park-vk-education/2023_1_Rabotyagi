@@ -1,5 +1,4 @@
 #include "./loginwindow.hpp"
-#include "../main_window/main_window.h"
 #include "ui_loginwindow.h"
 #include "../../controls/user_control/user_control.h"
 #include <QMessageBox>
@@ -63,6 +62,14 @@ void LoginWindow::setFlagToRegistration() {
 void LoginWindow::closeEvent(QCloseEvent *event)
 {
     if( event->spontaneous()){
+        *_flag = (int)States::exit;
+    }
+}
+
+void LoginWindow::keyPressEvent(QKeyEvent *event)
+{
+    if (event->key() == Qt::Key_Escape)
+    {
         *_flag = (int)States::exit;
     }
 }

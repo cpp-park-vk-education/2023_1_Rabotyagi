@@ -2,9 +2,8 @@
 #include "controls/message_control/messagecontrol.h"
 #include "ui_contentwindow.h"
 #include <QString>
-#include "json_parser.h"
 
-ContentWindow::ContentWindow(std::shared_ptr<Client> client, QWidget *parent) :
+/*ContentWindow::ContentWindow(std::shared_ptr<Client> client, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::ContentWindow),
     client(client)
@@ -16,7 +15,7 @@ ContentWindow::ContentWindow(std::shared_ptr<Client> client, QWidget *parent) :
     connect_to_message_control();
 
     connect(client.get(), &Client::newMessages, this, &ContentWindow::slotUpdateMessages);
-}
+}*/
 
 void ContentWindow::ChangeActiveChannel(std::shared_ptr<Channel> channel)
 {
@@ -24,7 +23,7 @@ void ContentWindow::ChangeActiveChannel(std::shared_ptr<Channel> channel)
     qDebug() << "ContentWindow: changed active_channel";
 }
 
-/*ContentWindow::ContentWindow(std::shared_ptr<TCPClient> client, QWidget *parent) :
+ContentWindow::ContentWindow(std::shared_ptr<TCPClient> client, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::ContentWindow),
     client(client)
@@ -36,7 +35,7 @@ void ContentWindow::ChangeActiveChannel(std::shared_ptr<Channel> channel)
     connect_to_message_control();
 
     connect(client.get(), &TCPClient::newMessages, this, &ContentWindow::slotUpdateMessages);
-}*/
+}
 
 ContentWindow::~ContentWindow()
 {
@@ -49,9 +48,8 @@ void ContentWindow::on_pushButton_clicked()
     QString text = ui->lineEdit->text();
     if (text.isEmpty())
         return;
-    Message msg(client->GetId(), text.toStdString());
-    QString encoded_msg = message_encode(msg);
-    client->SendToServer(encoded_msg);
+    Request_impl request = client->GeneratePostRequest(text);
+    client->SendRequest(request);
     ui->lineEdit->clear();
 }
 

@@ -1,32 +1,13 @@
 #pragma once
 #include <boost/parameter.hpp>
 #include <boost/parameter/keyword.hpp>
-#include "json.hpp"
 #include <stdexcept>
 #include <string>
 #include <memory>
+#include "json.hpp"
+#include "data_types.hpp"
+
 using json = nlohmann::json;
-
-struct User {
-    unsigned int id;
-    const char* username;
-};
-
-struct Guild {
-    unsigned int id;
-    unsigned int owner_id;
-};
-
-struct Channel {
-    unsigned int id;
-    unsigned int guild_id;
-};
-
-struct Message {
-    unsigned int id;
-    unsigned int owner_id;
-    unsigned int channel_id;
-};
 
 BOOST_PARAMETER_NAME(status);
 BOOST_PARAMETER_NAME(message);
@@ -85,24 +66,38 @@ struct Request_impl
         });
     }
 
-    template<User>
-    User parse_to() {
-        return User();
+    template<User& user>
+    void parse() {
+        user.name = data["user"]["name"];
+        user.password = data["user"]["password"];
+        user.email = data["user"]["email"];
+        user.last_login = data["user"]["last_login"];
     }
 
-    template<Guild>
-    Guild parse_to() {
-        return Guild();
+    template<Guild& guild>
+    void parse() {
+        guild.owner_id = data["guild"]["owner_id"];
+        guild.name = data["guild"]["name"];
+        guild.user_count = data["guild"]["user_count"];
+        guild.created_at = data["guild"]["created_at"];
     }
 
-    template<Channel>
-    Channel parse_to() {
-        return Channel();
+    template<Channel& channel>
+    void parse() {
+        channel.guild_id = data["channel"]["guild_id"];
+        channel.name = data["channel"]["name"];
+        channel.type = data["channel"]["type"];
+        channel.created_at = data["channel"]["created_at"];
+        channel.updated_at = data["channel"]["updated_at"];
     }
 
-    template<Message>
-    Message parse_to() {
-        return Message();
+    template<Message& message>
+    void parse() {
+        message.owner_i = data["message"]["owner_i"];
+        message.channel_id = data["message"]["channel_id"];
+        message.content = data["message"]["content"];
+        message.created_at = data["message"]["created_at"];
+        message.updated_at = data["message"]["updated_at"];
     }
 };
 
