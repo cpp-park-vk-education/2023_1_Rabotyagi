@@ -1,7 +1,5 @@
 #include "reg_window.h"
 #include "./ui_reg_window.h"
-#include "../login_window/loginwindow.hpp"
-#include "../main_window/main_window.h"
 #include <QMessageBox>
 #include <QFile>
 #include <QJsonDocument>
@@ -12,6 +10,8 @@
 #include <QtNetwork/QNetworkReply>
 #include <QSettings>
 #include <QCloseEvent>
+#include <regex>
+#include <iostream>
 
 RegistrationWindow::RegistrationWindow(int* flag, QWidget *parent) :
     QDialog(parent),
@@ -32,13 +32,35 @@ RegistrationWindow::~RegistrationWindow()
 }
 
 
+bool RegistrationWindow::passwordCheck(const QString& pass) {
+    if (pass.length() < 6){
+        return false;
+    }
+
+//    не знаю надо ли заставлять пользователя делать пароль из букв цифр и символов,
+//    если надо - раскоментить
+//    std::string std_pass = pass.toStdString();
+//    std::regex pattern("^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[@#$%^&+=])(?!.*\\s).*$");
+//    return std::regex_match(std_pass, pattern);
+
+    return true;
+}
+
+bool RegistrationWindow::regDataCorrect(const QString& username, const QString& email, const QString& pass, const QString& confirm_pass) {
+    if (!username.isEmpty() && !pass.isEmpty() && !confirm_pass.isEmpty() && !email.isEmpty() && (pass == confirm_pass) ){
+        return true;
+    }
+    return false;
+}
+
+
 void RegistrationWindow::on_registerButton_clicked(){
     QString username = ui->usernameEdit->text();
     QString email = ui->emailEdit->text();
     QString password = ui->passwordEdit->text();
     QString confirm_password = ui->confirmPasswordEdit->text();
 
-    if (!username.isEmpty() && !password.isEmpty() && !confirm_password.isEmpty() && !email.isEmpty() && (password == confirm_password) ){
+    if ( regDataCorrect(username, email, password, confirm_password) && passwordCheck(password) ){
         int code = user_control->registerUser(username, password, email);
 
         if (code == 0) {
@@ -51,6 +73,9 @@ void RegistrationWindow::on_registerButton_clicked(){
             ui->emailEdit->clear();
             ui->confirmPasswordEdit->clear();
         }
+    } else if ( regDataCorrect(username, email, password, confirm_password) && passwordCheck(password) && !passwordCheck(password)){
+        ui->passwordEdit->clear();
+        ui->confirmPasswordEdit->clear();
     } else {
         ui->usernameEdit->clear();
         ui->passwordEdit->clear();
@@ -67,6 +92,14 @@ void RegistrationWindow::setFlagToLogin() {
 void RegistrationWindow::closeEvent(QCloseEvent *event)
 {
     if( event->spontaneous()){
+        *_flag = (int)States::exit;
+    }
+}
+
+void RegistrationWindow::keyPressEvent(QKeyEvent *event)
+{
+    if (event->key() == Qt::Key_Escape)
+    {
         *_flag = (int)States::exit;
     }
 }

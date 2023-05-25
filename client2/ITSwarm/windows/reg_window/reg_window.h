@@ -2,7 +2,8 @@
 #define REGISTRATIONWINDOW_H
 
 #include <QDialog>
-#include "user_control.h"
+#include "../../controls/user_control/user_control.h"
+#include "QKeyEvent"
 
 namespace Ui {
 class RegistrationWindow;
@@ -32,9 +33,12 @@ private slots:
     void on_registerButton_clicked();
     void setFlagToLogin();
     void closeEvent(QCloseEvent* event);
+    void keyPressEvent(QKeyEvent *event);
 //    void on_goBackButton_clicked();
 //    void on_registrationButton_clicked();
 //    void on_goBackButton_clicked();
+    bool passwordCheck(const QString& pass);
+    bool regDataCorrect(const QString& username, const QString& email, const QString& pass, const QString& confirm_pass);
 
 private:
     Ui::RegistrationWindow *ui;
