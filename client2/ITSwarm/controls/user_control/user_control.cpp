@@ -49,22 +49,19 @@ void UserControl::parseToken(const QString& encryptedToken, User& user) {
 
 
 int UserControl::login(const QString& username, const QString& password, const QString& email )
-{
+{    
+    Request request(
+        _url = "http://example.com/user",
+        _method = "GET",
+        _params = json{
+            {"username", username},
+            {"password", password}
+        }
+    );
+
+    QByteArray replie =
 
 
-
-//    if (password.length() >= 6){
-//         QString response = "{\"access_token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.8wZgcl0G0j1zG8vtKGY6oIJuKvQpNBKpCCx-GBWFWiA\", "
-//                            "\"refresh_token\": \"1234567890\"}";
-//         QJsonDocument jsonDoc = QJsonDocument::fromJson(response.toUtf8());
-//         QString accessToken = jsonDoc["access_token"].toString();
-//         QString refreshToken = jsonDoc["refresh_token"].toString();
-//         saveTokens(accessToken, refreshToken);
-//         parseToken(accessToken, user);
-//         return 0;
-//    } else {
-//        return 1;
-//    }
 
 //    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
 //    QUrl url("http://example.com/login");
