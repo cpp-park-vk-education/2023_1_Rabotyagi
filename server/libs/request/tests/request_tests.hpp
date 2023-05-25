@@ -1,4 +1,5 @@
 #include <request.hpp>
+#include <gtest/gtest.h>
 
 TEST(RequestTests, ConstructorFromString){
     //Arrange
