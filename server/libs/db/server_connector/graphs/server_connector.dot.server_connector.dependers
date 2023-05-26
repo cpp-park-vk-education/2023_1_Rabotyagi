@@ -1,8 +1,0 @@
-digraph "server_connector" {
-node [
-  fontsize = "12"
-];
-    "node5" [ label = "server_connector", shape = octagon ];
-    "node8" [ label = "test", shape = egg ];
-    "node8" -> "node5" [ style = dotted ] // test -> server_connector
-}

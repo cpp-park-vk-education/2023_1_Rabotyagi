@@ -1,8 +1,0 @@
-digraph "data_types" {
-node [
-  fontsize = "12"
-];
-    "node7" [ label = "data_types", shape = septagon ];
-    "node5" [ label = "tables", shape = octagon ];
-    "node5" -> "node7"  // tables -> data_types
-}

@@ -1,8 +1,0 @@
-digraph "IMPORTED" {
-node [
-  fontsize = "12"
-];
-    "node6" [ label = "IMPORTED", shape = septagon ];
-    "node5" [ label = "tables", shape = octagon ];
-    "node5" -> "node6"  // tables -> IMPORTED
-}
