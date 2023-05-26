@@ -2,7 +2,9 @@ version: '3.8'
 
 services:
     server:
+        container_name: "server"
         build: ./server_express
+        image: server
         command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
         # volumes:
         #     - media-data:/site-backend/media
@@ -11,12 +13,20 @@ services:
             - database
         ports:
             - "8000:8000"
-        # env_file:
-        #     - .env
+        environment:
+            - POSTGRES_NAME=MAIN
+            - POSTGRES_USER=root
+            - POSTGRES_PASSWORD=root
+            - POSTGRES_HOST=database
+            - POSTGRES_PORT=5432
+            - DEBUG=False
+            - ALLOWED_HOSTS='*'
 
     database:
         image: postgres:latest
-        container_name: postgres
+        container_name: database
+        ports:
+            - "5432:5432"
         volumes:
             - postgres-db-data:/var/lib/postgresql/data
         environment:
