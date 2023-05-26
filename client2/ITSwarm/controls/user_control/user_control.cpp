@@ -26,31 +26,54 @@ void fill_user(int id, std::string name, std::string password, std::string email
     user.last_login = last_login;
 }
 
-void UserControl::decodeToken(const QString& encryptedToken, QByteArray &decodedData) {
-    QByteArray tokenBytes = encryptedToken.toUtf8();
-    QByteArray hash = QCryptographicHash::hash(tokenBytes, QCryptographicHash::Sha256);
-    decodedData = QByteArray::fromBase64(tokenBytes.remove(0, 32));
-    decodedData = qUncompress(decodedData.remove(decodedData.length() - hash.length(), hash.length()));
-}
+//void UserControl::decodeToken(const QString& encryptedToken, QByteArray &decodedData) {
+//    QByteArray tokenBytes = encryptedToken.toUtf8();
+//    QByteArray hash = QCryptographicHash::hash(tokenBytes, QCryptographicHash::Sha256);
+//    decodedData = QByteArray::fromBase64(tokenBytes.remove(0, 32));
+//    decodedData = qUncompress(decodedData.remove(decodedData.length() - hash.length(), hash.length()));
+//}
 
-void UserControl::parseToken(const QString& encryptedToken, User& user) {
-    QByteArray decodedData;
-    decodeToken(encryptedToken, decodedData);
+//void UserControl::parseToken(const QString& encryptedToken, User& user) {
+//    QByteArray decodedData;
+//    decodeToken(encryptedToken, decodedData);
 
-    QJsonDocument jsonDoc = QJsonDocument::fromJson(decodedData);
-    QJsonObject jsonObj = jsonDoc.object();
+//    QJsonDocument jsonDoc = QJsonDocument::fromJson(decodedData);
+//    QJsonObject jsonObj = jsonDoc.object();
 
-    user.id = jsonObj["id"].toInt();
-    user.name = jsonObj["name"].toString().toStdString();
-    user.password = jsonObj["password"].toString().toStdString();
-    user.email = jsonObj["email"].toString().toStdString();
-    user.last_login = jsonObj["last_login"].toString().toStdString();
-}
+//    user.id = jsonObj["id"].toInt();
+//    user.name = jsonObj["name"].toString().toStdString();
+//    user.password = jsonObj["password"].toString().toStdString();
+//    user.email = jsonObj["email"].toString().toStdString();
+//    user.last_login = jsonObj["last_login"].toString().toStdString();
+//}
 
 
 int UserControl::login(const QString& username, const QString& password, const QString& email )
+<<<<<<< Updated upstream
 {
 
+=======
+{    
+    Request request(
+        _url = "http://example.com/user",
+        _method = "GET",
+        _params = json{
+            {"username", username.toStdString()},
+            {"password", password.toStdString()}
+        }
+    );
+
+    client.SendToServer(request.dump());
+    QString replie = client.get_message();
+    replie.toStdString();
+    request.load_from_string(replie);
+    if ( request["meta"]["status"] == 200 ) {
+        fill_user(request["params"]["id"], request["params"]["username"], request["params"]["email"], request["params"]["password"], request["params"]["last_login"] );
+        return 0;
+    } else {
+        return 1;
+    }
+>>>>>>> Stashed changes
 
 
 //    if (password.length() >= 6){
@@ -98,10 +121,34 @@ int UserControl::login(const QString& username, const QString& password, const Q
 //    }
 }
 
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 
 int UserControl::registerUser(const QString& username, const QString& password, const QString& email)
 {
 
+    Request request(
+        _url = "http://example.com/user",
+        _method = "GET",
+        _params = json{
+            {"username", username.toStdString()},
+            {"password", password.toStdString()},
+            {"email", email.toStdString()}
+        }
+    );
+
+    client.SendToServer(request.dump);
+    QString replie = client.get_message();
+    replie.toStdString();
+    request.load_from_string(replie);
+    if ( request["meta"]["status"] == 200 ) {
+        fill_user(request["params"]["id"], request["params"]["username"], request["params"]["email"], request["params"]["password"], request["params"]["last_login"] );
+        return 0;
+    } else {
+        return 1;
+    }
 
 //    if (password.length() >= 6){
 //         QString response = "{\"access_token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.8wZgcl0G0j1zG8vtKGY6oIJuKvQpNBKpCCx-GBWFWiA\", "
