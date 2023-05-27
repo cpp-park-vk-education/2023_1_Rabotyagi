@@ -1,0 +1,15 @@
+<RCC>
+    <qresource prefix="/img">
+        <file>images/icons8-search-30.png</file>
+        <file>images/icons8-more-24.png</file>
+        <file>images/icons8-git-75.png</file>
+        <file>images/Channels-Iconvoice_selected.png</file>
+        <file>images/Channels-Iconvoice hovered.png</file>
+        <file>images/Channels-Iconselected.png</file>
+        <file>images/Channels-Iconhovered.png</file>
+        <file>images/settings.png</file>
+        <file>images/icons8-git-50.png</file>
+        <file>images/icons8-settings-50.png</file>
+        <file>images/WF Icon Button.png</file>
+    </qresource>
+</RCC>
