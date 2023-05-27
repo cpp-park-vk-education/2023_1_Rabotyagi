@@ -1,99 +1,62 @@
 QPushButton#loginButton {
-    box-sizing: border-box;
-
-    /* Auto layout */
-
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
     padding: 12px 20px;
-    gap: 8px;
-    height: 48px;
-    /* WF Base/800 ⦿ */
+    height: 40px;
 
     border: 2px solid #2D3648;
     border-radius: 6px;
-
-    /* Inside auto layout */
-
-    flex: none;
-    order: 0;
-    flex-grow: 0;
-
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 16px;
-    line-height: 24px;
-
 }
 
 QPushButton#loginButton:hover {
     color: #FFFFFF;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 16px 24px;
-    gap: 8px;
-
-    position: absolute;
-    left: 80px;
-    top: 80px;
-
-    /* WF Base/800 ⦿ */
-
     background: #2D3648;
-    border-radius: 6px;
 }
 
 QPushButton#registrationButton {
-    /* Auto layout */
     color: #FFFFFF;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
     padding: 12px 20px;
-    gap: 8px;
-    height: 48px;
-    /* WF Base/800 ⦿ */
+    height: 44px;
+    width: 163px;
 
     background: #2D3648;
     border-radius: 6px;
-    /* Inside auto layout */
-
-    flex: none;
-    order: 1;
-    flex-grow: 0;
-
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 16px;
-    line-height: 24px;
 }
 
 QPushButton#registrationButton:hover {
     color: #2D3648;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 16px 24px;
-    gap: 8px;
-
-    position: absolute;
-
-    left: 80px;
-    top: 176px;
-
-    /* WF Base/800 ⦿ */
 
     border: 2px solid #2D3648;
     background-color: transparent;
-    border-radius: 6px;
-/*    color: #FFFFFF;*/
 }
 
+QPushButton#registerButton {
+    padding: 12px 20px;
+
+    width: 228px;
+    height: 44px;
+    color: #FFFFFF;
+
+    background: #2D3648;
+    border-radius: 6px;
+}
+
+QPushButton#goBackButton {
+    padding: 12px 20px;
+
+    width: 110px;
+    height: 40px;
+
+    border: 2px solid #2D3648;
+    border-radius: 6px;
+}
+
+QPushButton#registerButton:hover {
+    color: #2D3648;
+
+    border: 2px solid #2D3648;
+    background-color: transparent;
+}
+
+QPushButton#goBackButton:hover {
+    color: #FFFFFF;
+    background: #2D3648;
+}

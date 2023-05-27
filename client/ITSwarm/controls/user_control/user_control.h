@@ -28,4 +28,29 @@ enum LoginProcessStatus {
     WrongPassword = 2
 };
 
+class UserManager {
+private:
+    static std::shared_ptr<User> instance;
+    UserManager() {}
+    UserManager(const UserManager&);
+    UserManager& operator=( UserManager& );
+public:
+    static std::shared_ptr<User> getInstance() {
+        if (!instance)
+            instance = std::make_shared<User>();
+        return instance;
+    }
+
+    static void fill_user(int id, std::string name, std::string password, std::string email, std::string last_login) {
+        if (!instance)
+            getInstance();
+
+        instance->id = id;
+        instance->name = name;
+        instance->email = email;
+        instance->password = password;
+        instance->last_login = last_login;
+    }
+
+};
 #endif // USERCONTROL_H

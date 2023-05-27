@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>420</width>
-    <height>468</height>
+    <height>474</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -710,19 +710,27 @@ flex-grow: 0;</string>
           <number>16</number>
          </property>
          <property name="leftMargin">
-          <number>4</number>
+          <number>0</number>
          </property>
          <property name="topMargin">
-          <number>4</number>
+          <number>0</number>
          </property>
          <property name="rightMargin">
-          <number>4</number>
+          <number>0</number>
          </property>
          <property name="bottomMargin">
-          <number>4</number>
+          <number>0</number>
          </property>
          <item>
           <widget class="QPushButton" name="loginButton">
+           <property name="font">
+            <font>
+             <family>Inter</family>
+             <pointsize>16</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
            <property name="styleSheet">
             <string notr="true"/>
            </property>
@@ -736,6 +744,14 @@ flex-grow: 0;</string>
          </item>
          <item>
           <widget class="QPushButton" name="registrationButton">
+           <property name="font">
+            <font>
+             <family>Inter</family>
+             <pointsize>16</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
            <property name="styleSheet">
             <string notr="true"/>
            </property>

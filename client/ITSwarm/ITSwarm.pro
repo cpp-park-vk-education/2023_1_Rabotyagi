@@ -34,7 +34,6 @@ SOURCES += \
 HEADERS += \
     controls/data_types/request.h \
     controls/data_types/data_types.hpp \
-    external/HTTPRequest.hpp \
     external/data_types.hpp \
     external/json.hpp \
     controls/channel_control/channelcontrol.h \
@@ -44,7 +43,6 @@ HEADERS += \
     controls/data_types/data_types.hpp \
     controls/message_control/messagecontrol.h \
     controls/user_control/user_control.h \
-    external/user.hpp \
     windows/channel_widget/channelsidebar.h \
     windows/content_widget/contentwindow.h \
     windows/gitconnection/gitconnection.h \
