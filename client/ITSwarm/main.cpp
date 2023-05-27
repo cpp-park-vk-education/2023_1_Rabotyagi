@@ -5,10 +5,14 @@
 #include <QApplication>
 #include <QtCore/QSettings>
 #include <stdexcept>
+#include <QFile>
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+    QFile file(":/style.css");
+    file.open(QFile::ReadOnly);
+    a.setStyleSheet(file.readAll());
     int flag = 3;
     std::unique_ptr<LoginWindow> login = std::make_unique<LoginWindow>(&flag);
     std::unique_ptr<RegistrationWindow> reg = std::make_unique<RegistrationWindow>(&flag);

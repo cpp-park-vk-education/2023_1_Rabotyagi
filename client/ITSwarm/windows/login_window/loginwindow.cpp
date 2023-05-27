@@ -11,6 +11,7 @@
 #include <QtNetwork/QNetworkReply>
 #include <QSettings>
 #include <QCloseEvent>
+#include <QtCore>
 
 LoginWindow::LoginWindow(int* flag, QWidget *parent) :
     QDialog(parent),
@@ -21,6 +22,7 @@ LoginWindow::LoginWindow(int* flag, QWidget *parent) :
 //    registration_window = new RegistrationWindow(this);
     user_control = new UserControl();
     connect(ui->registrationButton, &QPushButton::clicked, this, &LoginWindow::setFlagToRegistration);
+//    this->setWindowFlag(Qt::FramelessWindowHint);
 
     //connect(ui->registrationButton, &QPushButton::clicked, this, &LoginWindow::openRegistrationWindow);
 
@@ -50,7 +52,6 @@ void LoginWindow::on_loginButton_clicked(){
     }
 }
 
-
 void LoginWindow::setFlagToRegistration() {
     *_flag = (int)States::to_reg_window;
     close();
@@ -70,4 +71,10 @@ void LoginWindow::keyPressEvent(QKeyEvent *event)
     {
         *_flag = (int)States::exit;
     }
+}
+
+void LoginWindow::on_close_btn_clicked()
+{
+    *_flag = (int)States::exit;
+    close();
 }

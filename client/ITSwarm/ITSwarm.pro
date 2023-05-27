@@ -71,9 +71,12 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
-    windows/static/images.qrc
+    windows/static/icons.qrc \
+    windows/static/images.qrc \
+    windows/static/style.qrc
 
 DISTFILES += \
+    windows/static/icons/close.png \
     windows/static/images/Channels-Iconhovered.png \
     windows/static/images/Channels-Iconselected.png \
     windows/static/images/Channels-Iconvoice hovered.png \
@@ -85,7 +88,8 @@ DISTFILES += \
     windows/static/images/icons8-more-24.png \
     windows/static/images/icons8-search-30.png \
     windows/static/images/icons8-settings-50.png \
-    windows/static/images/settings.png
+    windows/static/images/settings.png \
+    windows/static/style.css
 
 INCLUDEPATH += \
     "windows/channel_widget" \

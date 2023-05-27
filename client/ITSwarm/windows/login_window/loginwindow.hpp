@@ -35,6 +35,8 @@ private slots:
     void on_loginButton_clicked();
     void closeEvent(QCloseEvent* event);
     void keyPressEvent(QKeyEvent *event);
+    void on_close_btn_clicked();
+
 public slots:
     //void saveTokens(const QString &accessToken, const QString &refreshToken);
 
