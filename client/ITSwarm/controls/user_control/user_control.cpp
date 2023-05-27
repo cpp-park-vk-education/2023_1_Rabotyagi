@@ -10,6 +10,8 @@
 #include <QString>
 #include <QCryptographicHash>
 #include "json.hpp"
+#include "HTTPRequest.hpp"
+#include "json.hpp"
 
 
 
@@ -49,31 +51,30 @@ void fill_user(int id, std::string name, std::string password, std::string email
 
 
 int UserControl::login(const QString& username, const QString& password, const QString& email )
-<<<<<<< Updated upstream
 {
+    try {
+        http::Request request{"http://localhost:8000/IUser"};
+        const auto response = request.send("GET");
+        nlohmann::json json(response.body);
 
-=======
-{    
-    Request request(
-        _url = "http://example.com/user",
-        _method = "GET",
-        _params = json{
-            {"username", username.toStdString()},
-            {"password", password.toStdString()}
-        }
-    );
-
-    client.SendToServer(request.dump());
-    QString replie = client.get_message();
-    replie.toStdString();
-    request.load_from_string(replie);
-    if ( request["meta"]["status"] == 200 ) {
-        fill_user(request["params"]["id"], request["params"]["username"], request["params"]["email"], request["params"]["password"], request["params"]["last_login"] );
-        return 0;
-    } else {
-        return 1;
     }
->>>>>>> Stashed changes
+    catch (const std::exception& e) {
+        std::cerr << "Request failed, error: " << e.what() << '\n';
+    }
+
+
+//    client.SendToServer(request.dump());
+//    QString replie = client.get_message();
+//    replie.toStdString();
+//    request.load_from_string(replie);
+//    if ( request["meta"]["status"] == 200 ) {
+//        fill_user(request["params"]["id"], request["params"]["username"], request["params"]["email"], request["params"]["password"], request["params"]["last_login"] );
+//        return 0;
+//    } else {
+//        return 1;
+//    }
+    return 0;
+}
 
 
 //    if (password.length() >= 6){
@@ -119,36 +120,31 @@ int UserControl::login(const QString& username, const QString& password, const Q
 //     reply->deleteLater();
 //     return 1;
 //    }
-}
-
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
+//}
 
 int UserControl::registerUser(const QString& username, const QString& password, const QString& email)
 {
 
-    Request request(
-        _url = "http://example.com/user",
-        _method = "GET",
-        _params = json{
-            {"username", username.toStdString()},
-            {"password", password.toStdString()},
-            {"email", email.toStdString()}
-        }
-    );
+//    Request request(
+//        _url = "http://example.com/user",
+//        _method = "GET",
+//        _params = json{
+//            {"username", username.toStdString()},
+//            {"password", password.toStdString()},
+//            {"email", email.toStdString()}
+//        }
+//    );
 
-    client.SendToServer(request.dump);
-    QString replie = client.get_message();
-    replie.toStdString();
-    request.load_from_string(replie);
-    if ( request["meta"]["status"] == 200 ) {
-        fill_user(request["params"]["id"], request["params"]["username"], request["params"]["email"], request["params"]["password"], request["params"]["last_login"] );
-        return 0;
-    } else {
-        return 1;
-    }
+//    client.SendToServer(request.dump);
+//    QString replie = client.get_message();
+//    replie.toStdString();
+//    request.load_from_string(replie);
+//    if ( request["meta"]["status"] == 200 ) {
+//        fill_user(request["params"]["id"], request["params"]["username"], request["params"]["email"], request["params"]["password"], request["params"]["last_login"] );
+//        return 0;
+//    } else {
+//        return 1;
+//    }
 
 //    if (password.length() >= 6){
 //         QString response = "{\"access_token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.8wZgcl0G0j1zG8vtKGY6oIJuKvQpNBKpCCx-GBWFWiA\", "

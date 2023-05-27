@@ -71,3 +71,6 @@ Thumbs.db
 *.exe
 
 .vscode/settings.json
+env
+venv
+__pycache__

@@ -19,6 +19,7 @@ SOURCES += \
     controls/message_control/messagecontrol.cpp \
     controls/user_control/user_control.cpp \
     main.cpp \
+    test.cpp \
     windows/channel_widget/channelsidebar.cpp \
     windows/content_widget/contentwindow.cpp \
     windows/gitconnection/gitconnection.cpp \
@@ -32,6 +33,7 @@ SOURCES += \
 HEADERS += \
     controls/data_types/request.h \
     controls/data_types/data_types.hpp \
+    external/HTTPRequest.hpp \
     external/json.hpp \
     controls/channel_control/channelcontrol.h \
     controls/client/client.h \
