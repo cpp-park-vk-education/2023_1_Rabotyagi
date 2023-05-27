@@ -17,9 +17,9 @@ ChannelSidebar::ChannelSidebar(std::shared_ptr<ContentWindow> content_window, QW
     ui->voiceChannelButton_3->setIcon(QIcon(":/img/images/Channels-Iconvoice hovered.png"));
 
     //ConnectToChannelControl();
-    channels.push_back(std::make_shared<Channel>(Channel("1", ChannelType::Message)));
-    channels.push_back(std::make_shared<Channel>(Channel("2", ChannelType::Message)));
-    channels.push_back(std::make_shared<Channel>(Channel("3", ChannelType::Message)));
+//    channels.push_back(std::make_shared<Channel>(Channel("1", ChannelType::Message)));
+//    channels.push_back(std::make_shared<Channel>(Channel("2", ChannelType::Message)));
+//    channels.push_back(std::make_shared<Channel>(Channel("3", ChannelType::Message)));
 
     active_channel = channels[0];
 }

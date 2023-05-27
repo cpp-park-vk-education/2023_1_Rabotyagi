@@ -23,10 +23,10 @@ void ContentWindow::ChangeActiveChannel(std::shared_ptr<Channel> channel)
     qDebug() << "ContentWindow: changed active_channel";
 }
 
-ContentWindow::ContentWindow(std::shared_ptr<TCPClient> client, QWidget *parent) :
+ContentWindow::ContentWindow(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::ContentWindow),
-    client(client)
+    ui(new Ui::ContentWindow)
+//    client(client)
 {
     ui->setupUi(this);
     ui->searchButton->setIcon(QIcon(":/img/images/icons8-search-30.png"));
@@ -34,7 +34,7 @@ ContentWindow::ContentWindow(std::shared_ptr<TCPClient> client, QWidget *parent)
 
     connect_to_message_control();
 
-    connect(client.get(), &TCPClient::newMessages, this, &ContentWindow::slotUpdateMessages);
+//    connect(client.get(), &TCPClient::newMessages, this, &ContentWindow::slotUpdateMessages);
 }
 
 ContentWindow::~ContentWindow()
@@ -48,8 +48,8 @@ void ContentWindow::on_pushButton_clicked()
     QString text = ui->lineEdit->text();
     if (text.isEmpty())
         return;
-    Request_impl request = client->GeneratePostRequest(text);
-    client->SendRequest(request);
+//    Request_impl request = client->GeneratePostRequest(text);
+//    client->SendRequest(request);
     ui->lineEdit->clear();
 }
 
@@ -72,8 +72,8 @@ void ContentWindow::on_lineEdit_returnPressed()
 
 void ContentWindow::slotUpdateMessages()
 {
-    message_control->AppendMessage(this, client->GetMessage());
-    client->ClearMessage();
+//    message_control->AppendMessage(this, client->GetMessage());
+//    client->ClearMessage();
 }
 
 void ContentWindow::connect_to_message_control()

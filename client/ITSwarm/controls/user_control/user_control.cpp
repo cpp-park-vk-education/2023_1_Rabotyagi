@@ -11,7 +11,11 @@
 #include <QCryptographicHash>
 #include "json.hpp"
 #include "HTTPRequest.hpp"
-#include "json.hpp"
+#include "data_types.hpp"
+#include <iostream>
+#include <memory>
+#include <string>
+#include <cpr/cpr.h>
 
 
 
@@ -20,12 +24,15 @@ UserControl::UserControl(QObject *parent) : QObject(parent)
 
 }
 
-void fill_user(int id, std::string name, std::string password, std::string email, std::string last_login) {
-    user.id = id;
-    user.name = name;
-    user.email = email;
-    user.password = password;
-    user.last_login = last_login;
+std::shared_ptr<User> fill_user(int id, std::string name, std::string password, std::string email, std::string last_login) {
+    auto user = std::make_shared<User>();
+    user->id = id;
+    user->name = name;
+    user->email = email;
+    user->password = password;
+    user->last_login = last_login;
+
+    return user;
 }
 
 //void UserControl::decodeToken(const QString& encryptedToken, QByteArray &decodedData) {
@@ -48,14 +55,31 @@ void fill_user(int id, std::string name, std::string password, std::string email
 //    user.email = jsonObj["email"].toString().toStdString();
 //    user.last_login = jsonObj["last_login"].toString().toStdString();
 //}
-
+using json = nlohmann::json;
 
 int UserControl::login(const QString& username, const QString& password, const QString& email )
 {
     try {
-        http::Request request{"http://localhost:8000/IUser"};
-        const auto response = request.send("GET");
-        nlohmann::json json(response.body);
+        cpr::Response response = cpr::Get(
+                    cpr::Url{"http://localhost:8000/api/v1/IUser"},
+                    cpr::Parameters{
+                        {"username", username.toStdString().c_str()},
+                        {"password", password.toStdString().c_str()}
+                    });
+        auto json_response = json::parse(response.text);
+
+        if (response.status_code == 200){
+            auto user = fill_user(
+                            std::atoi(json_response["id"].dump().c_str()),
+                            json_response["name"].dump(),
+                            json_response["email"].dump(),
+                            json_response["password"].dump(),
+                            json_response["last_login"].dump()
+                        );
+        }
+        else {
+            std::cout << json_response << std::endl;
+        }
 
     }
     catch (const std::exception& e) {

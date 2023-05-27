@@ -21,9 +21,9 @@ MainWindow::MainWindow(int* flag, QWidget *parent)
 
     //client = std::make_shared<TCPClient>();
     //client->ConnectToServer("127.0.0.1", 8000);
-    client = std::make_shared<Client>();
+//    client = std::make_shared<Client>();
 
-    content_window = std::make_shared<ContentWindow>(client, this);
+    content_window = std::make_shared<ContentWindow>(this);
     content_window->move(130, 60);
 
     userbar = std::make_shared<Userbar>(this);

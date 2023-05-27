@@ -1,7 +1,8 @@
 #ifndef MESSAGECONTROL_H
 #define MESSAGECONTROL_H
 
-#include "controls/data_types/message/message.h"
+#include "data_types.hpp"
+#include <QString>
 
 class ContentWindow;
 

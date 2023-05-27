@@ -1,7 +1,7 @@
 #include "windows/content_widget/contentwindow.h"
 #include "controls/message_control/messagecontrol.h"
 #include "ui_contentwindow.h"
-#include "controls/data_types/message/message.h"
+#include "data_types.hpp"
 #include "QColor"
 
 MessageControl::MessageControl()

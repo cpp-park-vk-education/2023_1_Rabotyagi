@@ -14,8 +14,8 @@ CONFIG += c++20
 
 SOURCES += \
     controls/channel_control/channelcontrol.cpp \
-    controls/client/client.cpp \
-    controls/client/tcpclient.cpp \
+#    controls/client/client.cpp \
+#    controls/client/tcpclient.cpp \
     controls/message_control/messagecontrol.cpp \
     controls/user_control/user_control.cpp \
     main.cpp \
@@ -34,15 +34,15 @@ HEADERS += \
     controls/data_types/request.h \
     controls/data_types/data_types.hpp \
     external/HTTPRequest.hpp \
+    external/data_types.hpp \
     external/json.hpp \
     controls/channel_control/channelcontrol.h \
-    controls/client/client.h \
-    controls/client/iclient.h \
-    controls/client/tcpclient.h \
+#    controls/client/client.h \
+#    controls/client/iclient.h \
+#    controls/client/tcpclient.h \
     controls/data_types/data_types.hpp \
     controls/message_control/messagecontrol.h \
     controls/user_control/user_control.h \
-    controls/user_control/user.h \
     windows/channel_widget/channelsidebar.h \
     windows/content_widget/contentwindow.h \
     windows/gitconnection/gitconnection.h \
@@ -104,3 +104,10 @@ INCLUDEPATH += \
     "controls/user_control" \
     "external"
 
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../../../../usr/local/lib/release/ -lcpr
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../../../../usr/local/lib/debug/ -lcpr
+else:unix: LIBS += -L$$PWD/../../../../../../usr/local/lib/ -lcpr
+
+INCLUDEPATH += $$PWD/../../../../../../usr/local/lib
+DEPENDPATH += $$PWD/../../../../../../usr/local/lib

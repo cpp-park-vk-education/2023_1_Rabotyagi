@@ -3,7 +3,7 @@
 
 #include <QWidget>
 #include <QVector>
-#include "channel.h"
+#include "data_types.hpp"
 //#include "controls/channel_control/channelcontrol.h"
 #include "contentwindow.h"
 
