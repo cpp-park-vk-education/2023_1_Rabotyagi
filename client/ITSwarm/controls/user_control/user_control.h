@@ -2,6 +2,7 @@
 #define USERCONTROL_H
 #include "data_types.hpp"
 #include <QObject>
+#include "json.hpp"
 
 class UserControl : public QObject
 {
@@ -9,13 +10,21 @@ class UserControl : public QObject
 
 public:
     explicit UserControl(QObject *parent = nullptr);
+    int save_settings();
+    nlohmann::json load_settings();
 public slots:
 //    void decodeToken(const QString& encryptedToken, QByteArray &decodedData);
 //    void parseToken(const QString& encryptedToken, User& user);
 //    void saveTokens(const QString &accessToken, const QString &refreshToken);
     int registerUser(const QString& username, const QString& password, const QString& email);
-    int login(const QString& username, const QString& password, const QString& email);
+    int login(const QString& username, const QString& password);
 private:
+};
+
+enum LoginProcessStatus {
+    OK = 0,
+    WrongUsername = 1,
+    WrongPassword = 2
 };
 
 #endif // USERCONTROL_H

@@ -4,11 +4,11 @@
 #include <QWidget>
 #include <QVector>
 #include "data_types.hpp"
-//#include "controls/channel_control/channelcontrol.h"
+#include "controls/channel_control/channelcontrol.h"
 #include "contentwindow.h"
 
 namespace Ui {
-class ChannelSidebar;
+    class ChannelSidebar;
 }
 
 class ChannelSidebar : public QWidget
@@ -34,8 +34,7 @@ private:
 
     QVector<std::shared_ptr<Channel>> channels;
     std::shared_ptr<Channel> active_channel;
-    //std::shared_ptr<ChannelControl> channel_control;
+    std::shared_ptr<ChannelControl> channel_control;
     std::shared_ptr<ContentWindow> content_window;
 };
-
 #endif // CHANNELSIDEBAR_H

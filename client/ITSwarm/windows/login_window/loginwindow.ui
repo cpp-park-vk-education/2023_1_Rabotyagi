@@ -46,16 +46,6 @@
      <widget class="QLineEdit" name="usernameEdit"/>
     </item>
     <item>
-     <widget class="QLabel" name="label_4">
-      <property name="text">
-       <string>Электронная почта</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QLineEdit" name="emailEdit"/>
-    </item>
-    <item>
      <widget class="QLabel" name="label_3">
       <property name="text">
        <string>Пароль</string>

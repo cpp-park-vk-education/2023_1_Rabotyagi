@@ -20,7 +20,7 @@ RegistrationWindow::RegistrationWindow(int* flag, QWidget *parent) :
 {
     ui->setupUi(this);
     user_control = new UserControl(this);
-    //connect(ui->registerButton, &QPushButton::clicked, this, &RegistrationWindow::registerUser);
+//    connect(ui->registerButton, &QPushButton::clicked, this, &RegistrationWindow::registerUser);
 //    connect(ui->goBackButton, &QPushButton::clicked, this, &QDialog::reject);
     connect(ui->goBackButton, &QPushButton::clicked, this, &RegistrationWindow::setFlagToLogin);
 }
@@ -68,19 +68,19 @@ void RegistrationWindow::on_registerButton_clicked(){
             close();
         } else if (code == 1) {
             // QMessageBox::warning(qobject_cast<QWidget *> (parent()), tr("Invalid registration"), tr("Server check not passed"));
-            ui->usernameEdit->clear();
-            ui->passwordEdit->clear();
-            ui->emailEdit->clear();
-            ui->confirmPasswordEdit->clear();
+//            ui->usernameEdit->clear();
+//            ui->passwordEdit->clear();
+//            ui->emailEdit->clear();
+//            ui->confirmPasswordEdit->clear();
         }
     } else if ( regDataCorrect(username, email, password, confirm_password) && passwordCheck(password) && !passwordCheck(password)){
         ui->passwordEdit->clear();
         ui->confirmPasswordEdit->clear();
     } else {
-        ui->usernameEdit->clear();
-        ui->passwordEdit->clear();
-        ui->emailEdit->clear();
-        ui->confirmPasswordEdit->clear();
+//        ui->usernameEdit->clear();
+//        ui->passwordEdit->clear();
+//        ui->emailEdit->clear();
+//        ui->confirmPasswordEdit->clear();
     }
 }
 

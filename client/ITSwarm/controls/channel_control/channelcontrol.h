@@ -18,8 +18,8 @@ public:
     bool CreateChannel();
     bool DeleteChannel();
 
-////private:
-    //std::shared_ptr<ContentWindow> content_window;
+private:
+    std::shared_ptr<ContentWindow> content_window;
 
 };
 

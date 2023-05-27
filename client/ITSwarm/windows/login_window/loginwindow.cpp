@@ -37,18 +37,16 @@ LoginWindow::~LoginWindow()
 
 void LoginWindow::on_loginButton_clicked(){
     QString username = ui->usernameEdit->text();
-    QString email = ui->emailEdit->text();
     QString password = ui->passwordEdit->text();
 
-    int code = user_control->login(username, password, email);
+    int code = user_control->login(username, password);
     if (code == 0) {
         *_flag = (int)States::to_main_window;
         close();
     } else if (code == 1) {
-        QMessageBox::warning(this, tr("Login Failed"), tr("Server check not passed"));
-        ui->usernameEdit->clear();
-        ui->passwordEdit->clear();
-        ui->emailEdit->clear();
+//        QMessageBox::warning(this, tr("Login Failed"), tr("Server check not passed"));
+//        ui->usernameEdit->clear();
+//        ui->passwordEdit->clear();
     }
 }
 

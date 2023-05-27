@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views import View
 from django.http.response import HttpResponse, JsonResponse
 from .models import *
-from django.contrib.auth.hashers import check_password
+from django.contrib.auth.hashers import check_password, make_password
 
 
 class IUser(View):
@@ -43,7 +43,43 @@ class IUser(View):
         
     @staticmethod
     def post(request):
-        pass
+        username = request.POST.get('username', None)
+        password = request.POST.get('password', None)
+        email = request.POST.get('email', None)
+        
+        if not username:
+            return JsonResponse({
+                'message': "Отсутствует username"
+            }, status=400)
+        
+        if not password:
+            return JsonResponse({
+                'message': "Отсутствует password"
+            }, status=400)
+            
+        if not email:
+            return JsonResponse({
+                'message': "Отсутствует email"
+            }, status=400)
+            
+        try:
+            user = User.objects.get(username=username)
+            return JsonResponse({
+                'message': f"User with {username} already exists"
+            }, status=400)
+        except User.DoesNotExist:
+            user = User.objects.create(
+                username = username,
+                email = email,
+                password = make_password(password)
+            )
+            return JsonResponse({
+                    'id': user.pk,
+                    'name': username,
+                    'email': user.email,
+                    'password': password,
+                    'last_login': user.last_login
+                }, status=200)
     
     @staticmethod
     def patch(request):

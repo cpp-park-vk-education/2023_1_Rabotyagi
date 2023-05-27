@@ -6,7 +6,7 @@
 #include <memory>
 #include "userbar.h"
 #include "contentwindow.h"
-//#include "sidebar.h"
+#include "sidebar.h"
 #include "channelsidebar.h"
 #include <QMainWindow>
 #include <QVector>
@@ -43,7 +43,7 @@ private:
 
     std::shared_ptr<Userbar> userbar;
     std::shared_ptr<ContentWindow> content_window;
-    //std::shared_ptr<Sidebar> sidebar;
+    std::shared_ptr<Sidebar> sidebar;
     std::shared_ptr<ChannelSidebar> channel_sidebar;
 
 };

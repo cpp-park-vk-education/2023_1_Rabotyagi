@@ -17,7 +17,7 @@
 #include <string>
 #include <cpr/cpr.h>
 
-
+using json = nlohmann::json;
 
 UserControl::UserControl(QObject *parent) : QObject(parent)
 {
@@ -35,29 +35,7 @@ std::shared_ptr<User> fill_user(int id, std::string name, std::string password, 
     return user;
 }
 
-//void UserControl::decodeToken(const QString& encryptedToken, QByteArray &decodedData) {
-//    QByteArray tokenBytes = encryptedToken.toUtf8();
-//    QByteArray hash = QCryptographicHash::hash(tokenBytes, QCryptographicHash::Sha256);
-//    decodedData = QByteArray::fromBase64(tokenBytes.remove(0, 32));
-//    decodedData = qUncompress(decodedData.remove(decodedData.length() - hash.length(), hash.length()));
-//}
-
-//void UserControl::parseToken(const QString& encryptedToken, User& user) {
-//    QByteArray decodedData;
-//    decodeToken(encryptedToken, decodedData);
-
-//    QJsonDocument jsonDoc = QJsonDocument::fromJson(decodedData);
-//    QJsonObject jsonObj = jsonDoc.object();
-
-//    user.id = jsonObj["id"].toInt();
-//    user.name = jsonObj["name"].toString().toStdString();
-//    user.password = jsonObj["password"].toString().toStdString();
-//    user.email = jsonObj["email"].toString().toStdString();
-//    user.last_login = jsonObj["last_login"].toString().toStdString();
-//}
-using json = nlohmann::json;
-
-int UserControl::login(const QString& username, const QString& password, const QString& email )
+int UserControl::login(const QString& username, const QString& password)
 {
     try {
         cpr::Response response = cpr::Get(
@@ -70,94 +48,55 @@ int UserControl::login(const QString& username, const QString& password, const Q
 
         if (response.status_code == 200){
             auto user = fill_user(
-                            std::atoi(json_response["id"].dump().c_str()),
-                            json_response["name"].dump(),
-                            json_response["email"].dump(),
-                            json_response["password"].dump(),
-                            json_response["last_login"].dump()
-                        );
+                std::atoi(json_response["id"].dump().c_str()),
+                json_response["name"].dump(),
+                json_response["email"].dump(),
+                json_response["password"].dump(),
+                json_response["last_login"].dump());
+            return 0;
         }
         else {
-            std::cout << json_response << std::endl;
+            QMessageBox::warning(nullptr, tr("Ошибка авторизации"), tr(json_response["message"].dump().c_str()));
         }
 
     }
     catch (const std::exception& e) {
         std::cerr << "Request failed, error: " << e.what() << '\n';
     }
-
-
-//    client.SendToServer(request.dump());
-//    QString replie = client.get_message();
-//    replie.toStdString();
-//    request.load_from_string(replie);
-//    if ( request["meta"]["status"] == 200 ) {
-//        fill_user(request["params"]["id"], request["params"]["username"], request["params"]["email"], request["params"]["password"], request["params"]["last_login"] );
-//        return 0;
-//    } else {
-//        return 1;
-//    }
-    return 0;
+    return 1;
 }
-
-
-//    if (password.length() >= 6){
-//         QString response = "{\"access_token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.8wZgcl0G0j1zG8vtKGY6oIJuKvQpNBKpCCx-GBWFWiA\", "
-//                            "\"refresh_token\": \"1234567890\"}";
-//         QJsonDocument jsonDoc = QJsonDocument::fromJson(response.toUtf8());
-//         QString accessToken = jsonDoc["access_token"].toString();
-//         QString refreshToken = jsonDoc["refresh_token"].toString();
-//         saveTokens(accessToken, refreshToken);
-//         parseToken(accessToken, user);
-//         return 0;
-//    } else {
-//        return 1;
-//    }
-
-//    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-//    QUrl url("http://example.com/login");
-//    QNetworkRequest request(url);
-//    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-
-//    QJsonObject json;
-//    json["username"] = username;
-//    json["password"] = password;
-//    QJsonDocument doc(json);
-//    QByteArray data = doc.toJson();
-
-//    //    Этот код отправляет POST-запрос на сервер с использованием QNetworkAccessManager и блокирует выполнение программы до тех пор,
-//    //    пока ответ от сервера не будет получен. Закоментим его чтобы захардкодить ответ сервера для тестов.
-//    QNetworkReply *reply = manager->post(request, data);
-//    while (!reply->isFinished()) {
-//     qApp->processEvents();
-//    }
-
-//    if (reply->error() == QNetworkReply::NoError) {
-//     QByteArray response = reply->readAll();
-//     QJsonDocument jsonDoc = QJsonDocument::fromJson(response);
-//     QString accessToken = jsonDoc["access_token"].toString();
-//     QString refreshToken = jsonDoc["refresh_token"].toString();
-//     saveTokens(accessToken, refreshToken);
-//     reply->deleteLater();
-//     return 0;
-//    } else {
-//     reply->deleteLater();
-//     return 1;
-//    }
-//}
 
 int UserControl::registerUser(const QString& username, const QString& password, const QString& email)
 {
+    try {
+        cpr::Response response = cpr::Post(
+                    cpr::Url{"http://localhost:8000/api/v1/IUser"},
+                    cpr::Multipart{
+                        {"username", username.toStdString().c_str()},
+                        {"password", password.toStdString().c_str()},
+                        {"email", email.toStdString().c_str()},
+                    });
 
-//    Request request(
-//        _url = "http://example.com/user",
-//        _method = "GET",
-//        _params = json{
-//            {"username", username.toStdString()},
-//            {"password", password.toStdString()},
-//            {"email", email.toStdString()}
-//        }
-//    );
+        auto json_response = json::parse(response.text);
+
+        if (response.status_code == 200){
+            auto user = fill_user(
+                std::atoi(json_response["id"].dump().c_str()),
+                json_response["name"].dump(),
+                json_response["email"].dump(),
+                json_response["password"].dump(),
+                json_response["last_login"].dump());
+            return 0;
+        }
+        else {
+            QMessageBox::warning(nullptr, tr("Login Failed"), tr(json_response["message"].dump().c_str()));
+        }
+
+    }
+    catch (const std::exception& e) {
+        std::cerr << "Request failed, error: " << e.what() << '\n';
+    }
+    return 1;
 
 //    client.SendToServer(request.dump);
 //    QString replie = client.get_message();
@@ -182,38 +121,5 @@ int UserControl::registerUser(const QString& username, const QString& password, 
 //    } else {
 //        return 1;
 //    }
-
-
-
-
-
-//    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-//    QUrl url("http://example.com/register");
-//    QNetworkRequest request(url);
-//    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-//    QJsonObject json;
-//    json["username"] = ui->usernameEdit->text();
-//    json["password"] = ui->passwordEdit->text();
-//    QJsonDocument doc(json);
-//    QByteArray data = doc.toJson();
-
-//    QNetworkReply *reply = manager->post(request, data);
-//    while (!reply->isFinished()) {
-//        qApp->processEvents();
-//    }
-
-//    if (reply->error() == QNetworkReply::NoError) {
-//        QByteArray response = reply->readAll();
-//        QJsonDocument jsonDoc = QJsonDocument::fromJson(response);
-//        QString accessToken = jsonDoc["access_token"].toString();
-//        QString refreshToken = jsonDoc["refresh_token"].toString();
-//        LoginWindow loginWindow;
-//        loginWindow.saveTokens(accessToken, refreshToken);
-//        accept();
-//    } else {
-//        QMessageBox::warning(this, tr("Registration Failed"), tr("Username already exists."));
-//    }
-
-//    reply->deleteLater();
 }
 

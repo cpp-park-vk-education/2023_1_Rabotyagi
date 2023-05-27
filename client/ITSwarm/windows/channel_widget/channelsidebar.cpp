@@ -21,7 +21,7 @@ ChannelSidebar::ChannelSidebar(std::shared_ptr<ContentWindow> content_window, QW
 //    channels.push_back(std::make_shared<Channel>(Channel("2", ChannelType::Message)));
 //    channels.push_back(std::make_shared<Channel>(Channel("3", ChannelType::Message)));
 
-    active_channel = channels[0];
+//    active_channel = channels[0];
 }
 
 void ChannelSidebar::ChangeActiveChannel(std::shared_ptr<Channel> channel)

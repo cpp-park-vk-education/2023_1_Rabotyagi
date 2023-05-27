@@ -26,6 +26,7 @@ class GuildManager(models.Manager):
 class Guild(models.Model):
     owner = models.ForeignKey(User, models.CASCADE, related_name='owned_guild')
     name = models.CharField(max_length=100)
+    users = models.ManyToManyField(User, related_name='guilds')
     user_count = models.IntegerField(default=0)
     created_at = models.DateField(default=date.today)
     
