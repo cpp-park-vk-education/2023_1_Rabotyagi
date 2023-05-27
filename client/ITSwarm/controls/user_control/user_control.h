@@ -19,6 +19,7 @@ public slots:
     int registerUser(const QString& username, const QString& password, const QString& email);
     int login(const QString& username, const QString& password);
 private:
+
 };
 
 enum LoginProcessStatus {

@@ -44,6 +44,7 @@ HEADERS += \
     controls/data_types/data_types.hpp \
     controls/message_control/messagecontrol.h \
     controls/user_control/user_control.h \
+    external/user.hpp \
     windows/channel_widget/channelsidebar.h \
     windows/content_widget/contentwindow.h \
     windows/gitconnection/gitconnection.h \
@@ -112,7 +113,7 @@ INCLUDEPATH += \
 
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../../../../usr/local/lib/release/ -lcpr
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../../../../usr/local/lib/debug/ -lcpr
-else:unix: LIBS += -L$$PWD/../../../../../../usr/local/lib/ -lcpr
+else:unix: LIBS += -L/usr/local/lib/ -lcpr
 
-INCLUDEPATH += $$PWD/../../../../../../usr/local/lib
-DEPENDPATH += $$PWD/../../../../../../usr/local/lib
+INCLUDEPATH += /usr/local/lib
+DEPENDPATH += /usr/local/lib

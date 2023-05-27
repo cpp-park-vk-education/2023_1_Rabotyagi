@@ -16,6 +16,7 @@
 #include <memory>
 #include <string>
 #include <cpr/cpr.h>
+#include <user.hpp>
 
 using json = nlohmann::json;
 
@@ -26,11 +27,11 @@ UserControl::UserControl(QObject *parent) : QObject(parent)
 
 std::shared_ptr<User> fill_user(int id, std::string name, std::string password, std::string email, std::string last_login) {
     auto user = std::make_shared<User>();
-    user->id = id;
-    user->name = name;
-    user->email = email;
-    user->password = password;
-    user->last_login = last_login;
+    UserManager::instance()->id = id;
+    UserManager::instance()->name = name;
+    UserManager::instance()->email = email;
+    UserManager::instance()->password = password;
+    UserManager::instance()->last_login = last_login;
 
     return user;
 }
