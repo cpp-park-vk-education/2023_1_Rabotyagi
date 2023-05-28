@@ -71,7 +71,7 @@ private:
 
 private slots:
     void onButtonClicked();
-
+    void onActiveGuildChangeValue(int);
 };
 
 

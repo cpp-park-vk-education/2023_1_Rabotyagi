@@ -65,12 +65,11 @@ void Guildbar::onButtonClicked()
     m_layout->insertWidget(m_buttons.count() - 1, NewButton);
 
 
-    //connect(NewButton, &GuildButton::NewActiveGuild, this, &Guildbar::ChangeGuild(int));
+    connect(NewButton, &QPushButton::clicked, this, [this, NewButton]{ onActiveGuildChangeValue(NewButton->guild_id); });
 }
 
-void Guildbar::ChangeGuild(int id)
-{
-    active_guild = id;
+void Guildbar::onActiveGuildChangeValue(int guild_id){
+    active_guild = guild_id;
     qDebug() << "Changed guild to " << active_guild;
 }
 
