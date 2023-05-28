@@ -96,9 +96,19 @@ void ChannelSidebar::onButtonClicked()
 {
     auto modal_add = std::make_shared<Channel_Add>(this);
     modal_add->setModal(true);
+    connect(modal_add.get(), &Channel_Add::channel_created, this, &ChannelSidebar::createChannel);
     modal_add->exec();
 
     qDebug() << "clicked";
+}
+
+void ChannelSidebar::onActiveChannelChangeValue(int channel_id){
+    active_channel = channel_id;
+    qDebug() << "Changed guild to " << active_channel;
+}
+
+void ChannelSidebar::createChannel()
+{
     ChannelButton* NewButton = new ChannelButton("Канал " + QString::number(buttons.count() + 1), widget);
     NewButton->setIcon(QIcon(":/img/images/Channels-Iconhovered.png"));
     NewButton->channel_id = (int)(buttons.count() + 1);
@@ -110,9 +120,4 @@ void ChannelSidebar::onButtonClicked()
 
 
     connect(NewButton, &QPushButton::clicked, this, [this, NewButton]{ onActiveChannelChangeValue(NewButton->channel_id); });
-}
-
-void ChannelSidebar::onActiveChannelChangeValue(int channel_id){
-    active_channel = channel_id;
-    qDebug() << "Changed guild to " << active_channel;
 }

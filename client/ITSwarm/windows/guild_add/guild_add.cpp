@@ -21,6 +21,9 @@ Guild_Add::Guild_Add(Guildbar *parent) :
 
 int Guild_Add::CreateGuild()
 {
+    if (ui->name_edit->text() == "")
+        return 0;
+
     try {
         cpr::Response response = cpr::Post(
                     cpr::Url{"http://localhost:8000/api/v1/IGuild"},

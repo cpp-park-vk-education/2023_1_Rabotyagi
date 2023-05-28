@@ -75,6 +75,7 @@ private slots:
 //    void on_textChannelButton_3_clicked();
     void onButtonClicked();
     void onActiveChannelChangeValue(int);
+    void createChannel();
 
 private:
 
@@ -89,6 +90,7 @@ private:
     QList<ChannelButton*> buttons;
 
     int active_channel;
+
 };
 
 
