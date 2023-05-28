@@ -23,7 +23,7 @@
       <property name="styleSheet">
        <string notr="true">padding: 0px;
 background: #E2E7F0;
-border-bottom: 2px solid #2D3648;</string>
+/*border-bottom: 2px solid #2D3648;*/</string>
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_2">
        <item>

@@ -1,21 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <author/>
- <comment/>
- <exportmacro/>
  <class>ServerButton</class>
  <widget class="QWidget" name="ServerButton">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>203</width>
+    <height>225</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <widget class="QPushButton" name="pushButton">
+   <property name="geometry">
+    <rect>
+     <x>60</x>
+     <y>80</y>
+     <width>54</width>
+     <height>58</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/* Ellipse 1 */
+
+width: 50px;
+height: 50px;
+
+/* WF Base/400 ⦿ */
+background: #CBD2E0;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="icon">
+    <iconset resource="../windows/static/icons.qrc">
+     <normaloff>:/icons/server_idle.png</normaloff>
+     <activeoff>:/icons/server_hover.png</activeoff>
+     <selectedoff>:/icons/server_selected.png</selectedoff>:/icons/server_idle.png</iconset>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>54</width>
+     <height>58</height>
+    </size>
+   </property>
+   <property name="flat">
+    <bool>true</bool>
+   </property>
+  </widget>
  </widget>
- <pixmapfunction/>
+ <resources>
+  <include location="../windows/static/icons.qrc"/>
+ </resources>
  <connections/>
 </ui>

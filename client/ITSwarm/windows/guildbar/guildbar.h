@@ -16,6 +16,16 @@ public:
     GuildButton(const QString& text, QWidget* parent = nullptr):
         QPushButton(text, parent)
     {
+        this->setStyleSheet("background-image: url(:/icons/server_idle);"
+                            "background-origin: content; "
+                            "background-position: center;"
+                            "background-repeat: no-repeat;");
+//        auto icon = QIcon();
+//        icon.addFile(":/icons/server_idle", QSize(54, 58), QIcon::Mode::Normal, QIcon::State::Off);
+//        icon.addFile(":/icons/server_hover", QSize(54, 58), QIcon::Mode::Active, QIcon::State::Off);
+//        icon.addFile(":/icons/server_selected", QSize(54, 58), QIcon::Mode::Selected, QIcon::State::Off);
+        this->setFlat(true);
+//        this->setIcon(icon);
     }
 
     QString guild_name;
