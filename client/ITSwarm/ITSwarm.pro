@@ -19,6 +19,7 @@ SOURCES += \
     controls/user_control/user_control.cpp \
     main.cpp \
     test.cpp \
+    windows/channel_add/channel_add.cpp \
     windows/channel_widget/channelsidebar.cpp \
     windows/content_widget/contentwindow.cpp \
     windows/gitconnection/gitconnection.cpp \
@@ -29,6 +30,8 @@ SOURCES += \
     windows/reg_window/reg_window.cpp \
     windows/settings_window/settingswindow.cpp \
 #    windows/sidebar/sidebar.cpp \
+    windows/user_options/useroptions.cpp \
+    windows/user_settings/usersettings.cpp \
     windows/userbar/userbar.cpp
 
 HEADERS += \
@@ -40,6 +43,7 @@ HEADERS += \
     controls/data_types/data_types.hpp \
     controls/message_control/messagecontrol.h \
     controls/user_control/user_control.h \
+    windows/channel_add/channel_add.h \
     windows/channel_widget/channelsidebar.h \
     windows/content_widget/contentwindow.h \
     windows/gitconnection/gitconnection.h \
@@ -50,9 +54,12 @@ HEADERS += \
     windows/reg_window/reg_window.h \
     windows/settings_window/settingswindow.h \
 #    windows/sidebar/sidebar.h \
+    windows/user_options/useroptions.h \
+    windows/user_settings/usersettings.h \
     windows/userbar/userbar.h
 
 FORMS += \
+    windows/channel_add/channel_add.ui \
     windows/channel_widget/channelsidebar.ui \
     windows/content_widget/contentwindow.ui \
     windows/gitconnection/gitconnection.ui \
@@ -63,6 +70,8 @@ FORMS += \
     windows/reg_window/reg_window.ui \
     windows/settings_window/settingswindow.ui \
     windows/sidebar/sidebar.ui \
+    windows/user_options/useroptions.ui \
+    windows/user_settings/usersettings.ui \
     windows/userbar/userbar.ui
 
 # Default rules for deployment.
@@ -89,6 +98,8 @@ DISTFILES += \
     windows/static/images/icons8-search-30.png \
     windows/static/images/icons8-settings-50.png \
     windows/static/images/settings.png \
+    windows/static/images/user.png \
+    windows/static/images/user_settings.png \
     windows/static/style.css
 
 INCLUDEPATH += \
@@ -104,6 +115,9 @@ INCLUDEPATH += \
     "windows/userbar" \
     "windows/guildbar" \
     "windows/guild_add" \
+    "windows/channel_add" \
+    "windows/user_settings" \
+    "windows/user_options" \
     "controls/channel_control" \
     "controls/client" \
     "controls/message_control" \

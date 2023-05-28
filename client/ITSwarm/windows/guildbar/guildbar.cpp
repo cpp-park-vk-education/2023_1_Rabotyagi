@@ -12,12 +12,12 @@ Guildbar::Guildbar(QWidget *parent) : QScrollArea(parent), active_guild(0)
     widget = new QWidget(this);
     layout = new QHBoxLayout(widget);
     layout->setSpacing(10);
-    layout->setDirection(QBoxLayout::RightToLeft);
+    layout->setDirection(QBoxLayout::LeftToRight);
 
     QPushButton *button = new QPushButton("+ сервер", widget);
     button->setFixedSize(QSize(70, 20));
     layout->addWidget(button);
-    layout->setAlignment(button, Qt::AlignRight);
+    layout->setAlignment(button, Qt::AlignLeft);
 
     setWidgetResizable(true);
     setWidget(widget);

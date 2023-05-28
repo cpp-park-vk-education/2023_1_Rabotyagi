@@ -64,6 +64,7 @@ void ChannelSidebar::on_textChannelButton_3_clicked()
 */
 
 #include "channelsidebar.h"
+#include "channel_add.h"
 #include <Qt>
 
 ChannelSidebar::ChannelSidebar(std::shared_ptr<ContentWindow> content_window, QWidget *parent) :
@@ -93,6 +94,10 @@ ChannelSidebar::ChannelSidebar(std::shared_ptr<ContentWindow> content_window, QW
 
 void ChannelSidebar::onButtonClicked()
 {
+    auto modal_add = std::make_shared<Channel_Add>(this);
+    modal_add->setModal(true);
+    modal_add->exec();
+
     qDebug() << "clicked";
     ChannelButton* NewButton = new ChannelButton("Канал " + QString::number(buttons.count() + 1), widget);
     NewButton->setIcon(QIcon(":/img/images/Channels-Iconhovered.png"));

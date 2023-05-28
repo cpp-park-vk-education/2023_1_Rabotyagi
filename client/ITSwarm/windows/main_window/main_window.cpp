@@ -34,6 +34,9 @@ MainWindow::MainWindow(int* flag, QWidget *parent)
 //    channel_sidebar->on_textChannelButton_1_clicked();
     guildbar = std::make_shared<Guildbar>(this);
     guildbar->move(250, 5);
+
+    user_settings = std::make_shared<UserSettings>(this);
+    user_settings->move(0, 560);
 }
 
 MainWindow::~MainWindow()

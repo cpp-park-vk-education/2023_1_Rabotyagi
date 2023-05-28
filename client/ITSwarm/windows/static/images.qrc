@@ -12,5 +12,7 @@
         <file>images/Channels-Iconvoice hovered.png</file>
         <file>images/Channels-Iconselected.png</file>
         <file>images/Channels-Iconhovered.png</file>
+        <file>images/user.png</file>
+        <file>images/user_settings.png</file>
     </qresource>
 </RCC>

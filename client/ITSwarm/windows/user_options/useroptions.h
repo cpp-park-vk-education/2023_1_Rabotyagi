@@ -1,0 +1,22 @@
+#ifndef USEROPTIONS_H
+#define USEROPTIONS_H
+
+#include <QDialog>
+
+namespace Ui {
+class UserOptions;
+}
+
+class UserOptions : public QDialog
+{
+    Q_OBJECT
+
+public:
+    explicit UserOptions(QWidget *parent = nullptr);
+    ~UserOptions();
+
+private:
+    Ui::UserOptions *ui;
+};
+
+#endif // USEROPTIONS_H
