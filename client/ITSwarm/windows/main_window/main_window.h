@@ -8,6 +8,7 @@
 #include "contentwindow.h"
 #include "sidebar.h"
 #include "channelsidebar.h"
+#include "guildbar.h"
 #include <QMainWindow>
 #include <QVector>
 //#include "client.h"
@@ -45,6 +46,7 @@ private:
     std::shared_ptr<ContentWindow> content_window;
     std::shared_ptr<Sidebar> sidebar;
     std::shared_ptr<ChannelSidebar> channel_sidebar;
+    std::shared_ptr<Guildbar> guildbar;
 
 };
 #endif // MAINWINDOW_H
