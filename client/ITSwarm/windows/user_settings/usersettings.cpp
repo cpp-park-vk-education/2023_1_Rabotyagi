@@ -1,6 +1,8 @@
 #include "usersettings.h"
 #include "ui_usersettings.h"
 #include "useroptions.h"
+#include "user_control.h"
+#include <QString>
 
 UserSettings::UserSettings(QWidget *parent) :
     QWidget(parent),
@@ -8,6 +10,7 @@ UserSettings::UserSettings(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->pushButton->setIcon(QIcon(":/img/images/user_settings.png"));
+    ui->nickname->setText(UserManager::getInstance()->name.c_str());
 }
 
 UserSettings::~UserSettings()

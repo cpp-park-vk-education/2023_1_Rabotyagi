@@ -15,6 +15,9 @@ public:
     explicit UserOptions(QWidget *parent = nullptr);
     ~UserOptions();
 
+private slots:
+    void on_create_btn_clicked();
+
 private:
     Ui::UserOptions *ui;
 };

@@ -19,13 +19,19 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
 
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
 public:
+    int* _flag;
     MainWindow(int* flag, QWidget *parent = nullptr);
     virtual ~MainWindow();
+
+    enum class States {
+        to_login_window = 3
+    };
 
 public slots:
     void on_settingsButton_clicked();
@@ -33,7 +39,6 @@ public slots:
 
 private:
     Ui::MainWindow *ui;
-    int* _flag;
 
 //    std::shared_ptr<Client> client;
     //std::shared_ptr<TCPClient> client;

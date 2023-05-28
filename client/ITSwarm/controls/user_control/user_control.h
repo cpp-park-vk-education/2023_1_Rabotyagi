@@ -3,6 +3,8 @@
 #include "data_types.hpp"
 #include <QObject>
 #include "json.hpp"
+#include <QSettings>
+
 
 class UserControl : public QObject
 {
@@ -31,6 +33,7 @@ enum LoginProcessStatus {
 class UserManager {
 private:
     static std::shared_ptr<User> instance;
+    static std::shared_ptr<QSettings> settings;
     UserManager() {}
     UserManager(const UserManager&);
     UserManager& operator=( UserManager& );
@@ -39,6 +42,12 @@ public:
         if (!instance)
             instance = std::make_shared<User>();
         return instance;
+    }
+
+    static std::shared_ptr<QSettings> getSettings() {
+        if (!settings)
+            settings = std::make_shared<QSettings>("ITSwarm.ini", QSettings::IniFormat);
+        return settings;
     }
 
     static void fill_user(int id, std::string name, std::string password, std::string email, std::string last_login) {
@@ -52,5 +61,11 @@ public:
         instance->last_login = last_login;
     }
 
+//    static void clear_user(){
+//        if (!instance)
+//            getInstance();
+
+//        inst
+//    }
 };
 #endif // USERCONTROL_H

@@ -9,9 +9,9 @@
 #include "user_control.h"
 
 int init_app_settings() {
-    QSettings settings("ITSwarm.ini", QSettings::IniFormat);
-    auto username = settings.value("username").toString();
-    auto password = settings.value("password").toString();
+    auto settings = UserManager::getSettings();
+    auto username = settings->value("username").toString();
+    auto password = settings->value("password").toString();
     if (username != "" && password != ""){
         auto control = UserControl();
         int result = control.login(username, password);
@@ -64,7 +64,6 @@ int main(int argc, char *argv[])
         }
         QCoreApplication::processEvents();
     }
-
     main->show();
     return a.exec();
 }
