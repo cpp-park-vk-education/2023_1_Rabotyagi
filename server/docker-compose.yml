@@ -19,7 +19,7 @@ services:
             - POSTGRES_PASSWORD=root
             - POSTGRES_HOST=database
             - POSTGRES_PORT=5432
-            - DEBUG=True
+            - DEBUG=False
             - ALLOWED_HOSTS='localhost:8000,*'
 
     database:

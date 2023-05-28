@@ -12,6 +12,7 @@
 #include <QSettings>
 #include <QCloseEvent>
 #include <QtCore>
+#include <QSettings>
 
 LoginWindow::LoginWindow(int* flag, QWidget *parent) :
     QDialog(parent),

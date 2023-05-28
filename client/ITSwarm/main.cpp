@@ -6,6 +6,19 @@
 #include <QtCore/QSettings>
 #include <stdexcept>
 #include <QFile>
+#include "user_control.h"
+
+int init_app_settings() {
+    QSettings settings("ITSwarm.ini", QSettings::IniFormat);
+    auto username = settings.value("username").toString();
+    auto password = settings.value("password").toString();
+    if (username != "" && password != ""){
+        auto control = UserControl();
+        int result = control.login(username, password);
+        return result;
+    }
+    return 1;
+};
 
 int main(int argc, char *argv[])
 {
@@ -17,7 +30,14 @@ int main(int argc, char *argv[])
 
     UserManager::getInstance();
 
+    int result = init_app_settings();
+
     int flag = 3;
+
+    if (result == 0)
+        flag = -1;
+
+
     std::unique_ptr<LoginWindow> login = std::make_unique<LoginWindow>(&flag);
     std::unique_ptr<RegistrationWindow> reg = std::make_unique<RegistrationWindow>(&flag);
     std::unique_ptr<MainWindow> main = std::make_unique<MainWindow>(&flag);

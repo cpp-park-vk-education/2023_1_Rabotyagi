@@ -124,33 +124,11 @@
           </font>
          </property>
          <property name="styleSheet">
-          <string notr="true">/* Text Input */
-
-
-box-sizing: border-box;
-
-/* Auto layout */
-
-display: flex;
-flex-direction: column;
-align-items: flex-start;
-padding: 12px;
-gap: 10px;
-
-/* WF Base/White */
+          <string notr="true">padding: 12px;
 
 background: #FFFFFF;
-/* WF Base/400 ⦿ */
-
 border: 2px solid #CBD2E0;
-border-radius: 6px;
-
-/* Inside auto layout */
-
-flex: none;
-order: 1;
-align-self: stretch;
-flex-grow: 0;</string>
+border-radius: 6px;</string>
          </property>
         </widget>
        </item>
@@ -190,33 +168,11 @@ flex-grow: 0;</string>
           </font>
          </property>
          <property name="styleSheet">
-          <string notr="true">/* Text Input */
-
-
-box-sizing: border-box;
-
-/* Auto layout */
-
-display: flex;
-flex-direction: column;
-align-items: flex-start;
-padding: 12px;
-gap: 10px;
-
-/* WF Base/White */
+          <string notr="true">padding: 12px;
 
 background: #FFFFFF;
-/* WF Base/400 ⦿ */
-
 border: 2px solid #CBD2E0;
-border-radius: 6px;
-
-/* Inside auto layout */
-
-flex: none;
-order: 1;
-align-self: stretch;
-flex-grow: 0;</string>
+border-radius: 6px;</string>
          </property>
         </widget>
        </item>
@@ -253,33 +209,11 @@ flex-grow: 0;</string>
           </font>
          </property>
          <property name="styleSheet">
-          <string notr="true">/* Text Input */
-
-
-box-sizing: border-box;
-
-/* Auto layout */
-
-display: flex;
-flex-direction: column;
-align-items: flex-start;
-padding: 12px;
-gap: 10px;
-
-/* WF Base/White */
+          <string notr="true">padding: 12px;
 
 background: #FFFFFF;
-/* WF Base/400 ⦿ */
-
 border: 2px solid #CBD2E0;
-border-radius: 6px;
-
-/* Inside auto layout */
-
-flex: none;
-order: 1;
-align-self: stretch;
-flex-grow: 0;</string>
+border-radius: 6px;</string>
          </property>
          <property name="echoMode">
           <enum>QLineEdit::Password</enum>
@@ -319,33 +253,11 @@ flex-grow: 0;</string>
           </font>
          </property>
          <property name="styleSheet">
-          <string notr="true">/* Text Input */
-
-
-box-sizing: border-box;
-
-/* Auto layout */
-
-display: flex;
-flex-direction: column;
-align-items: flex-start;
-padding: 12px;
-gap: 10px;
-
-/* WF Base/White */
+          <string notr="true">padding: 12px;
 
 background: #FFFFFF;
-/* WF Base/400 ⦿ */
-
 border: 2px solid #CBD2E0;
-border-radius: 6px;
-
-/* Inside auto layout */
-
-flex: none;
-order: 1;
-align-self: stretch;
-flex-grow: 0;</string>
+border-radius: 6px;</string>
          </property>
          <property name="echoMode">
           <enum>QLineEdit::Password</enum>

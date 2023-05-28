@@ -50,13 +50,9 @@ int UserControl::login(const QString& username, const QString& password)
                 json_response["email"].dump(),
                 json_response["password"].dump(),
                 json_response["last_login"].dump());
-//            fill_user(
-//                UserManager::getInstance(),
-//                std::atoi(json_response["id"].dump().c_str()),
-//                json_response["name"].dump(),
-//                json_response["email"].dump(),
-//                json_response["password"].dump(),
-//                json_response["last_login"].dump());
+            QSettings settings("ITSwarm.ini", QSettings::IniFormat);
+            settings.setValue("username", json_response["name"].get<std::string>().c_str());
+            settings.setValue("password", json_response["password"].get<std::string>().c_str());
             return 0;
         }
         else {
@@ -90,12 +86,9 @@ int UserControl::registerUser(const QString& username, const QString& password, 
                 json_response["email"].dump(),
                 json_response["password"].dump(),
                 json_response["last_login"].dump());
-//            auto user = fill_user(
-//                std::atoi(json_response["id"].dump().c_str()),
-//                json_response["name"].dump(),
-//                json_response["email"].dump(),
-//                json_response["password"].dump(),
-//                json_response["last_login"].dump());
+            QSettings settings("ITSwarm.ini", QSettings::IniFormat);
+            settings.setValue("username", json_response["name"].get<std::string>().c_str());
+            settings.setValue("password", json_response["password"].get<std::string>().c_str());
             return 0;
         }
         else {
