@@ -17,6 +17,7 @@ public:
     {
     }
 
+    QString guild_name;
     int guild_id;
 };
 
@@ -35,10 +36,10 @@ private:
     QList<GuildButton*> buttons;
     int active_guild;
 
-
 private slots:
     void onButtonClicked();
     void onActiveGuildChangeValue(int);
+    void createGuild();
 };
 
 

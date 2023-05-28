@@ -24,9 +24,9 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
-public:
-    int* _flag;
+public:   
     MainWindow(int* flag, QWidget *parent = nullptr);
+    int* _flag;
     virtual ~MainWindow();
 
     enum class States {
