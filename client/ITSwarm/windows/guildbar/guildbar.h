@@ -6,6 +6,7 @@
 #include <QPushButton>
 #include <QHBoxLayout>
 #include <QDebug>
+#include <string>
 
 class GuildButton: public QPushButton
 {
@@ -29,6 +30,7 @@ Q_OBJECT
 public:
     explicit Guildbar(QWidget *parent = nullptr);
     void ChangeGuild(int id);
+    void createGuild(int, std::string);
 
 private:
     QWidget* widget;
@@ -39,7 +41,7 @@ private:
 private slots:
     void onButtonClicked();
     void onActiveGuildChangeValue(int);
-    void createGuild();
+
 };
 
 

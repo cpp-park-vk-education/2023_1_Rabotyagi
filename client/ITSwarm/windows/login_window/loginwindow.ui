@@ -7,11 +7,11 @@
     <x>0</x>
     <y>0</y>
     <width>420</width>
-    <height>474</height>
+    <height>507</height>
    </rect>
   </property>
   <property name="sizePolicy">
-   <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
     <horstretch>0</horstretch>
     <verstretch>0</verstretch>
    </sizepolicy>
@@ -688,7 +688,18 @@ border-radius: 6px;</string>
             </font>
            </property>
            <property name="styleSheet">
-            <string notr="true"/>
+            <string notr="true">QPushButton#loginButton {
+    padding: 12px 20px;
+    height: 40px;
+
+    border: 2px solid #2D3648;
+    border-radius: 6px;
+}
+
+QPushButton#loginButton:hover {
+    color: #FFFFFF;
+    background: #2D3648;
+}</string>
            </property>
            <property name="text">
             <string>Войти</string>
@@ -709,7 +720,22 @@ border-radius: 6px;</string>
             </font>
            </property>
            <property name="styleSheet">
-            <string notr="true"/>
+            <string notr="true">QPushButton#registrationButton {
+    color: #FFFFFF;
+    padding: 12px 20px;
+    height: 44px;
+    width: 163px;
+
+    background: #2D3648;
+    border-radius: 6px;
+}
+
+QPushButton#registrationButton:hover {
+    color: #2D3648;
+
+    border: 2px solid #2D3648;
+    background-color: transparent;
+}</string>
            </property>
            <property name="text">
             <string>Регистрация</string>

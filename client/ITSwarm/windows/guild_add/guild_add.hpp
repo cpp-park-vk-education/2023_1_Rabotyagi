@@ -15,7 +15,7 @@ class Guild_Add : public QDialog
 public:
     explicit Guild_Add(Guildbar *parent = nullptr);
     ~Guild_Add();
-
+    int CreateGuild();
 private slots:
     void on_create_btn_clicked();
 
@@ -27,7 +27,7 @@ signals:
 private:
     Ui::Guild_Add *ui;
 
-    int CreateGuild();
+
 };
 
 #endif // GUILD_ADD_HPP

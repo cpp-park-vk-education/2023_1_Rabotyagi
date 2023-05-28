@@ -6,9 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>409</width>
-    <height>644</height>
+    <width>494</width>
+    <height>713</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
   </property>
   <property name="windowTitle">
    <string>Регистрация</string>
@@ -280,6 +286,22 @@ border-radius: 6px;</string>
          <bold>true</bold>
         </font>
        </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton#goBackButton {
+    padding: 12px 20px;
+
+    width: 110px;
+    height: 40px;
+
+    border: 2px solid #2D3648;
+    border-radius: 6px;
+}
+
+QPushButton#goBackButton:hover {
+    color: #FFFFFF;
+    background: #2D3648;
+}</string>
+       </property>
        <property name="text">
         <string>Назад</string>
        </property>
@@ -297,6 +319,25 @@ border-radius: 6px;</string>
          <weight>75</weight>
          <bold>true</bold>
         </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton#registerButton {
+    padding: 12px 20px;
+
+    width: 228px;
+    height: 44px;
+    color: #FFFFFF;
+
+    background: #2D3648;
+    border-radius: 6px;
+}
+
+QPushButton#registerButton:hover {
+    color: #2D3648;
+
+    border: 2px solid #2D3648;
+    background-color: transparent;
+}</string>
        </property>
        <property name="text">
         <string>Зарегистрироваться</string>

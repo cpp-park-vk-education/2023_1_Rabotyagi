@@ -92,7 +92,13 @@ class IChannel(View):
                 'message': "Отсутствует channel_id"
             }, status=400)
         
-        channel = Channel.manager.get(id=channel_id)
+        try:
+            channel = Channel.manager.get(id=channel_id)
+        except Channel.DoesNotExist:
+            return JsonResponse({
+                'message': f"Отсутствует channel с {channel_id}"
+            }, status=400)
+            
         messages = Channel.manager.get_messages_dict(channel)
         return JsonResponse({
             'id': channel.id,
@@ -119,8 +125,15 @@ class IChannel(View):
                 'message': "Отсутствует name"
             }, status=400)
         
+        try:
+            guild = Guild.manager.get(id=guild_id)
+        except Guild.DoesNotExist:
+            return JsonResponse({
+                'message': f"Отсутствует guild с {guild_id}"
+            }, status=400)
+        
         channel = Channel.manager.create(
-            guild = Guild.manager.get(id=guild_id),
+            guild = guild,
             name = name
         )
         
@@ -160,8 +173,19 @@ class IMessage(View):
                 'message': "Отсутствует content"
             }, status=400)
         
-        channel = Channel.manager.get(id=channel_id)
-        owner = User.objects.get(id=owner_id)
+        try:
+            channel = Channel.manager.get(id=channel_id)
+        except Channel.DoesNotExist:
+            return JsonResponse({
+                'message': f"Отсутствует channel с {channel_id}"
+            }, status=400)
+            
+        try:
+            owner = User.objects.get(id=owner_id)
+        except User.DoesNotExist:
+            return JsonResponse({
+                'message': f"Отсутствует user с {owner_id}"
+            }, status=400)
         
         Message.manager.create(
             owner = owner,
@@ -205,10 +229,16 @@ class IGuild(View):
             return JsonResponse({
                 'message': "Отсутствует name"
             }, status=400)
-            
+        
+        try:
+            owner = User.objects.get(id=owner_id)
+        except User.DoesNotExist:
+            return JsonResponse({
+                'message': f"Отсутствует owner c {owner_id}"
+            }, status=400)
         
         guild = Guild.manager.create(
-            owner = User.objects.get(id=owner_id),
+            owner = owner,
             name=guild_name,
             user_count=1
         )

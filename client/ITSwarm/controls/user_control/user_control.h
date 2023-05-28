@@ -61,12 +61,5 @@ public:
         instance->last_login = last_login;
         instance->guild_id = 0;
     }
-
-//    static void clear_user(){
-//        if (!instance)
-//            getInstance();
-
-//        inst
-//    }
 };
 #endif // USERCONTROL_H

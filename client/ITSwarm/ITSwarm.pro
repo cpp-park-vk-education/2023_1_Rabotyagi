@@ -16,6 +16,7 @@ QMAKE_CXXFLAGS += -std=c++20
 SOURCES += \
     controls/channel_control/channelcontrol.cpp \
     controls/message_control/messagecontrol.cpp \
+    controls/serverbutton.cpp \
     controls/user_control/user_control.cpp \
     main.cpp \
     windows/channel_add/channel_add.cpp \
@@ -36,6 +37,7 @@ SOURCES += \
 HEADERS += \
     controls/data_types/request.h \
     controls/data_types/data_types.hpp \
+    controls/serverbutton.h \
     external/data_types.hpp \
     external/json.hpp \
     controls/channel_control/channelcontrol.h \
@@ -58,6 +60,7 @@ HEADERS += \
     windows/userbar/userbar.h
 
 FORMS += \
+    controls/serverbutton.ui \
     windows/channel_add/channel_add.ui \
     windows/channel_widget/channelsidebar.ui \
     windows/content_widget/contentwindow.ui \
@@ -81,7 +84,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 RESOURCES += \
     windows/static/icons.qrc \
     windows/static/images.qrc \
-    windows/static/style.qrc
+#    windows/static/style.qrc
 
 DISTFILES += \
     windows/static/icons/close.png \
@@ -98,8 +101,7 @@ DISTFILES += \
     windows/static/images/icons8-settings-50.png \
     windows/static/images/settings.png \
     windows/static/images/user.png \
-    windows/static/images/user_settings.png \
-    windows/static/style.css
+    windows/static/images/user_settings.png
 
 INCLUDEPATH += \
     "windows/channel_widget" \

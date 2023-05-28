@@ -6,9 +6,8 @@
 #include <QMessageBox>
 #include <iostream>
 #include <string>
-
-
-extern UserManager user;
+#include <QString>
+#include "user_control.h"
 
 using json = nlohmann::json;
 
@@ -29,13 +28,19 @@ int Guild_Add::CreateGuild()
                     cpr::Url{"http://localhost:8000/api/v1/IGuild"},
                     cpr::Multipart{
                         {"guild_name", ui->name_edit->text().toStdString().c_str()},
-                        {"owner_id", std::to_string(user.getInstance()->id).c_str()},
+                        {"owner_id", std::to_string(UserManager::getInstance()->id).c_str()},
                     });
         auto json_response = json::parse(response.text);
 
         if (response.status_code == 200){
+
+            auto guildbar = qobject_cast<Guildbar*>(this->parent());
+            guildbar->createGuild(
+                        json_response["id"].get<int>(),
+                        json_response["name"].get<std::string>()
+                        );
             qDebug() << "created guild " << ui->name_edit->text();
-            return 0;
+//            return 0;
         }
         else {
             QMessageBox::warning(nullptr, tr("Can't create new guild"), tr(json_response["message"].dump().c_str()));
@@ -46,7 +51,7 @@ int Guild_Add::CreateGuild()
         std::cerr << "Request failed, error: " << e.what() << '\n';
     }
     //return 1;
-    emit guild_created();
+//    emit guild_created();
     close();
     return 1;
 }
