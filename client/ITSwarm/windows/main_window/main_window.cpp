@@ -28,10 +28,12 @@ MainWindow::MainWindow(int* flag, QWidget *parent)
 //    //sidebar = std::make_shared<Sidebar>(this);
 //    //sidebar->move(10, 60);
 
-//    channel_sidebar = std::make_shared<ChannelSidebar>(content_window, this);
-//    channel_sidebar->move(10, 60);
+    channel_sidebar = std::make_shared<ChannelSidebar>(content_window, this);
+    channel_sidebar->move(10, 60);
 
 //    channel_sidebar->on_textChannelButton_1_clicked();
+    guildbar = std::make_shared<Guildbar>(this);
+    guildbar->move(250, 5);
 }
 
 MainWindow::~MainWindow()

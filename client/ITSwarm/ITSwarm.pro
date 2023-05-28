@@ -24,6 +24,7 @@ SOURCES += \
     windows/channel_widget/channelsidebar.cpp \
     windows/content_widget/contentwindow.cpp \
     windows/gitconnection/gitconnection.cpp \
+    windows/guildbar/guildbar.cpp \
     windows/login_window/loginwindow.cpp \
     windows/main_window/main_window.cpp \
     windows/reg_window/reg_window.cpp \
@@ -46,6 +47,7 @@ HEADERS += \
     windows/channel_widget/channelsidebar.h \
     windows/content_widget/contentwindow.h \
     windows/gitconnection/gitconnection.h \
+    windows/guildbar/guildbar.h \
     windows/login_window/loginwindow.hpp \
     windows/main_window/main_window.h \
     windows/reg_window/reg_window.h \
@@ -57,6 +59,7 @@ FORMS += \
     windows/channel_widget/channelsidebar.ui \
     windows/content_widget/contentwindow.ui \
     windows/gitconnection/gitconnection.ui \
+    windows/guildbar/guildbar.ui \
     windows/login_window/loginwindow.ui \
     windows/main_window/main_window.ui \
     windows/reg_window/reg_window.ui \
@@ -101,6 +104,7 @@ INCLUDEPATH += \
     "windows/sidebar" \
     "windows/static" \
     "windows/userbar" \
+    "windows/guildbar" \
     "controls/channel_control" \
     "controls/client" \
     "controls/data_types" \
