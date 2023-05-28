@@ -18,7 +18,6 @@ SOURCES += \
     controls/message_control/messagecontrol.cpp \
     controls/user_control/user_control.cpp \
     main.cpp \
-    test.cpp \
     windows/channel_add/channel_add.cpp \
     windows/channel_widget/channelsidebar.cpp \
     windows/content_widget/contentwindow.cpp \
@@ -128,6 +127,18 @@ INCLUDEPATH += \
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../../../../usr/local/lib/release/ -lcpr
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../../../../usr/local/lib/debug/ -lcpr
 else:unix: LIBS += -L/usr/local/lib/ -lcpr
+
+#Release:DESTDIR = release
+#Release:OBJECTS_DIR = release/obj/.obj
+#Release:MOC_DIR = release/moc/.moc
+#Release:RCC_DIR = release/rcc/.rcc
+#Release:UI_DIR = release/ui/.ui
+
+Debug:DESTDIR = debug
+Debug:OBJECTS_DIR = debug/obj/.obj
+Debug:MOC_DIR = debug/moc/.moc
+Debug:RCC_DIR = debug/rcc/.rcc
+Debug:UI_DIR = debug/ui/.ui
 
 INCLUDEPATH += /usr/local/lib
 DEPENDPATH += /usr/local/lib

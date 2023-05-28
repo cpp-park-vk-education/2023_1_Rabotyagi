@@ -4,7 +4,7 @@ from .models import *
 # Register your models here.
 @admin.register(Channel)
 class ChannelAdmin(admin.ModelAdmin):
-    list_display = ('guild', 'name')
+    list_display = ('id', 'name', 'guild')
     search_fields = ('guild', 'name' ,)
     
 @admin.register(Message)
@@ -14,4 +14,4 @@ class MessageAdmin(admin.ModelAdmin):
 
 @admin.register(Guild)
 class GuildAdmin(admin.ModelAdmin):
-    list_display = ('owner', 'name')
+    list_display = ('id', 'name', 'owner',)
