@@ -11,8 +11,8 @@
 
 MainWindow::MainWindow(int* flag, QWidget *parent)
     :QMainWindow(parent),
-    ui(new Ui::MainWindow),
-    _flag(flag)
+    _flag(flag),
+    ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
     QMainWindow::setWindowTitle("ITSwarm");

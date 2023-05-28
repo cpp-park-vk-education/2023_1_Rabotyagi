@@ -2,6 +2,9 @@
 #include <QDebug>
 #include <Qt>
 #include "guild_add.hpp"
+#include "user_control.h"
+
+extern UserManager user;
 
 Guildbar::Guildbar(QWidget *parent) : QScrollArea(parent), active_guild(0)
 {
@@ -29,9 +32,18 @@ void Guildbar::onButtonClicked()
 {
     auto modal_add = std::make_shared<Guild_Add>(this);
     modal_add->setModal(true);
+    connect(modal_add.get(), &Guild_Add::guild_created, this, &Guildbar::createGuild);
     modal_add->exec();
+}
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////
+void Guildbar::onActiveGuildChangeValue(int guild_id){
+    active_guild = guild_id;
+    user.getInstance()->guild_id = guild_id;
+    qDebug() << "Changed guild to " << active_guild;
+}
+
+void Guildbar::createGuild()
+{
     GuildButton* NewButton = new GuildButton("Сервер " + QString::number(buttons.count() + 1), widget);
     NewButton->guild_id = (int)(buttons.count() + 1);
     qDebug() << "Created guild " << NewButton->guild_id;
@@ -42,10 +54,5 @@ void Guildbar::onButtonClicked()
 
 
     connect(NewButton, &QPushButton::clicked, this, [this, NewButton]{ onActiveGuildChangeValue(NewButton->guild_id); });
-}
-
-void Guildbar::onActiveGuildChangeValue(int guild_id){
-    active_guild = guild_id;
-    qDebug() << "Changed guild to " << active_guild;
 }
 
