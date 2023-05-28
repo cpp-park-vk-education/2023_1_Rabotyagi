@@ -15,8 +15,6 @@ QMAKE_CXXFLAGS += -std=c++20
 
 SOURCES += \
     controls/channel_control/channelcontrol.cpp \
-#    controls/client/client.cpp \
-#    controls/client/tcpclient.cpp \
     controls/message_control/messagecontrol.cpp \
     controls/user_control/user_control.cpp \
     main.cpp \
@@ -24,6 +22,7 @@ SOURCES += \
     windows/channel_widget/channelsidebar.cpp \
     windows/content_widget/contentwindow.cpp \
     windows/gitconnection/gitconnection.cpp \
+    windows/guild_add/guild_add.cpp \
     windows/guildbar/guildbar.cpp \
     windows/login_window/loginwindow.cpp \
     windows/main_window/main_window.cpp \
@@ -38,15 +37,13 @@ HEADERS += \
     external/data_types.hpp \
     external/json.hpp \
     controls/channel_control/channelcontrol.h \
-#    controls/client/client.h \
-#    controls/client/iclient.h \
-#    controls/client/tcpclient.h \
     controls/data_types/data_types.hpp \
     controls/message_control/messagecontrol.h \
     controls/user_control/user_control.h \
     windows/channel_widget/channelsidebar.h \
     windows/content_widget/contentwindow.h \
     windows/gitconnection/gitconnection.h \
+    windows/guild_add/guild_add.hpp \
     windows/guildbar/guildbar.h \
     windows/login_window/loginwindow.hpp \
     windows/main_window/main_window.h \
@@ -59,6 +56,7 @@ FORMS += \
     windows/channel_widget/channelsidebar.ui \
     windows/content_widget/contentwindow.ui \
     windows/gitconnection/gitconnection.ui \
+    windows/guild_add/guild_add.ui \
     windows/guildbar/guildbar.ui \
     windows/login_window/loginwindow.ui \
     windows/main_window/main_window.ui \
@@ -105,9 +103,9 @@ INCLUDEPATH += \
     "windows/static" \
     "windows/userbar" \
     "windows/guildbar" \
+    "windows/guild_add" \
     "controls/channel_control" \
     "controls/client" \
-    "controls/data_types" \
     "controls/message_control" \
     "controls/user_control" \
     "external"

@@ -1,6 +1,7 @@
 #include "guildbar.h"
 #include <QDebug>
 #include <Qt>
+#include "guild_add.hpp"
 
 Guildbar::Guildbar(QWidget *parent) : QScrollArea(parent), active_guild(0)
 {
@@ -26,7 +27,11 @@ Guildbar::Guildbar(QWidget *parent) : QScrollArea(parent), active_guild(0)
 
 void Guildbar::onButtonClicked()
 {
-    qDebug() << "clicked";
+    auto modal_add = std::make_shared<Guild_Add>(this);
+    modal_add->setModal(true);
+    modal_add->exec();
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
     GuildButton* NewButton = new GuildButton("Сервер " + QString::number(buttons.count() + 1), widget);
     NewButton->guild_id = (int)(buttons.count() + 1);
     qDebug() << "Created guild " << NewButton->guild_id;
