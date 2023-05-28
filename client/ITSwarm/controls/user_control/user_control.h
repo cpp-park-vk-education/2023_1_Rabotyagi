@@ -59,6 +59,7 @@ public:
         instance->email = email;
         instance->password = password;
         instance->last_login = last_login;
+        instance->guild_id = 0;
     }
 
 //    static void clear_user(){

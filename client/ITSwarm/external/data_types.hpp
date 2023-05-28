@@ -37,6 +37,6 @@ struct User:Base
     std::string password="";
     std::string email="";
     std::string last_login="";
-
+    unsigned int guild_id=0;
 
 };

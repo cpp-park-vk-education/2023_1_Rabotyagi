@@ -2,6 +2,9 @@
 #include <QDebug>
 #include <Qt>
 #include "guild_add.hpp"
+#include "user_control.h"
+
+extern UserManager user;
 
 Guildbar::Guildbar(QWidget *parent) : QScrollArea(parent), active_guild(0)
 {
@@ -35,6 +38,7 @@ void Guildbar::onButtonClicked()
 
 void Guildbar::onActiveGuildChangeValue(int guild_id){
     active_guild = guild_id;
+    user.getInstance()->guild_id = guild_id;
     qDebug() << "Changed guild to " << active_guild;
 }
 

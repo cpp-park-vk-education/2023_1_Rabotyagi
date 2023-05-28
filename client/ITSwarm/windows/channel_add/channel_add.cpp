@@ -37,7 +37,7 @@ int Channel_Add::CreateChannel()
         cpr::Response response = cpr::Post(
                     cpr::Url{"http://localhost:8000/api/v1/IChannel"},
                     cpr::Multipart{
-                        {"guild_id", ui->name_edit->text().toStdString().c_str()},
+                        {"guild_id", std::to_string(user.getInstance()->guild_id).c_str()},
                         {"name", ui->name_edit->text().toStdString().c_str()},
                     });
         auto json_response = json::parse(response.text);
