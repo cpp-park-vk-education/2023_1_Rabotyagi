@@ -206,13 +206,20 @@ class IGuild(View):
                 'message': "Отсутствует id для guild"
             }, status=400)
         
-        guild = Guild.manager.get(id=guild_id)
+        try:
+            guild = Guild.manager.get(id=guild_id)
+        except Guild.DoesNotExist:
+            return JsonResponse({
+                'message': "Отсутствует guild с {}".format(guild_id)
+            }, status=400)
+            
         return JsonResponse({
             'id': guild.id,
             'name': guild.name,
             # 'owner': guild.owner,
             'user_count': guild.user_count,
-            'created_at': guild.created_at
+            'created_at': guild.created_at,
+            'channels': Guild.manager.get_channels(guild)
             }, status=200)
         
     @staticmethod

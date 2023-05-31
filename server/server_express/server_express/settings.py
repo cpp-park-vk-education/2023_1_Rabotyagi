@@ -8,11 +8,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 if os.environ.get("DEBUG") == None:
     load_dotenv(Path.joinpath(BASE_DIR, '.env'))
 
-if os.environ.get("DEBUG") == 'False':
-    DEBUG = False
-else:
-    DEBUG = True
-
+# if os.environ.get("DEBUG") == 'False':
+#     DEBUG = False
+# else:
+#     DEBUG = True
+DEBUG = True
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 

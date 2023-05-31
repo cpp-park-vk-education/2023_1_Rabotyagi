@@ -17,22 +17,27 @@ class MessageManager(models.Manager):
 class ChannelManager(models.Manager):
     def get_messages_dict(self, instance: models.Model):
         messages = instance.messages.all()
-        result = {}
-        for msg in messages:
-            result.update({
-                msg.id: {
-                    'owner': msg.owner.username,
-                    'channel': instance.id,
-                    'content': msg.content,
-                    'created_at': msg.created_at,
-                    'updated_at': msg.updated_at
-                }
-            })
+        result = [
+            {
+                'id': msg.id,
+                'owner': msg.owner.username,
+                'channel': instance.id,
+                'content': msg.content,
+            } for msg in messages
+        ]
         return result
 
 
 class GuildManager(models.Manager):
-    pass
+    def get_channels(self, instance: models.Model):
+        channels = instance.channels.all()
+        result = [
+            {
+                "id": channel.id,
+                "name": channel.name
+            } for channel in channels
+        ]
+        return result
 
 
 class Guild(models.Model):
