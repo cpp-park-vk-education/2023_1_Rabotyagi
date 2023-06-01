@@ -69,8 +69,8 @@ ContentWindow::ContentWindow(QWidget *parent) :
 //    client(client)
 {
     ui->setupUi(this);
-    ui->searchButton->setIcon(QIcon(":/img/images/icons8-search-30.png"));
-    ui->moreButton->setIcon(QIcon(":/img/images/icons8-more-24.png"));
+//    ui->searchButton->setIcon(QIcon(":/img/images/icons8-search-30.png"));
+//    ui->moreButton->setIcon(QIcon(":/img/images/icons8-more-24.png"));
 
     connect_to_message_control();
 

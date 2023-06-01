@@ -26,7 +26,7 @@
     <string/>
    </property>
    <property name="pixmap">
-    <pixmap resource="../static/images.qrc">:/img/images/user.png</pixmap>
+    <pixmap resource="../../static/images.qrc">:/img/images/user.png</pixmap>
    </property>
    <property name="scaledContents">
     <bool>true</bool>
@@ -93,7 +93,7 @@
   <zorder>pushButton</zorder>
  </widget>
  <resources>
-  <include location="../static/images.qrc"/>
+  <include location="../../static/images.qrc"/>
  </resources>
  <connections/>
 </ui>

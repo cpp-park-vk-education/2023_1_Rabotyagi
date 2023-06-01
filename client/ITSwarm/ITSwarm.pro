@@ -35,8 +35,6 @@ SOURCES += \
     windows/userbar/userbar.cpp
 
 HEADERS += \
-    controls/data_types/request.h \
-    controls/data_types/data_types.hpp \
     controls/serverbutton.h \
     external/data_types.hpp \
     external/json.hpp \
@@ -82,26 +80,30 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
-    windows/static/icons.qrc \
-    windows/static/images.qrc \
-#    windows/static/style.qrc
+    static/icons.qrc \
+    static/images.qrc \
 
 DISTFILES += \
-    windows/static/icons/close.png \
-    windows/static/images/Channels-Iconhovered.png \
-    windows/static/images/Channels-Iconselected.png \
-    windows/static/images/Channels-Iconvoice hovered.png \
-    windows/static/images/Channels-Iconvoice_selected.png \
-    windows/static/images/WF Icon Button.png \
-    windows/static/images/icons8-automatic-50.png \
-    windows/static/images/icons8-git-50.png \
-    windows/static/images/icons8-git-75.png \
-    windows/static/images/icons8-more-24.png \
-    windows/static/images/icons8-search-30.png \
-    windows/static/images/icons8-settings-50.png \
-    windows/static/images/settings.png \
-    windows/static/images/user.png \
-    windows/static/images/user_settings.png
+    static/icons/close.png \
+    static/icons/free-icon-hammer-and-sickle-7352591.png:Zone.Identifier \
+    static/icons/logo.png \
+    static/icons/server_hover.png \
+    static/icons/server_idle.png \
+    static/icons/server_selected.png \
+    static/images/Channels-Iconhovered.png \
+    static/images/Channels-Iconselected.png \
+    static/images/Channels-Iconvoice hovered.png \
+    static/images/Channels-Iconvoice_selected.png \
+    static/images/WF Icon Button.png \
+    static/images/icons8-automatic-50.png \
+    static/images/icons8-git-50.png \
+    static/images/icons8-git-75.png \
+    static/images/icons8-more-24.png \
+    static/images/icons8-search-30.png \
+    static/images/icons8-settings-50.png \
+    static/images/settings.png \
+    static/images/user.png \
+    static/images/user_settings.png \
 
 INCLUDEPATH += \
     "windows/channel_widget" \
@@ -112,7 +114,6 @@ INCLUDEPATH += \
     "windows/reg_window" \
     "windows/settings_window" \
     "windows/sidebar" \
-    "windows/static" \
     "windows/userbar" \
     "windows/guildbar" \
     "windows/guild_add" \
@@ -123,7 +124,8 @@ INCLUDEPATH += \
     "controls/client" \
     "controls/message_control" \
     "controls/user_control" \
-    "external"
+    "external" \
+    "static"
 
 
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../../../../usr/local/lib/release/ -lcpr

@@ -1,9 +1,11 @@
 <RCC>
     <qresource prefix="/">
-        <file>icons/close.png</file>
         <file>icons/logo.png</file>
         <file>icons/server_hover.png</file>
         <file>icons/server_idle.png</file>
         <file>icons/server_selected.png</file>
+        <file>icons/GuildSettings.svg</file>
+        <file>icons/Git.svg</file>
+        <file>icons/send_message.svg</file>
     </qresource>
 </RCC>
