@@ -30,6 +30,7 @@ public slots:
     void on_lineEdit_returnPressed();
     void slotUpdateMessages();
     void ClearContentWindow();
+    //void RefreshMessages();
 
 
 private:

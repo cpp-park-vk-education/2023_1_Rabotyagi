@@ -54,6 +54,12 @@ MainWindow::MainWindow(int* flag, QWidget *parent)
 
     user_settings = std::make_shared<UserSettings>(this);
     user_settings->move(0, 560);
+
+    timer = new QTimer();
+    timer->start(1000);
+    connect(timer, &QTimer::timeout, content_window.get(), clear_content_window);
+    connect(timer, &QTimer::timeout, content_window.get(), change_active_channel);
+
 }
 
 MainWindow::~MainWindow()

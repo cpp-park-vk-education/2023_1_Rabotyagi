@@ -12,6 +12,8 @@
 #include "usersettings.h"
 #include <QMainWindow>
 #include <QVector>
+#include <QTimer>
+#include <QTime>
 //#include "client.h"
 //#include "tcpclient.h"
 
@@ -54,6 +56,7 @@ private:
     std::shared_ptr<ChannelSidebar> channel_sidebar;
     std::shared_ptr<Guildbar> guildbar;
     std::shared_ptr<UserSettings> user_settings;
+    QTimer* timer;
 
 };
 #endif // MAINWINDOW_H
