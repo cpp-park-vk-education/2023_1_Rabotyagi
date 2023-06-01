@@ -70,7 +70,7 @@ void Guildbar::createGuild(int guild_id, std::string name)
     GuildButton* NewButton = new GuildButton(name.c_str(), widget);
     NewButton->guild_id = guild_id;
     qDebug() << "Created guild " << NewButton->guild_id;
-    NewButton->setFixedSize(QSize(70, 20));
+    NewButton->setFixedSize(QSize(150, 20));
 
     buttons.append(NewButton);
     layout->insertWidget(buttons.count() - 1, NewButton);

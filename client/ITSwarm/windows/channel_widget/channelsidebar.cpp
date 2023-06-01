@@ -80,7 +80,7 @@ ChannelSidebar::ChannelSidebar(std::shared_ptr<ContentWindow> content_window, QW
     content_window(content_window),
     active_channel(0)
 {
-    this->resize(120, 400);
+    this->resize(190, 400);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
 
@@ -90,7 +90,7 @@ ChannelSidebar::ChannelSidebar(std::shared_ptr<ContentWindow> content_window, QW
     layout->setDirection(QBoxLayout::TopToBottom);
 
     QPushButton* button = new QPushButton("+ канал", widget);
-    button->setFixedSize(QSize(90, 25));
+    button->setFixedSize(QSize(150, 25));
     layout->addWidget(button);
     layout->setAlignment(button, Qt::AlignTop);
 
@@ -142,7 +142,7 @@ void ChannelSidebar::createChannel(int channel_id, std::string name)
     NewButton->setIcon(QIcon(":/img/images/Channels-Iconhovered.png"));
     NewButton->channel_id = channel_id;
     qDebug() << "Created channel " << NewButton->channel_id;
-    NewButton->setFixedSize(QSize(90, 25));
+    NewButton->setFixedSize(QSize(150, 25));
 
     buttons.append(NewButton);
     qDebug() << "buttons: " << buttons.size();

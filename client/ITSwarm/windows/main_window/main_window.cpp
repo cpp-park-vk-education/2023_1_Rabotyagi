@@ -20,7 +20,7 @@ MainWindow::MainWindow(int* flag, QWidget *parent)
     ui->settingsButton->setIcon(QIcon(":/img/images/icons8-settings-50.png"));
 
     content_window = std::make_shared<ContentWindow>(this);
-    content_window->move(130, 60);
+    content_window->move(200, 60);
 
 //    userbar = std::make_shared<Userbar>(this);
 //    userbar->move(970, 110);
