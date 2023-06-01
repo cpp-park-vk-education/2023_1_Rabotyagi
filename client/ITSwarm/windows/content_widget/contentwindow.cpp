@@ -24,22 +24,23 @@ using json = nlohmann::json;
     connect(client.get(), &Client::newMessages, this, &ContentWindow::slotUpdateMessages);
 }*/
 
-void ContentWindow::ChangeActiveChannel(std::shared_ptr<Channel> channel)
-{
-    active_channel = channel;
-    qDebug() << "ContentWindow: changed active_channel";
-}
+//void ContentWindow::ChangeActiveChannel(std::shared_ptr<Channel> channel)
+//{
+//    active_channel = channel;
+//    ui->textBrowser->clear();
+//    qDebug() << "ContentWindow: changed active_channel";
+//}
 
 int ContentWindow::UpdateMessages(int channel_id)
 {
+
     try
     {
         cpr::Response response = cpr::Get(
                     cpr::Url{"http://localhost:8000/api/v1/IChannel"},
                     cpr::Parameters{
-                        {"guild_id", std::to_string(channel_id).c_str()}
+                        {"channel_id", std::to_string(channel_id).c_str()}
                     });
-
         auto json_response = json::parse(response.text);
 
         if (response.status_code == 200){
@@ -49,6 +50,7 @@ int ContentWindow::UpdateMessages(int channel_id)
                 auto owner = (*message)["owner"].get<std::string>();
                 auto content = (*message)["content"].get<std::string>();
                 QString text = QString::fromStdString(owner) + ": " + QString::fromStdString(content);
+                qDebug() << "got message: " << text;
                 message_control->AppendMessage(this, text);
             }
 
@@ -72,7 +74,13 @@ ContentWindow::ContentWindow(QWidget *parent) :
 
     connect_to_message_control();
 
-//    connect(client.get(), &TCPClient::newMessages, this, &ContentWindow::slotUpdateMessages);
+    //    connect(client.get(), &TCPClient::newMessages, this, &ContentWindow::slotUpdateMessages);
+}
+
+void ContentWindow::ClearContentWindow()
+{
+    qDebug() << "Cleared";
+    ui->textBrowser->clear();
 }
 
 ContentWindow::~ContentWindow()

@@ -18,7 +18,6 @@ class ContentWindow : public QWidget
 public:
     //explicit ContentWindow(std::shared_ptr<Client> client = nullptr, QWidget *parent = nullptr);
     explicit ContentWindow(QWidget *parent = nullptr);
-    void ChangeActiveChannel(std::shared_ptr<Channel> channel);
     int UpdateMessages(int channel_id);
     Ui::ContentWindow *ui;
     ~ContentWindow();
@@ -30,6 +29,7 @@ public slots:
     void on_pushButton_clicked();
     void on_lineEdit_returnPressed();
     void slotUpdateMessages();
+    void ClearContentWindow();
 
 
 private:

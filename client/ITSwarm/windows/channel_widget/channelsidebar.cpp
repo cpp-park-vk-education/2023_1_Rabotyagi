@@ -117,7 +117,7 @@ void ChannelSidebar::onActiveChannelChangeValue(int channel_id){
         cpr::Response response = cpr::Get(
                     cpr::Url{"http://localhost:8000/api/v1/IChannel"},
                     cpr::Parameters{
-                        {"guild_id", std::to_string(channel_id)}
+                        {"channel_id", std::to_string(channel_id)}
                     });
 
         auto json_response = json::parse(response.text);

@@ -43,9 +43,14 @@ MainWindow::MainWindow(int* flag, QWidget *parent)
     connect(guildbar.get(), &Guildbar::ActiveGuildChanged, channel_sidebar.get(),
             change_active_guild);
 
+    auto clear_content_window = [&](){content_window->ClearContentWindow();};
+    connect(channel_sidebar.get(), &ChannelSidebar::ActiveChannelChanged, content_window.get(),
+            clear_content_window);
+
     auto change_active_channel = [&](){content_window->UpdateMessages(channel_sidebar->GetActiveChannel());};
     connect(channel_sidebar.get(), &ChannelSidebar::ActiveChannelChanged, content_window.get(),
             change_active_channel);
+
 
     user_settings = std::make_shared<UserSettings>(this);
     user_settings->move(0, 560);
