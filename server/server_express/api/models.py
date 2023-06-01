@@ -2,6 +2,8 @@ from django.db import models
 from django.db.models.signals import *
 from django.contrib.auth.models import User
 from datetime import date
+from django.db.models.signals import post_save, pre_delete, post_delete
+from django.dispatch import receiver
 
 channel_types = (
     ('voice', 'Голосовой'),
@@ -38,6 +40,9 @@ class GuildManager(models.Manager):
             } for channel in channels
         ]
         return result
+    
+    # def get_user_guilds(self, instance: models.Model):
+    #     Guild.manager
 
 
 class Guild(models.Model):
@@ -51,6 +56,11 @@ class Guild(models.Model):
     
     def __str__(self) -> str:
         return self.name
+
+
+@receiver(post_save, sender=Guild)
+def create_section_group(sender, instance, **kwargs):
+    instance.users.add(instance.owner)
 
 
 class Channel(models.Model):

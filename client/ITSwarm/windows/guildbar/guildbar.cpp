@@ -30,6 +30,26 @@ Guildbar::Guildbar(QWidget *parent) : QScrollArea(parent), active_guild(0)
     setWidget(widget);
 
     connect(button, &QPushButton::clicked, this, &Guildbar::onButtonClicked);
+
+    try {
+        cpr::Response response = cpr::Get(
+                    cpr::Url{"http://localhost:8000/api/v1/IUser/guild"},
+                    cpr::Parameters{
+                        {"user_id", std::to_string(UserManager::getInstance()->id)}
+                    });
+
+        auto json_response = json::parse(response.text)["guilds"];
+
+        if (response.status_code == 200){
+            for (auto guild : json_response){
+                createGuild(guild["id"].get<int>(), guild["name"].get<std::string>());
+            }
+        }
+
+    }
+    catch (const std::exception& e) {
+        std::cerr << "Request failed, error: " << e.what() << '\n';
+    }
 }
 
 void Guildbar::onButtonClicked()
@@ -50,7 +70,7 @@ void Guildbar::onActiveGuildChangeValue(int guild_id){
                         {"guild_id", std::to_string(guild_id)}
                     });
 
-        auto json_response = json::parse(response.text);
+        auto guilds = json::parse(response.text);
 
         if (response.status_code == 200){
 

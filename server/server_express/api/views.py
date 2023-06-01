@@ -196,6 +196,32 @@ class IMessage(View):
         return JsonResponse({}, status=200)
 
 
+def getUserGuilds(request):
+    user_id = request.GET.get('user_id', None)
+    
+    if not user_id:
+        return JsonResponse({
+                'message': "Отсутствует user_id"
+            }, status=400)
+        
+    try:
+        user = User.objects.get(id=user_id)
+    except User.DoesNotExist:
+        return JsonResponse({
+            'message': "Отсутствует user с {}".format(user_id)
+        }, status=400)
+        
+    # guilds = Guild.manager.get_user_guilds(user)
+    guilds = [{
+        'id': guild.id,
+        'name': guild.name
+        } for guild in user.guilds.all()]
+    
+    return JsonResponse({
+        'guilds': guilds
+    }, status=200)
+
+
 class IGuild(View):
     @staticmethod
     def get(request):
