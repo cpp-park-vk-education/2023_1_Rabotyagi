@@ -19,6 +19,7 @@ SOURCES += \
     controls/serverbutton.cpp \
     controls/user_control/user_control.cpp \
     main.cpp \
+    windows/connect_to_guild/guildconnector.cpp \
     windows/channel_add/channel_add.cpp \
     windows/channel_widget/channelsidebar.cpp \
     windows/content_widget/contentwindow.cpp \
@@ -42,6 +43,7 @@ HEADERS += \
     controls/data_types/data_types.hpp \
     controls/message_control/messagecontrol.h \
     controls/user_control/user_control.h \
+    windows/connect_to_guild/guildconnector.h \
     windows/channel_add/channel_add.h \
     windows/channel_widget/channelsidebar.h \
     windows/content_widget/contentwindow.h \
@@ -59,6 +61,7 @@ HEADERS += \
 
 FORMS += \
     controls/serverbutton.ui \
+    windows/connect_to_guild/guildconnector.ui \
     windows/channel_add/channel_add.ui \
     windows/channel_widget/channelsidebar.ui \
     windows/content_widget/contentwindow.ui \
@@ -120,6 +123,7 @@ INCLUDEPATH += \
     "windows/channel_add" \
     "windows/user_settings" \
     "windows/user_options" \
+    "windows/connect_to_guild" \
     "controls/channel_control" \
     "controls/client" \
     "controls/message_control" \

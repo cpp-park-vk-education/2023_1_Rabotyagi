@@ -1,5 +1,5 @@
-#include "guild_add.hpp"
-#include "ui_guild_add.h"
+#include "guildconnector.h"
+#include "ui_guildconnector.h"
 #include <cpr/cpr.h>
 #include "user_control.h"
 #include <json.hpp>
@@ -11,14 +11,19 @@
 
 using json = nlohmann::json;
 
-Guild_Add::Guild_Add(QWidget *parent) :
+GuildConnector::GuildConnector(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::Guild_Add)
+    ui(new Ui::GuildConnector)
 {
     ui->setupUi(this);
 }
 
-int Guild_Add::CreateGuild()
+GuildConnector::~GuildConnector()
+{
+    delete ui;
+}
+
+int GuildConnector::ConnectToGuild()
 {
     if (ui->name_edit->text() == "")
         return 0;
@@ -27,19 +32,15 @@ int Guild_Add::CreateGuild()
         cpr::Response response = cpr::Post(
                     cpr::Url{"http://localhost:8000/api/v1/IGuild"},
                     cpr::Multipart{
-                        {"guild_name", ui->name_edit->text().toStdString().c_str()},
-                        {"owner_id", std::to_string(UserManager::getInstance()->id).c_str()},
+                        {"user_id", std::to_string(UserManager::getInstance()->id).c_str()},
+                        {"guild_name", ui->name_edit->text().toStdString().c_str()}
                     });
         auto json_response = json::parse(response.text);
 
         if (response.status_code == 200){
 
-//            auto guildbar = qobject_cast<Guildbar*>(this->parent());
-//            guildbar->createGuild(
-//                        json_response["id"].get<int>(),
-//                        json_response["name"].get<std::string>()
-//                        );
-            qDebug() << "created guild " << ui->name_edit->text();
+            qDebug() << "connected to guild successfully" << ui->name_edit->text();
+            emit guild_connected();
 //            return 0;
         }
         else {
@@ -51,30 +52,26 @@ int Guild_Add::CreateGuild()
         std::cerr << "Request failed, error: " << e.what() << '\n';
     }
     //return 1;
-    emit guild_created();
+    emit guild_connected();
     close();
     return 1;
 }
 
-Guild_Add::~Guild_Add()
-{
-    delete ui;
-}
 
-void Guild_Add::on_create_btn_clicked()
+
+void GuildConnector::on_create_btn_clicked()
 {
-    CreateGuild();
+    ConnectToGuild();
 }
 
 
-void Guild_Add::on_close_btn_clicked()
+void GuildConnector::on_close_btn_clicked()
 {
     close();
 }
 
 
-void Guild_Add::on_name_edit_returnPressed()
+void GuildConnector::on_name_edit_returnPressed()
 {
     on_create_btn_clicked();
 }
-

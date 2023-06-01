@@ -12,5 +12,8 @@
         <file>images/Channels-Iconselected.png</file>
         <file>images/Channels-Iconhovered.png</file>
         <file>images/user.png</file>
+        <file>images/user_settings.png</file>
+        <file>images/connect_to_guild_button.png</file>
+        <file>images/create_guild_button.png</file>
     </qresource>
 </RCC>

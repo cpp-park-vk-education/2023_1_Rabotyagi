@@ -2,6 +2,8 @@
 #include "ui_main_window.h"
 #include "settingswindow.h"
 #include "gitconnection.h"
+#include "guildconnector.h"
+#include "guild_add.hpp"
 #include <memory>
 #include <QtWidgets>
 #include <QPixmap>
@@ -18,6 +20,8 @@ MainWindow::MainWindow(int* flag, QWidget *parent)
     QMainWindow::setWindowTitle("ITSwarm");
     ui->gitButton->setIcon(QIcon(":/img/images/icons8-git-50.png"));
     ui->settingsButton->setIcon(QIcon(":/img/images/icons8-settings-50.png"));
+    ui->connect->setIcon(QIcon(":/img/images/connect_to_guild_button.png"));
+    ui->add_new->setIcon(QIcon(":/img/images/create_guild_button.png"));
 
     content_window = std::make_shared<ContentWindow>(this);
     content_window->move(200, 60);
@@ -78,5 +82,23 @@ void MainWindow::on_gitButton_clicked()
 {
     git = std::make_shared<GitConnection>(this);
     git->show();
+}
+
+
+void MainWindow::on_connect_clicked()
+{
+    auto guild_connector = std::make_shared<GuildConnector>(this);
+    connect(guild_connector.get(), &GuildConnector::guild_connected, guildbar.get(), &Guildbar::UpdateGuildList);
+    guild_connector->setModal(true);
+    guild_connector->exec();
+}
+
+
+void MainWindow::on_add_new_clicked()
+{
+    auto guild_creator = std::make_shared<Guild_Add>(this);
+    connect(guild_creator.get(), &Guild_Add::guild_created, guildbar.get(), &Guildbar::UpdateGuildList);
+    guild_creator->setModal(true);
+    guild_creator->exec();
 }
 
