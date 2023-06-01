@@ -49,8 +49,11 @@ private:
     QList<GuildButton*> buttons;
     int active_guild;
 
+public slots:
+    void UpdateGuildList();
+
 private slots:
-    void onButtonClicked();
+    //void onButtonClicked();
     void onActiveGuildChangeValue(int);
 
 signals:

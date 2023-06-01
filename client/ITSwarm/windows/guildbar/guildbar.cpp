@@ -21,43 +21,45 @@ Guildbar::Guildbar(QWidget *parent) : QScrollArea(parent), active_guild(0)
     layout->setSpacing(10);
     layout->setDirection(QBoxLayout::LeftToRight);
 
-    QPushButton *button = new QPushButton("+ сервер", widget);
-    button->setFixedSize(QSize(70, 20));
-    layout->addWidget(button);
-    layout->setAlignment(button, Qt::AlignLeft);
+//    QPushButton* button = new QPushButton("+ сервер", widget);
+//    button->setFixedSize(QSize(70, 20));
+//    layout->addWidget(button);
+//    layout->setAlignment(button, Qt::AlignLeft);
 
     setWidgetResizable(true);
     setWidget(widget);
 
-    connect(button, &QPushButton::clicked, this, &Guildbar::onButtonClicked);
+    UpdateGuildList();
+    //connect(button, &QPushButton::clicked, this, &Guildbar::onButtonClicked);
 
-    try {
-        cpr::Response response = cpr::Get(
-                    cpr::Url{"http://localhost:8000/api/v1/IUser/guild"},
-                    cpr::Parameters{
-                        {"user_id", std::to_string(UserManager::getInstance()->id)}
-                    });
+//    try {
+//        cpr::Response response = cpr::Get(
+//                    cpr::Url{"http://localhost:8000/api/v1/IUser/guild"},
+//                    cpr::Parameters{
+//                        {"user_id", std::to_string(UserManager::getInstance()->id)}
+//                    });
 
-        auto json_response = json::parse(response.text)["guilds"];
+//        auto json_response = json::parse(response.text)["guilds"];
 
-        if (response.status_code == 200){
-            for (auto guild : json_response){
-                createGuild(guild["id"].get<int>(), guild["name"].get<std::string>());
-            }
-        }
+//        if (response.status_code == 200){
+//            for (auto guild : json_response){
+//                createGuild(guild["id"].get<int>(), guild["name"].get<std::string>());
+//            }
+//        }
 
-    }
-    catch (const std::exception& e) {
-        std::cerr << "Request failed, error: " << e.what() << '\n';
-    }
+//    }
+//    catch (const std::exception& e) {
+//        std::cerr << "hello" << '\n';
+//        //std::cerr << "Request failed, error: " << e.what() << '\n';
+//    }
 }
 
-void Guildbar::onButtonClicked()
-{
-    auto modal_add = std::make_shared<Guild_Add>(this);
-    modal_add->setModal(true);
-    modal_add->exec();
-}
+//void Guildbar::onButtonClicked()
+//{
+//    auto modal_add = std::make_shared<Guild_Add>(this);
+//    modal_add->setModal(true);
+//    modal_add->exec();
+//}
 
 void Guildbar::onActiveGuildChangeValue(int guild_id){
     active_guild = guild_id;
@@ -97,5 +99,28 @@ void Guildbar::createGuild(int guild_id, std::string name)
 
 
     connect(NewButton, &QPushButton::clicked, this, [this, NewButton]{ onActiveGuildChangeValue(NewButton->guild_id); });
+}
+
+void Guildbar::UpdateGuildList()
+{
+    try {
+        cpr::Response response = cpr::Get(
+                    cpr::Url{"http://localhost:8000/api/v1/IUser/guild"},
+                    cpr::Parameters{
+                        {"user_id", std::to_string(UserManager::getInstance()->id)}
+                    });
+
+        auto json_response = json::parse(response.text)["guilds"];
+
+        if (response.status_code == 200){
+            for (auto guild : json_response){
+                createGuild(guild["id"].get<int>(), guild["name"].get<std::string>());
+            }
+        }
+    }
+    catch (const std::exception& e) {
+        std::cerr << "hello" << '\n';
+        //std::cerr << "Request failed, error: " << e.what() << '\n';
+    }
 }
 

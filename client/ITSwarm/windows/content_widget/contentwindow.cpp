@@ -79,7 +79,7 @@ ContentWindow::ContentWindow(QWidget *parent) :
 
 void ContentWindow::ClearContentWindow()
 {
-    qDebug() << "Cleared";
+    //qDebug() << "Cleared";
     ui->textBrowser->clear();
 }
 

@@ -65,11 +65,45 @@ background: #E2E7F0;
          </property>
          <property name="sizeHint" stdset="0">
           <size>
-           <width>566</width>
-           <height>20</height>
+           <width>748</width>
+           <height>17</height>
           </size>
          </property>
         </spacer>
+       </item>
+       <item>
+        <widget class="QPushButton" name="connect">
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset>
+           <normaloff>../static/images/connect_to_guild_button.png</normaloff>../static/images/connect_to_guild_button.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="add_new">
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset>
+           <normaloff>../static/images/create_guild_button.png</normaloff>../static/images/create_guild_button.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+        </widget>
        </item>
        <item>
         <widget class="QPushButton" name="settingsButton">
