@@ -6,52 +6,20 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>186</width>
-    <height>81</height>
+    <width>200</width>
+    <height>60</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QLabel" name="label">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>20</y>
-     <width>51</width>
-     <height>51</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-   <property name="pixmap">
-    <pixmap resource="../../static/images.qrc">:/img/images/user.png</pixmap>
-   </property>
-   <property name="scaledContents">
-    <bool>true</bool>
-   </property>
-  </widget>
-  <widget class="QLabel" name="nickname">
-   <property name="geometry">
-    <rect>
-     <x>90</x>
-     <y>30</y>
-     <width>67</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>User</string>
-   </property>
-  </widget>
   <widget class="QFrame" name="frame">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>190</width>
-     <height>81</height>
+     <width>200</width>
+     <height>60</height>
     </rect>
    </property>
    <property name="frameShape">
@@ -60,40 +28,54 @@
    <property name="frameShadow">
     <enum>QFrame::Raised</enum>
    </property>
+   <layout class="QHBoxLayout" name="horizontalLayout_2">
+    <property name="spacing">
+     <number>16</number>
+    </property>
+    <item>
+     <widget class="QLabel" name="nickname">
+      <property name="font">
+       <font>
+        <family>Inter</family>
+        <pointsize>12</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="pushButton">
+      <property name="styleSheet">
+       <string notr="true">
+    color: #FFFFFF;
+    padding: 12px 20px;
+    height: 44px;
+    width: 163px;
+
+    background: #2D3648;
+    border-radius: 6px;</string>
+      </property>
+      <property name="text">
+       <string>Настройки</string>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>30</width>
+        <height>30</height>
+       </size>
+      </property>
+      <property name="flat">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+   </layout>
   </widget>
-  <widget class="QPushButton" name="pushButton">
-   <property name="geometry">
-    <rect>
-     <x>130</x>
-     <y>20</y>
-     <width>41</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-   <property name="icon">
-    <iconset>
-     <normaloff>../static/images/user_settings.png</normaloff>../static/images/user_settings.png</iconset>
-   </property>
-   <property name="iconSize">
-    <size>
-     <width>20</width>
-     <height>20</height>
-    </size>
-   </property>
-   <property name="flat">
-    <bool>true</bool>
-   </property>
-  </widget>
-  <zorder>frame</zorder>
-  <zorder>label</zorder>
-  <zorder>nickname</zorder>
-  <zorder>pushButton</zorder>
  </widget>
- <resources>
-  <include location="../../static/images.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

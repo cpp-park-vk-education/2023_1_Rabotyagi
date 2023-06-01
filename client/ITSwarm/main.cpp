@@ -64,7 +64,7 @@ int main(int argc, char *argv[])
                 exit(0);
                 break;
         }
-        QCoreApplication::processEvents();
+        QCoreApplication::processEvents(QEventLoop::AllEvents);
     }
     main->show();
     return a.exec();

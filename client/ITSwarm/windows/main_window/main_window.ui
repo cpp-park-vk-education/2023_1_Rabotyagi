@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1105</width>
-    <height>787</height>
+    <width>1038</width>
+    <height>680</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,12 +18,34 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QFormLayout" name="formLayout">
+    <property name="formAlignment">
+     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+    </property>
+    <property name="horizontalSpacing">
+     <number>0</number>
+    </property>
+    <property name="verticalSpacing">
+     <number>0</number>
+    </property>
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
     <item row="0" column="0" colspan="2">
      <widget class="QWidget" name="toolbar" native="true">
       <property name="styleSheet">
        <string notr="true">padding: 0px;
 background: #E2E7F0;
-/*border-bottom: 2px solid #2D3648;*/</string>
+/*border-bottom: 2px solid #2D3648;*/
+height: 60px;</string>
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_2">
        <item>
@@ -73,35 +95,59 @@ background: #E2E7F0;
        </item>
        <item>
         <widget class="QPushButton" name="connect">
+         <property name="styleSheet">
+          <string notr="true">padding: 4px;
+
+width: 30px;
+height: 30px;
+
+background: #2D3648;
+border-radius: 6px;</string>
+         </property>
          <property name="text">
           <string/>
          </property>
          <property name="icon">
-          <iconset>
-           <normaloff>../static/images/connect_to_guild_button.png</normaloff>../static/images/connect_to_guild_button.png</iconset>
+          <iconset resource="../../static/icons.qrc">
+           <normaloff>:/icons/Create.png</normaloff>:/icons/Create.png</iconset>
          </property>
          <property name="iconSize">
           <size>
            <width>32</width>
            <height>32</height>
           </size>
+         </property>
+         <property name="flat">
+          <bool>true</bool>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QPushButton" name="add_new">
+         <property name="styleSheet">
+          <string notr="true">padding: 4px;
+
+width: 30px;
+height: 30px;
+
+background: #2D3648;
+border-radius: 6px;</string>
+         </property>
          <property name="text">
           <string/>
          </property>
          <property name="icon">
-          <iconset>
-           <normaloff>../static/images/create_guild_button.png</normaloff>../static/images/create_guild_button.png</iconset>
+          <iconset resource="../../static/icons.qrc">
+           <normaloff>:/icons/Post add.png</normaloff>:/icons/Post add.png</iconset>
          </property>
          <property name="iconSize">
           <size>
            <width>32</width>
            <height>32</height>
           </size>
+         </property>
+         <property name="flat">
+          <bool>true</bool>
          </property>
         </widget>
        </item>
@@ -110,12 +156,39 @@ background: #E2E7F0;
          <property name="palette">
           <palette>
            <active>
+            <colorrole role="WindowText">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>255</red>
+               <green>255</green>
+               <blue>255</blue>
+              </color>
+             </brush>
+            </colorrole>
             <colorrole role="Button">
              <brush brushstyle="SolidPattern">
               <color alpha="255">
                <red>45</red>
                <green>54</green>
                <blue>72</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Text">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>255</red>
+               <green>255</green>
+               <blue>255</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="ButtonText">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>255</red>
+               <green>255</green>
+               <blue>255</blue>
               </color>
              </brush>
             </colorrole>
@@ -134,17 +207,53 @@ background: #E2E7F0;
                <red>45</red>
                <green>54</green>
                <blue>72</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="PlaceholderText">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>255</red>
+               <green>255</green>
+               <blue>255</blue>
               </color>
              </brush>
             </colorrole>
            </active>
            <inactive>
+            <colorrole role="WindowText">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>255</red>
+               <green>255</green>
+               <blue>255</blue>
+              </color>
+             </brush>
+            </colorrole>
             <colorrole role="Button">
              <brush brushstyle="SolidPattern">
               <color alpha="255">
                <red>45</red>
                <green>54</green>
                <blue>72</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Text">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>255</red>
+               <green>255</green>
+               <blue>255</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="ButtonText">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>255</red>
+               <green>255</green>
+               <blue>255</blue>
               </color>
              </brush>
             </colorrole>
@@ -163,17 +272,53 @@ background: #E2E7F0;
                <red>45</red>
                <green>54</green>
                <blue>72</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="PlaceholderText">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>255</red>
+               <green>255</green>
+               <blue>255</blue>
               </color>
              </brush>
             </colorrole>
            </inactive>
            <disabled>
+            <colorrole role="WindowText">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>255</red>
+               <green>255</green>
+               <blue>255</blue>
+              </color>
+             </brush>
+            </colorrole>
             <colorrole role="Button">
              <brush brushstyle="SolidPattern">
               <color alpha="255">
                <red>45</red>
                <green>54</green>
                <blue>72</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Text">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>255</red>
+               <green>255</green>
+               <blue>255</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="ButtonText">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>255</red>
+               <green>255</green>
+               <blue>255</blue>
               </color>
              </brush>
             </colorrole>
@@ -192,6 +337,15 @@ background: #E2E7F0;
                <red>45</red>
                <green>54</green>
                <blue>72</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="PlaceholderText">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>255</red>
+               <green>255</green>
+               <blue>255</blue>
               </color>
              </brush>
             </colorrole>
@@ -212,7 +366,7 @@ border-radius: 6px;</string>
          </property>
          <property name="icon">
           <iconset resource="../../static/icons.qrc">
-           <normaloff>:/icons/GuildSettings.svg</normaloff>:/icons/GuildSettings.svg</iconset>
+           <normaloff>:/icons/settings.png</normaloff>:/icons/settings.png</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -227,29 +381,35 @@ border-radius: 6px;</string>
        </item>
        <item>
         <widget class="QPushButton" name="gitButton">
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
          <property name="styleSheet">
           <string notr="true">padding: 4px;
 
 width: 30px;
 height: 30px;
 
-background: #2D3648;
-border-radius: 6px;
+color: #fff;
 
-color: #fff;</string>
+background-color: #2D3648;
+border-radius: 6px;</string>
          </property>
          <property name="text">
           <string/>
          </property>
          <property name="icon">
           <iconset resource="../../static/icons.qrc">
-           <normaloff>:/icons/Git.svg</normaloff>:/icons/Git.svg</iconset>
+           <normaloff>:/icons/git.png</normaloff>:/icons/git.png</iconset>
          </property>
          <property name="iconSize">
           <size>
            <width>30</width>
            <height>30</height>
           </size>
+         </property>
+         <property name="autoRepeat">
+          <bool>false</bool>
          </property>
          <property name="flat">
           <bool>true</bool>
@@ -258,6 +418,16 @@ color: #fff;</string>
        </item>
       </layout>
      </widget>
+    </item>
+    <item row="2" column="0">
+     <layout class="QHBoxLayout" name="body">
+      <property name="spacing">
+       <number>0</number>
+      </property>
+      <property name="sizeConstraint">
+       <enum>QLayout::SetFixedSize</enum>
+      </property>
+     </layout>
     </item>
    </layout>
   </widget>

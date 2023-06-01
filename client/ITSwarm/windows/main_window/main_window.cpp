@@ -9,6 +9,7 @@
 #include <QPixmap>
 #include <QIcon>
 #include <QFont>
+#include <QHBoxLayout>
 //#include "sidebar.h"
 
 MainWindow::MainWindow(int* flag, QWidget *parent)
@@ -18,25 +19,17 @@ MainWindow::MainWindow(int* flag, QWidget *parent)
 {
     ui->setupUi(this);
     QMainWindow::setWindowTitle("ITSwarm");
-    ui->gitButton->setIcon(QIcon(":/img/images/icons8-git-50.png"));
-    ui->settingsButton->setIcon(QIcon(":/img/images/icons8-settings-50.png"));
-    ui->connect->setIcon(QIcon(":/img/images/connect_to_guild_button.png"));
-    ui->add_new->setIcon(QIcon(":/img/images/create_guild_button.png"));
+
 
     content_window = std::make_shared<ContentWindow>(this);
-    content_window->move(200, 60);
-
-//    userbar = std::make_shared<Userbar>(this);
-//    userbar->move(970, 110);
-
-//    //sidebar = std::make_shared<Sidebar>(this);
-//    //sidebar->move(10, 60);
-
+    content_window->move(200, 80);
     channel_sidebar = std::make_shared<ChannelSidebar>(content_window, this);
-    //channel_sidebar = new ChannelSidebar(content_window, this);
-    channel_sidebar->move(10, 60);
+
+    channel_sidebar->move(0, 80);
 
 //    channel_sidebar->on_textChannelButton_1_clicked();
+
+
     guildbar = std::make_shared<Guildbar>(this);
     //guildbar = new Guildbar(this);
     guildbar->move(250, 5);
@@ -57,10 +50,10 @@ MainWindow::MainWindow(int* flag, QWidget *parent)
 
 
     user_settings = std::make_shared<UserSettings>(this);
-    user_settings->move(0, 560);
+    user_settings->move(0, 620);
 
     timer = new QTimer();
-    timer->start(1000);
+    timer->start(2000);
     connect(timer, &QTimer::timeout, content_window.get(), clear_content_window);
     connect(timer, &QTimer::timeout, content_window.get(), change_active_channel);
 

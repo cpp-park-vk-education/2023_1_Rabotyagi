@@ -4,8 +4,10 @@
         <file>icons/server_hover.png</file>
         <file>icons/server_idle.png</file>
         <file>icons/server_selected.png</file>
-        <file>icons/GuildSettings.svg</file>
-        <file>icons/Git.svg</file>
-        <file>icons/send_message.svg</file>
+        <file>icons/git.png</file>
+        <file>icons/settings.png</file>
+        <file>icons/Post add.png</file>
+        <file>icons/tabler_send.png</file>
+        <file>icons/Create.png</file>
     </qresource>
 </RCC>

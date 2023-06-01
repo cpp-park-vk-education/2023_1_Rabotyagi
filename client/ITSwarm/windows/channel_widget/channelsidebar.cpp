@@ -80,7 +80,7 @@ ChannelSidebar::ChannelSidebar(std::shared_ptr<ContentWindow> content_window, QW
     content_window(content_window),
     active_channel(0)
 {
-    this->resize(190, 400);
+    this->resize(200, 540);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
 

@@ -40,7 +40,6 @@ HEADERS += \
     external/data_types.hpp \
     external/json.hpp \
     controls/channel_control/channelcontrol.h \
-    controls/data_types/data_types.hpp \
     controls/message_control/messagecontrol.h \
     controls/user_control/user_control.h \
     windows/connect_to_guild/guildconnector.h \

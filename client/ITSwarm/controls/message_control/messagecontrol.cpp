@@ -16,6 +16,9 @@ bool MessageControl::AppendMessage(ContentWindow* window, QString message)
 
     //QString text = message.GetName() + ": " + message.GetText();
     window->ui->textBrowser->textColor();
+    window->ui->textBrowser->setFontFamily("Inter");
+    window->ui->textBrowser->setFontWeight(400);
+    window->ui->textBrowser->setFontPointSize(16);
     draw_text(window, message);
     return true;
 }

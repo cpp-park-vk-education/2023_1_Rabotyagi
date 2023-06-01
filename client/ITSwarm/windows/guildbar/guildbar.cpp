@@ -97,7 +97,6 @@ void Guildbar::createGuild(int guild_id, std::string name)
     buttons.append(NewButton);
     layout->insertWidget(buttons.count() - 1, NewButton);
 
-
     connect(NewButton, &QPushButton::clicked, this, [this, NewButton]{ onActiveGuildChangeValue(NewButton->guild_id); });
 }
 

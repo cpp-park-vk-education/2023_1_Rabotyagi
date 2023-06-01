@@ -50,17 +50,18 @@ int UserControl::login(const QString& username, const QString& password)
             auto name = json_response["name"].get<std::string>();
             auto email = json_response["email"].get<std::string>();
             auto password = json_response["password"].get<std::string>();
-            auto last_login = json_response["last_login"].get<std::string>();
+//            auto last_login = json_response["last_login"].get<std::string>();
 
             UserManager::fill_user(
                 id,
                 name.c_str(),
                 email.c_str(),
                 password.c_str(),
-                last_login.c_str());
+                "");
             auto settings = UserManager::getSettings();
             settings->setValue("username", name.c_str());
             settings->setValue("password", password.c_str());
+
             return 0;
         }
         else {
@@ -89,11 +90,11 @@ int UserControl::registerUser(const QString& username, const QString& password, 
 
         if (response.status_code == 200){
             UserManager::fill_user(
-                std::atoi(json_response["id"].get<std::string>().c_str()),
+                json_response["id"].get<int>(),
                 json_response["name"].get<std::string>().c_str(),
                 json_response["email"].get<std::string>().c_str(),
-                json_response["password"].get<std::string>().c_str(),
-                json_response["last_login"].get<std::string>().c_str());
+                json_response["password"].get<std::string>().c_str(), "");
+//                json_response["last_login"].get<std::string>().c_str());
             auto settings = UserManager::getSettings();
             settings->setValue("username", json_response["name"].get<std::string>().c_str());
             settings->setValue("password", json_response["password"].get<std::string>().c_str());

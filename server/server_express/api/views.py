@@ -30,7 +30,6 @@ class IUser(View):
                     'name': username,
                     'email': user.email,
                     'password': password,
-                    'last_login': user.last_login
                 }, status=200)
             else:
                 return JsonResponse({
