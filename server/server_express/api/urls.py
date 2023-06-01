@@ -7,5 +7,6 @@ urlpatterns = [
     path('IUser/guild', getUserGuilds),
     path('IMessage', IMessage.as_view()),
     path('IGuild', IGuild.as_view()),
+    path('IGuild/join', join),
     path('IChannel', IChannel.as_view()),
 ]

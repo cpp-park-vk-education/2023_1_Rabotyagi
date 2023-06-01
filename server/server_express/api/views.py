@@ -3,6 +3,7 @@ from django.views import View
 from django.http.response import HttpResponse, JsonResponse
 from .models import *
 from django.contrib.auth.hashers import check_password, make_password
+from django.utils.decorators import method_decorator
 
 
 class IUser(View):
@@ -211,7 +212,6 @@ def getUserGuilds(request):
             'message': "Отсутствует user с {}".format(user_id)
         }, status=400)
         
-    # guilds = Guild.manager.get_user_guilds(user)
     guilds = [{
         'id': guild.id,
         'name': guild.name
@@ -220,6 +220,42 @@ def getUserGuilds(request):
     return JsonResponse({
         'guilds': guilds
     }, status=200)
+    
+
+def join(request):
+    user_id = request.POST.get('user_id', None)
+    guild_name = request.POST.get('guild_name', None)
+    
+    if not user_id:
+        return JsonResponse({
+                'message': "Отсутствует user_id"
+            }, status=400)
+        
+    if not guild_name:
+        return JsonResponse({
+                'message': "Отсутствует guild_name"
+            }, status=400)
+    
+    try:
+        user = User.objects.get(id=user_id)
+    except User.DoesNotExist:
+        return JsonResponse({
+            'message': "Отсутствует user с {}".format(user_id)
+        }, status=400)
+        
+    try:
+        guild = Guild.manager.get(name=guild_name)
+    except Guild.DoesNotExist:
+        return JsonResponse({
+            'message': "Отсутствует guild с {}".format(guild_name)
+        }, status=400)
+    
+    guild.users.add(user)
+    return JsonResponse({
+            'id': guild.id,
+            'name': guild.name
+        }, status=200)
+    
 
 
 class IGuild(View):
@@ -245,7 +281,11 @@ class IGuild(View):
             # 'owner': guild.owner,
             'user_count': guild.user_count,
             'created_at': guild.created_at,
-            'channels': Guild.manager.get_channels(guild)
+            'channels': Guild.manager.get_channels(guild),
+            'users': [{
+                'id': user.id,
+                'username': user.username
+            } for user in guild.users.all()]
             }, status=200)
         
     @staticmethod
