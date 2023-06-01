@@ -2,6 +2,13 @@
 #include "controls/message_control/messagecontrol.h"
 #include "ui_contentwindow.h"
 #include <QString>
+#include "json.hpp"
+#include <cpr/cpr.h>
+#include <iostream>
+#include <QMessageBox>
+#include "user_control.h"
+
+using json = nlohmann::json;
 
 /*ContentWindow::ContentWindow(std::shared_ptr<Client> client, QWidget *parent) :
     QWidget(parent),
@@ -21,6 +28,37 @@ void ContentWindow::ChangeActiveChannel(std::shared_ptr<Channel> channel)
 {
     active_channel = channel;
     qDebug() << "ContentWindow: changed active_channel";
+}
+
+int ContentWindow::UpdateMessages(int channel_id)
+{
+    try
+    {
+        cpr::Response response = cpr::Get(
+                    cpr::Url{"http://localhost:8000/api/v1/IChannel"},
+                    cpr::Parameters{
+                        {"guild_id", std::to_string(channel_id).c_str()}
+                    });
+
+        auto json_response = json::parse(response.text);
+
+        if (response.status_code == 200){
+            auto json_messages = json_response["messages"].get<json>();
+            for (auto message = json_messages.begin(); message < json_messages.end(); ++message)
+            {
+                auto owner = (*message)["owner"].get<std::string>();
+                auto content = (*message)["content"].get<std::string>();
+                QString text = QString::fromStdString(owner) + ": " + QString::fromStdString(content);
+                message_control->AppendMessage(this, text);
+            }
+
+        }
+    }
+    catch (const std::exception& e) {
+        std::cerr << "Request failed, error: " << e.what() << '\n';
+    }
+
+    return 0;
 }
 
 ContentWindow::ContentWindow(QWidget *parent) :
@@ -50,6 +88,28 @@ void ContentWindow::on_pushButton_clicked()
         return;
 //    Request_impl request = client->GeneratePostRequest(text);
 //    client->SendRequest(request);
+    try {
+        cpr::Response response = cpr::Post(
+                    cpr::Url{"http://localhost:8000/api/v1/IMessage"},
+                    cpr::Multipart{
+                        {"content", text.toStdString().c_str()},
+                        {"channel_id", UserManager::getInstance()->channel_id},
+                        {"owner_id", UserManager::getInstance()->id}
+                    });
+        auto json_response = json::parse(response.text);
+
+        if (response.status_code == 200){
+            qDebug() << "message sended";
+//            return 0;
+        }
+        else {
+            QMessageBox::warning(nullptr, tr("Can't send message"), tr(json_response["message"].dump().c_str()));
+        }
+
+    }
+    catch (const std::exception& e) {
+        std::cerr << "Request failed, error: " << e.what() << '\n';
+    }
     ui->lineEdit->clear();
 }
 

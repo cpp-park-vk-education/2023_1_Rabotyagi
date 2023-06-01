@@ -72,3 +72,9 @@ void Guild_Add::on_close_btn_clicked()
     close();
 }
 
+
+void Guild_Add::on_name_edit_returnPressed()
+{
+    on_create_btn_clicked();
+}
+

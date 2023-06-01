@@ -7,11 +7,9 @@
 #include <iostream>
 #include <string>
 
-extern UserManager user;
-
 using json = nlohmann::json;
 
-Channel_Add::Channel_Add(QWidget *parent) :
+Channel_Add::Channel_Add(ChannelSidebar *parent) :
     QDialog(parent),
     ui(new Ui::Channel_Add)
 {
@@ -37,14 +35,19 @@ int Channel_Add::CreateChannel()
         cpr::Response response = cpr::Post(
                     cpr::Url{"http://localhost:8000/api/v1/IChannel"},
                     cpr::Multipart{
-                        {"guild_id", std::to_string(user.getInstance()->guild_id).c_str()},
+                        {"guild_id", std::to_string(UserManager::getInstance()->guild_id).c_str()},
                         {"name", ui->name_edit->text().toStdString().c_str()},
                     });
         auto json_response = json::parse(response.text);
 
         if (response.status_code == 200){
-            qDebug() << "created channel " << ui->name_edit->text();
-            return 0;
+            auto channelbar = qobject_cast<ChannelSidebar*>(this->parent());
+            channelbar->createChannel(
+                        json_response["id"].get<int>(),
+                        json_response["name"].get<std::string>()
+                    );
+            qDebug() << "created channel " << ui->name_edit->text() << "in guild " << UserManager::getInstance()->guild_id;
+            //return 0;
         }
         else {
             QMessageBox::warning(nullptr, tr("Can't create new channel"), tr(json_response["message"].dump().c_str()));
@@ -64,5 +67,11 @@ int Channel_Add::CreateChannel()
 void Channel_Add::on_close_btn_clicked()
 {
     close();
+}
+
+
+void Channel_Add::on_name_edit_returnPressed()
+{
+    on_create_btn_clicked();
 }
 

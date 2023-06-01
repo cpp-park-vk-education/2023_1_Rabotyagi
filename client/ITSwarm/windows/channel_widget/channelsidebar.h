@@ -63,9 +63,15 @@ Q_OBJECT
 
 public:
     explicit ChannelSidebar(std::shared_ptr<ContentWindow> content_window, QWidget *parent = nullptr);
-    void ChangeActiveChannel(int id);
+    //void ChangeActiveChannel(int id);
+    void createChannel(int channel_id, std::string name);
+    int UpdateChannels(int guild_id);
+    int GetActiveChannel() { return active_channel; }
     //void ConnectToChannelControl();
     //~ChannelSidebar();
+
+signals:
+    void ActiveChannelChanged();
 
 private slots:
 //    void on_textChannelButton_1_clicked();
@@ -75,7 +81,6 @@ private slots:
 //    void on_textChannelButton_3_clicked();
     void onButtonClicked();
     void onActiveChannelChangeValue(int);
-    void createChannel();
 
 private:
 

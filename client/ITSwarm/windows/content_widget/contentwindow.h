@@ -19,6 +19,7 @@ public:
     //explicit ContentWindow(std::shared_ptr<Client> client = nullptr, QWidget *parent = nullptr);
     explicit ContentWindow(QWidget *parent = nullptr);
     void ChangeActiveChannel(std::shared_ptr<Channel> channel);
+    int UpdateMessages(int channel_id);
     Ui::ContentWindow *ui;
     ~ContentWindow();
 

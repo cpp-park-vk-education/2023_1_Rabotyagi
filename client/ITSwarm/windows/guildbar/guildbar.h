@@ -41,6 +41,7 @@ public:
     explicit Guildbar(QWidget *parent = nullptr);
     void ChangeGuild(int id);
     void createGuild(int, std::string);
+    int GetActiveGuild() {return active_guild;}
 
 private:
     QWidget* widget;
@@ -51,6 +52,9 @@ private:
 private slots:
     void onButtonClicked();
     void onActiveGuildChangeValue(int);
+
+signals:
+    void ActiveGuildChanged();
 
 };
 

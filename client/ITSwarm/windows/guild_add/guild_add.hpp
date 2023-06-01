@@ -21,6 +21,8 @@ private slots:
 
     void on_close_btn_clicked();
 
+    void on_name_edit_returnPressed();
+
 signals:
     void guild_created();
 

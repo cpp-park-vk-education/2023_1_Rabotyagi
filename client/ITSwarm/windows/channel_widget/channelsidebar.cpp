@@ -65,7 +65,15 @@ void ChannelSidebar::on_textChannelButton_3_clicked()
 
 #include "channelsidebar.h"
 #include "channel_add.h"
+#include "user_control.h"
+#include <iostream>
+#include <cpr/cpr.h>
+#include "json.hpp"
 #include <Qt>
+
+using json = nlohmann::json;
+
+
 
 ChannelSidebar::ChannelSidebar(std::shared_ptr<ContentWindow> content_window, QWidget *parent) :
     QScrollArea(parent),
@@ -81,7 +89,7 @@ ChannelSidebar::ChannelSidebar(std::shared_ptr<ContentWindow> content_window, QW
     layout->setSpacing(10);
     layout->setDirection(QBoxLayout::TopToBottom);
 
-    QPushButton *button = new QPushButton("+ канал", widget);
+    QPushButton* button = new QPushButton("+ канал", widget);
     button->setFixedSize(QSize(90, 25));
     layout->addWidget(button);
     layout->setAlignment(button, Qt::AlignTop);
@@ -96,7 +104,7 @@ void ChannelSidebar::onButtonClicked()
 {
     auto modal_add = std::make_shared<Channel_Add>(this);
     modal_add->setModal(true);
-    connect(modal_add.get(), &Channel_Add::channel_created, this, &ChannelSidebar::createChannel);
+    //connect(modal_add.get(), &Channel_Add::channel_created, this, &ChannelSidebar::createChannel);
     modal_add->exec();
 
     qDebug() << "clicked";
@@ -104,20 +112,78 @@ void ChannelSidebar::onButtonClicked()
 
 void ChannelSidebar::onActiveChannelChangeValue(int channel_id){
     active_channel = channel_id;
-    qDebug() << "Changed guild to " << active_channel;
+    UserManager::getInstance()->channel_id = channel_id;
+    try {
+        cpr::Response response = cpr::Get(
+                    cpr::Url{"http://localhost:8000/api/v1/IChannel"},
+                    cpr::Parameters{
+                        {"guild_id", std::to_string(channel_id)}
+                    });
+
+        auto json_response = json::parse(response.text);
+
+        if (response.status_code == 200){
+
+        }
+
+    }
+    catch (const std::exception& e) {
+        std::cerr << "Request failed, error: " << e.what() << '\n';
+    }
+
+    qDebug() << "Changed channel to " << active_channel;
+    emit ActiveChannelChanged();
 }
 
-void ChannelSidebar::createChannel()
+void ChannelSidebar::createChannel(int channel_id, std::string name)
 {
-    ChannelButton* NewButton = new ChannelButton("Канал " + QString::number(buttons.count() + 1), widget);
+    //ChannelButton* NewButton = new ChannelButton("Канал " + QString::number(buttons.count() + 1), widget);
+    ChannelButton* NewButton = new ChannelButton(name.c_str(), widget);
     NewButton->setIcon(QIcon(":/img/images/Channels-Iconhovered.png"));
-    NewButton->channel_id = (int)(buttons.count() + 1);
+    NewButton->channel_id = channel_id;
     qDebug() << "Created channel " << NewButton->channel_id;
     NewButton->setFixedSize(QSize(90, 25));
 
     buttons.append(NewButton);
+    qDebug() << "buttons: " << buttons.size();
     layout->insertWidget(buttons.count() - 1, NewButton);
 
 
     connect(NewButton, &QPushButton::clicked, this, [this, NewButton]{ onActiveChannelChangeValue(NewButton->channel_id); });
+}
+
+int ChannelSidebar::UpdateChannels(int guild_id)
+{
+    for (auto current_button: buttons)
+    {
+        delete current_button;
+    }
+    buttons.clear();
+    try
+    {
+        cpr::Response response = cpr::Get(
+                    cpr::Url{"http://localhost:8000/api/v1/IGuild"},
+                    cpr::Parameters{
+                        {"guild_id", std::to_string(guild_id).c_str()}
+                    });
+
+        auto json_response = json::parse(response.text);
+
+        if (response.status_code == 200){
+            auto json_channels = json_response["channels"].get<json>();
+            for (auto channel = json_channels.begin(); channel < json_channels.end(); ++channel)
+            {
+                auto channel_id = (*channel)["id"].get<int>();
+                auto channel_name = (*channel)["name"].get<std::string>();
+                createChannel(channel_id, channel_name);
+            }
+
+        }
+    }
+    catch (const std::exception& e) {
+        std::cerr << "Request failed, error: " << e.what() << '\n';
+    }
+
+    qDebug() << "changed to guild " << guild_id;
+    return 0;
 }

@@ -19,8 +19,8 @@ MainWindow::MainWindow(int* flag, QWidget *parent)
     ui->gitButton->setIcon(QIcon(":/img/images/icons8-git-50.png"));
     ui->settingsButton->setIcon(QIcon(":/img/images/icons8-settings-50.png"));
 
-//    content_window = std::make_shared<ContentWindow>(this);
-//    content_window->move(130, 60);
+    content_window = std::make_shared<ContentWindow>(this);
+    content_window->move(130, 60);
 
 //    userbar = std::make_shared<Userbar>(this);
 //    userbar->move(970, 110);
@@ -29,11 +29,23 @@ MainWindow::MainWindow(int* flag, QWidget *parent)
 //    //sidebar->move(10, 60);
 
     channel_sidebar = std::make_shared<ChannelSidebar>(content_window, this);
+    //channel_sidebar = new ChannelSidebar(content_window, this);
     channel_sidebar->move(10, 60);
 
 //    channel_sidebar->on_textChannelButton_1_clicked();
     guildbar = std::make_shared<Guildbar>(this);
+    //guildbar = new Guildbar(this);
     guildbar->move(250, 5);
+
+    //auto change_active_channel = [&] () {channel_sidebar->ChangeActiveChannel(guildbar->GetActiveGuild()); };
+
+    auto change_active_guild = [&](){channel_sidebar->UpdateChannels(guildbar->GetActiveGuild());};
+    connect(guildbar.get(), &Guildbar::ActiveGuildChanged, channel_sidebar.get(),
+            change_active_guild);
+
+    auto change_active_channel = [&](){content_window->UpdateMessages(channel_sidebar->GetActiveChannel());};
+    connect(channel_sidebar.get(), &ChannelSidebar::ActiveChannelChanged, content_window.get(),
+            change_active_channel);
 
     user_settings = std::make_shared<UserSettings>(this);
     user_settings->move(0, 560);

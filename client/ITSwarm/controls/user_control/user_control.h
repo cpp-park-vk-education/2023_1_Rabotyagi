@@ -60,6 +60,7 @@ public:
         instance->password = password;
         instance->last_login = last_login;
         instance->guild_id = 0;
+        instance->channel_id = 0;
     }
 };
 #endif // USERCONTROL_H

@@ -6,6 +6,7 @@
 #include <cpr/cpr.h>
 #include <json.hpp>
 #include <iostream>
+#include "channelsidebar.h"
 
 using json = nlohmann::json;
 
@@ -60,6 +61,8 @@ void Guildbar::onActiveGuildChangeValue(int guild_id){
         std::cerr << "Request failed, error: " << e.what() << '\n';
     }
     qDebug() << "Changed guild to " << active_guild;
+
+    emit ActiveGuildChanged();
 }
 
 void Guildbar::createGuild(int guild_id, std::string name)
