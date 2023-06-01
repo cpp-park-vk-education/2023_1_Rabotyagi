@@ -98,6 +98,26 @@ ChannelSidebar::ChannelSidebar(std::shared_ptr<ContentWindow> content_window, QW
     setWidget(widget);
 
     connect(button, &QPushButton::clicked, this, &ChannelSidebar::onButtonClicked);
+
+    try {
+        cpr::Response response = cpr::Get(
+                    cpr::Url{"http://localhost:8000/api/v1/IGuild"},
+                    cpr::Parameters{
+                        {"guild_id", std::to_string(UserManager::getInstance()->guild_id)}
+                    });
+
+        auto channels = json::parse(response.text)["channels"];
+
+        if (response.status_code == 200){
+            for (auto channel : channels){
+                createChannel(channel["id"].get<int>(), channel["name"].get<std::string>());
+            }
+        }
+
+    }
+    catch (const std::exception& e) {
+        std::cerr << "Request failed, error: " << e.what() << '\n';
+    }
 }
 
 void ChannelSidebar::onButtonClicked()
