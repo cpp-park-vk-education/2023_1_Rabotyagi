@@ -15,6 +15,10 @@ public:
     explicit UserSettings(QWidget *parent = nullptr);
     ~UserSettings();
 
+
+public slots:
+    void update_user();
+
 private slots:
     void on_pushButton_clicked();
 

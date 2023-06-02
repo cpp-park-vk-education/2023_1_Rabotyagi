@@ -57,11 +57,18 @@ MainWindow::MainWindow(int* flag, QWidget *parent)
     connect(timer, &QTimer::timeout, content_window.get(), clear_content_window);
     connect(timer, &QTimer::timeout, content_window.get(), change_active_channel);
 
+
+
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::UpdateUser()
+{
+    user_settings->update_user();
 }
 
 void MainWindow::on_settingsButton_clicked()

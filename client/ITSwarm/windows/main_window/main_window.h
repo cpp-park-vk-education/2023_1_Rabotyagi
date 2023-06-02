@@ -34,10 +34,12 @@ public:
     enum class States {
         to_login_window = 3
     };
+    void UpdateUser();
 
 public slots:
     void on_settingsButton_clicked();
     void on_gitButton_clicked();
+
 
 private slots:
     void on_connect_clicked();

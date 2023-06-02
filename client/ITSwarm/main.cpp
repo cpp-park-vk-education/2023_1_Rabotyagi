@@ -66,6 +66,7 @@ int main(int argc, char *argv[])
         }
         QCoreApplication::processEvents(QEventLoop::AllEvents);
     }
+    main->UpdateUser();
     main->show();
     return a.exec();
 }

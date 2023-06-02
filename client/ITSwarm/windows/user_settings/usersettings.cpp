@@ -10,12 +10,17 @@ UserSettings::UserSettings(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->pushButton->setIcon(QIcon(":/img/images/user_settings.png"));
-    ui->nickname->setText(UserManager::getInstance()->name.c_str());
+    update_user();
 }
 
 UserSettings::~UserSettings()
 {
     delete ui;
+}
+
+void UserSettings::update_user()
+{
+    ui->nickname->setText(UserManager::getInstance()->name.c_str());
 }
 
 void UserSettings::on_pushButton_clicked()
