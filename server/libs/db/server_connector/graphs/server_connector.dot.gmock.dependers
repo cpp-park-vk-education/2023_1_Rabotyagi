@@ -1,0 +1,10 @@
+digraph "gmock" {
+node [
+  fontsize = "12"
+];
+    "node0" [ label = "gmock\n(GTest::gmock)", shape = octagon ];
+    "node3" [ label = "gmock_main\n(GTest::gmock_main)", shape = octagon ];
+    "node3" -> "node0"  // gmock_main -> gmock
+    "node8" [ label = "test", shape = egg ];
+    "node8" -> "node3" [ style = dotted ] // test -> gmock_main
+}

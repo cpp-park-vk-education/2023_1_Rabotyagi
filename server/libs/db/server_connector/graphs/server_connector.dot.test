@@ -1,0 +1,30 @@
+digraph "test" {
+node [
+  fontsize = "12"
+];
+    "node8" [ label = "test", shape = egg ];
+    "node3" [ label = "gmock_main\n(GTest::gmock_main)", shape = octagon ];
+    "node8" -> "node3" [ style = dotted ] // test -> gmock_main
+    "node1" [ label = "Threads::Threads", shape = pentagon ];
+    "node3" -> "node1"  // gmock_main -> Threads::Threads
+    "node0" [ label = "gmock\n(GTest::gmock)", shape = octagon ];
+    "node3" -> "node0"  // gmock_main -> gmock
+    "node1" [ label = "Threads::Threads", shape = pentagon ];
+    "node0" -> "node1"  // gmock -> Threads::Threads
+    "node2" [ label = "gtest\n(GTest::gtest)", shape = octagon ];
+    "node0" -> "node2"  // gmock -> gtest
+    "node1" [ label = "Threads::Threads", shape = pentagon ];
+    "node2" -> "node1"  // gtest -> Threads::Threads
+    "node4" [ label = "gtest_main\n(GTest::gtest_main)", shape = octagon ];
+    "node8" -> "node4" [ style = dotted ] // test -> gtest_main
+    "node1" [ label = "Threads::Threads", shape = pentagon ];
+    "node4" -> "node1"  // gtest_main -> Threads::Threads
+    "node2" [ label = "gtest\n(GTest::gtest)", shape = octagon ];
+    "node4" -> "node2"  // gtest_main -> gtest
+    "node5" [ label = "server_connector", shape = octagon ];
+    "node8" -> "node5" [ style = dotted ] // test -> server_connector
+    "node6" [ label = "PostgreSQL::PostgreSQL", shape = septagon ];
+    "node5" -> "node6"  // server_connector -> PostgreSQL::PostgreSQL
+    "node7" [ label = "data_types", shape = septagon ];
+    "node5" -> "node7"  // server_connector -> data_types
+}

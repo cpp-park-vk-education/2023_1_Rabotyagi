@@ -1,0 +1,3 @@
+/home/nikdem/repos/2023_1_Rabotyagi/db/data_types/CMakeFiles/data_types.dir
+/home/nikdem/repos/2023_1_Rabotyagi/db/data_types/CMakeFiles/edit_cache.dir
+/home/nikdem/repos/2023_1_Rabotyagi/db/data_types/CMakeFiles/rebuild_cache.dir
