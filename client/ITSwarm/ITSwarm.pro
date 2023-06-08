@@ -1,0 +1,151 @@
+QT       += core gui network
+
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+
+CONFIG += c++20
+QMAKE_CXXFLAGS += -std=c++20
+
+# You can make your code fail to compile if it uses deprecated APIs.
+# In order to do so, uncomment the following line.
+#DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
+
+#SUBDIRS += \
+#    windows \
+#    controls
+
+SOURCES += \
+    controls/channel_control/channelcontrol.cpp \
+    controls/message_control/messagecontrol.cpp \
+    controls/serverbutton.cpp \
+    controls/user_control/user_control.cpp \
+    main.cpp \
+    windows/connect_to_guild/guildconnector.cpp \
+    windows/channel_add/channel_add.cpp \
+    windows/channel_widget/channelsidebar.cpp \
+    windows/content_widget/contentwindow.cpp \
+    windows/gitconnection/gitconnection.cpp \
+    windows/guild_add/guild_add.cpp \
+    windows/guildbar/guildbar.cpp \
+    windows/login_window/loginwindow.cpp \
+    windows/main_window/main_window.cpp \
+    windows/reg_window/reg_window.cpp \
+    windows/settings_window/settingswindow.cpp \
+#    windows/sidebar/sidebar.cpp \
+    windows/user_options/useroptions.cpp \
+    windows/user_settings/usersettings.cpp \
+    windows/userbar/userbar.cpp
+
+HEADERS += \
+    controls/serverbutton.h \
+    external/data_types.hpp \
+    external/json.hpp \
+    controls/channel_control/channelcontrol.h \
+    controls/message_control/messagecontrol.h \
+    controls/user_control/user_control.h \
+    windows/connect_to_guild/guildconnector.h \
+    windows/channel_add/channel_add.h \
+    windows/channel_widget/channelsidebar.h \
+    windows/content_widget/contentwindow.h \
+    windows/gitconnection/gitconnection.h \
+    windows/guild_add/guild_add.hpp \
+    windows/guildbar/guildbar.h \
+    windows/login_window/loginwindow.hpp \
+    windows/main_window/main_window.h \
+    windows/reg_window/reg_window.h \
+    windows/settings_window/settingswindow.h \
+#    windows/sidebar/sidebar.h \
+    windows/user_options/useroptions.h \
+    windows/user_settings/usersettings.h \
+    windows/userbar/userbar.h
+
+FORMS += \
+    controls/serverbutton.ui \
+    windows/connect_to_guild/guildconnector.ui \
+    windows/channel_add/channel_add.ui \
+    windows/channel_widget/channelsidebar.ui \
+    windows/content_widget/contentwindow.ui \
+    windows/gitconnection/gitconnection.ui \
+    windows/guild_add/guild_add.ui \
+    windows/guildbar/guildbar.ui \
+    windows/login_window/loginwindow.ui \
+    windows/main_window/main_window.ui \
+    windows/reg_window/reg_window.ui \
+    windows/settings_window/settingswindow.ui \
+    windows/sidebar/sidebar.ui \
+    windows/user_options/useroptions.ui \
+    windows/user_settings/usersettings.ui \
+    windows/userbar/userbar.ui
+
+# Default rules for deployment.
+qnx: target.path = /tmp/$${TARGET}/bin
+else: unix:!android: target.path = /opt/$${TARGET}/bin
+!isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    static/icons.qrc \
+    static/images.qrc \
+
+DISTFILES += \
+    static/icons/close.png \
+    static/icons/free-icon-hammer-and-sickle-7352591.png:Zone.Identifier \
+    static/icons/logo.png \
+    static/icons/server_hover.png \
+    static/icons/server_idle.png \
+    static/icons/server_selected.png \
+    static/images/Channels-Iconhovered.png \
+    static/images/Channels-Iconselected.png \
+    static/images/Channels-Iconvoice hovered.png \
+    static/images/Channels-Iconvoice_selected.png \
+    static/images/WF Icon Button.png \
+    static/images/icons8-automatic-50.png \
+    static/images/icons8-git-50.png \
+    static/images/icons8-git-75.png \
+    static/images/icons8-more-24.png \
+    static/images/icons8-search-30.png \
+    static/images/icons8-settings-50.png \
+    static/images/settings.png \
+    static/images/user.png \
+    static/images/user_settings.png \
+
+INCLUDEPATH += \
+    "windows/channel_widget" \
+    "windows/content_widget" \
+    "windows/gitconnection" \
+    "windows/login_window" \
+    "windows/main_window" \
+    "windows/reg_window" \
+    "windows/settings_window" \
+    "windows/sidebar" \
+    "windows/userbar" \
+    "windows/guildbar" \
+    "windows/guild_add" \
+    "windows/channel_add" \
+    "windows/user_settings" \
+    "windows/user_options" \
+    "windows/connect_to_guild" \
+    "controls/channel_control" \
+    "controls/client" \
+    "controls/message_control" \
+    "controls/user_control" \
+    "external" \
+    "static"
+
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../../../../usr/local/lib/release/ -lcpr
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../../../../usr/local/lib/debug/ -lcpr
+else:unix: LIBS += -L/usr/local/lib/ -lcpr
+
+#Release:DESTDIR = release
+#Release:OBJECTS_DIR = release/obj/.obj
+#Release:MOC_DIR = release/moc/.moc
+#Release:RCC_DIR = release/rcc/.rcc
+#Release:UI_DIR = release/ui/.ui
+
+Debug:DESTDIR = debug
+Debug:OBJECTS_DIR = debug/obj/.obj
+Debug:MOC_DIR = debug/moc/.moc
+Debug:RCC_DIR = debug/rcc/.rcc
+Debug:UI_DIR = debug/ui/.ui
+
+INCLUDEPATH += /usr/local/lib
+DEPENDPATH += /usr/local/lib
